@@ -148,14 +148,14 @@ kex_exchange_identification: read: Connection reset by peer
 
 ### 修改时的操作
 
-​	**每当修改博客（包括修改主题样式、发布新文章等）前**：
+​	**每当修改博客（包括修改主题样式、发布新文章等）前**，不管实际内容有没有改变，都建议执行以下操作(我也不知道为什么，大概是为了保险吧)：
 
 ```shell
 git fetch --all #将git上所有文件拉取到本地
-git reset --hard origin/hexo  #强制将本地内容指向刚刚同步git云端内容
+git reset --hard origin/hexo  #强制将本地内容指向刚刚同步github上的hexo分支
 ```
 
-​	或执行`git pull`， 此步到底行不行还有待验证。
+​	
 
 
 
@@ -169,5 +169,5 @@ git reset --hard origin/hexo  #强制将本地内容指向刚刚同步git云端�
 
 ### 强烈建议
 
-​	没有熟悉使用Git时，一定要时常备份源文件，要不然都不知道怎么回退的时候，资料丢了就无语了。
+​	没有熟悉使用Git时，**一定要时常备份源文件**，要不然都不知道怎么回退的时候，资料丢了就无语了。
 
