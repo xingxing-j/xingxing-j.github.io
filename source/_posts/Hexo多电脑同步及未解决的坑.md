@@ -152,7 +152,7 @@ kex_exchange_identification: read: Connection reset by peer
 
 ```shell
 git fetch --all #将git上所有文件拉取到本地
-git reset --hard origin/master  #强制将本地内容指向刚刚同步git云端内容
+git reset --hard origin/hexo  #强制将本地内容指向刚刚同步git云端内容
 ```
 
 ​	或执行`git pull`， 此步到底行不行还有待验证。
