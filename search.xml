@@ -2351,12 +2351,6 @@ ZRANGEBYSCORE ZSet (60 (90 WITHSCORES LIMIT 0 2</code></pre>
       </tags>
   </entry>
   <entry>
-    <title>javasm_test</title>
-    <url>/2020/04/23/javasm-test/</url>
-    <content><![CDATA[<p>Javasm测试</p>
-<a id="more"></a>]]></content>
-  </entry>
-  <entry>
     <title>thymeleaf常用语法</title>
     <url>/2020/04/24/thymeleaf%E5%B8%B8%E7%94%A8%E8%AF%AD%E6%B3%95/</url>
     <content><![CDATA[<p>了解下thymeleaf的常用语法</p>
