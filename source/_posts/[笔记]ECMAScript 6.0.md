@@ -3,6 +3,7 @@ title: ECMAScript 6.0
 date: 2020-04-25 00:54:39
 categories: 前端学习
 tags:
+- [前端笔记]
 - [JavaScript]
 - [ES6]
 ---

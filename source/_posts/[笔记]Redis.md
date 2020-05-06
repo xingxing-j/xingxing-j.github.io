@@ -39,7 +39,7 @@ NoSQL和Redis的基础了解
 
 图示
 
-![CAP](/Redis笔记/CAP理论图.bmp)
+![CAP](/[笔记]Redis/CAP理论图.bmp)
 
 ## 2. BASE
 

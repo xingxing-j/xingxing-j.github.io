@@ -3,6 +3,7 @@ title: SpringBoot
 date: 2020-04-30 00:16:34
 categories: 后端学习
 tags:
+- [Java笔记]
 - [SpringBoot]
 - [框架]
 ---
@@ -753,7 +754,7 @@ SpringBoot是用`spring-boot-starter-logging`来记录日志的，用的时候�
 
 - SpringBoot在底层把其他日志都替换成了SLF4j
 
-  ![SpringBoot底层日志依赖关系](/SpringBoot/SpringBoot底层日志依赖关系.png)
+  ![SpringBoot底层日志依赖关系](/[笔记]SpringBoot/SpringBoot底层日志依赖关系.png)
 
 - SpringBoot能自动适配所有的日志，**引入其他日志框架时，只需把这个框架依赖的日志框架排除掉即可**。
 
@@ -954,7 +955,7 @@ public void addResourceHandlers(ResourceHandlerRegistry registry) {
 
   ​	引入之后，它在Maven里的目录层级如下图：
 
-  ![jQuery-webjar](/SpringBoot/jQuery-webjar.png)
+  ![jQuery-webjar](/[笔记]SpringBoot/jQuery-webjar.png)
 
   ​	那么之后，我们以`localhost:8080/webjars/jquery/3.3.1/jquery.js`形式的URL访问，便可获取到对应的静态资源。而**webjar格式**的Maven坐标可以去[webjar官方网站](http://www.webjars.org/)寻找。
 
@@ -1051,7 +1052,7 @@ SpringBoot推荐使用Thymeleaf
 
 **模板引擎图示**
 
-![模板引擎图示](/SpringBoot/模板引擎图示.png)
+![模板引擎图示](/[笔记]SpringBoot/模板引擎图示.png)
 
 #### 6.1.0. 引入thymeleaf
 

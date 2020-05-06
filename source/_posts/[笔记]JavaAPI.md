@@ -240,7 +240,7 @@ public class JavaDemo {
 
 ## 3. 基本类型、包装类、String三者之间的转换图示
 
-![转换图](JavaAPI/三者转换图.png)
+![转换图]([笔记]JavaAPI/三者转换图.png)
 
 ## 4. java.lang.String
 
