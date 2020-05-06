@@ -178,18 +178,20 @@ HttpServletRequest是一个接口，其封装了HTTP请求协议的全部内容�
 
 #### 6.1.0. 获取请求行的相关方法
 
-以http://localhost:8080/request?name=zhangsan&age=17为例
+以URL`http://localhost:8080/request?name=zhangsan&age=17`为例
 
-- **req.getMethod()**:获取请求方式 
-- **req.getRequestURI()**:获取URI。即上面URL中/到问号之前的内容
-- **req.getRequestURL()**:获取URL。即从开始到**问号**之前的内容
-- **req.getRequestQueryString()**:获取请求参数。即**问号**之后的内容
+- **String getMethod()**:获取请求方式 
+- **String getRequestURI()**:获取URI。即上面URL中/到问号之前的内容
+- **StringBuffer getRequestURL()**:获取URL。即从开始到**问号**之前的内容
+- **String getQueryString()**:获取请求参数。即**问号**之后的内容
 
 #### 6.1.1. 获取请求头的相关方法
 
-- **req.getHeader(“key”)**:获取请求头中的指定内容
-- **req.getHeaderNames()**:获取所有请求头，返回一个枚举
-- **req.getIntHeader(“key”)**:通过一个key获取int类型的值
+- **String getHeader(String name)**:获取请求头中的指定内容
+- **[Enumeration]<[String]> getHeaderNames()**:获取所有请求头，返回一个枚举
+- **int getIntHeader(String name)**:通过一个key获取int类型的值
+
+……
 
 ##### 示例
 
@@ -206,17 +208,17 @@ while(headerNames.hasMoreElements()) {
 
 #### 6.1.2. 获取请求参数的相关方法
 
-- **String getParameter(“key”)**:获取key获取value一维数组的**首元素**
-- **String[] getParameterValues(“key”)**:通过参数的Map集合的key获取value,返回一个数组
-- **Enumeration getParameterNames()**:获取参数的Map对象的所有key
-- **Map getParameterMap()**:获取所有key和value的Map对象(Map<String, String[]>)
+- **String getParameter(String name)**:获取key获取value一维数组的**首元素**
+- **String[] getParameterValues(String name)**:通过参数的Map集合的key获取value,返回一个数组
+- **Enumeration<String> getParameterNames()**:获取参数的Map对象的所有key
+- **Map<String,String[]> getParameterMap()**:获取所有key和value的Map对象(Map<String, String[]>)
 
 #### 6.1.3. 其他方法
 
 - **String getContextPath()**:获取上下文路径
 - **String getServletPath()**:获取Servlet路径
-- **String getRemoteAddr()？？**:获取IP地址
-- **getAttribute(key)？？**:获取域数据
+- **String getRemoteAddr()**:获取IP地址
+- **Object getAttribute(key)**:获取域数据
 - **ReuquestDispatcher getRequestDispatcher(String path)**:获取请求转发器
 - **Cookie[] getCookies()**:获取所有的Cookie
 - **HttpSession getsession()**:获取HttpSession对象,没有则创建一个
@@ -231,8 +233,8 @@ HttpServletResponse，是接口。每次请求进来，Tomcat服务器都会创�
 
 ### 7.1. 常用方法
 
-- **resp.getWrite()**:获取打印流(字符流)，继而调用**write()**方法往页面写东西。常用于回传字符串
-- **resp.getOutputStream()**:获取输出流(字节流)，继而调用**write()**方法往页面写东西。常用于下载（传递二进制数据）
+- **PrintWriter getWrite()**:获取打印流(字符流)，继而调用**write()**方法往页面写东西。常用于回传字符串
+- **ServletOutputStream getOutputStream()**:获取输出流(字节流)，继而调用**write()**方法往页面写东西。常用于下载（传递二进制数据）
   **以上两个流同时只能使用一个**,否则会报错。
 
 ```java
@@ -249,9 +251,9 @@ writer.write("response's content!!!");
 
 ### 7.2. 其他方法
 
-- **resp.setIntHeader(“refresh”,2)**:n秒后刷新页面
-- **resp.setHeader(“refresh”,“n;url=路径”)**:n秒后跳转页面,可访问外网
-- **resp.addCookie(cookie)**:添加Cookie
+- **void setIntHeader(“refresh”,n)**:n秒后刷新页面
+- **void setHeader(“refresh”,“n;url=路径”)**:n秒后跳转页面,可访问外网
+- **void addCookie(Cookie cookie)**:添加Cookie
 
 ## 8. 乱码问题
 
