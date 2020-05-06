@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/taiji.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="简单了解下面向对象咯">
+<meta property="og:type" content="article">
+<meta property="og:title" content="面向对象">
+<meta property="og:url" content="http://yoursite.com/2020/03/16/[%E7%AC%94%E8%AE%B0]%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/index.html">
+<meta property="og:site_name" content="纸人">
+<meta property="og:description" content="简单了解下面向对象咯">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2020/03/16/[%E7%AC%94%E8%AE%B0]%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/%E4%BB%A3%E7%A0%81%E5%9D%97%E7%9A%84%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F.png">
+<meta property="og:image" content="http://yoursite.com/2020/03/16/[%E7%AC%94%E8%AE%B0]%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/%E6%9D%83%E9%99%90%E4%BF%AE%E9%A5%B0%E7%AC%A6%E5%9B%BE%E7%A4%BA.png">
+<meta property="og:image" content="http://yoursite.com/2020/03/16/[%E7%AC%94%E8%AE%B0]%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/%E9%87%8D%E8%BD%BD%E5%92%8C%E9%87%8D%E5%86%99%E7%9A%84%E5%8C%BA%E5%88%AB.png">
+<meta property="article:published_time" content="2020-03-16T13:17:09.000Z">
+<meta property="article:modified_time" content="2020-05-06T02:07:36.146Z">
+<meta property="article:author" content="纸人">
+<meta property="article:tag" content="Java笔记">
+<meta property="article:tag" content="Java基础">
+<meta property="article:tag" content="对象">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2020/03/16/[%E7%AC%94%E8%AE%B0]%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/%E4%BB%A3%E7%A0%81%E5%9D%97%E7%9A%84%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F.png">
+
+<link rel="canonical" href="http://yoursite.com/2020/03/16/[%E7%AC%94%E8%AE%B0]%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true
+  };
+</script>
+
+  <title>面向对象 | 纸人</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+	
+	<a href="https://github.com/xingxing-j" target="_blank" rel="noopener" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#FD6C6C; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">纸人</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">已有的事，后必再有</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-commonweal">
+
+    <a href="/404/" rel="section"><i class="fa fa-fw fa-heartbeat"></i>公益 404</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="search-pop-overlay">
+  <div class="popup search-popup">
+      <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+  </div>
+</div>
+
+  </div>
+</div>
+    </header>
+
+    
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/16/[%E7%AC%94%E8%AE%B0]%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/hu.png">
+      <meta itemprop="name" content="纸人">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="纸人">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          面向对象
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-03-16 21:17:09" itemprop="dateCreated datePublished" datetime="2020-03-16T21:17:09+08:00">2020-03-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-05-06 10:07:36" itemprop="dateModified" datetime="2020-05-06T10:07:36+08:00">2020-05-06</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%90%8E%E7%AB%AF%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">后端学习</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>简单了解下面向对象咯</p>
+<a id="more"></a>
+
+<meta name="referrer" content="no-referrer">
+
+<h1 id="面向对象"><a href="#面向对象" class="headerlink" title="面向对象"></a>面向对象</h1><h2 id="0-面向对象与面向过程的区别"><a href="#0-面向对象与面向过程的区别" class="headerlink" title="0. 面向对象与面向过程的区别"></a>0. 面向对象与面向过程的区别</h2><blockquote>
+<p>面向过程：关注具体实现过程，以函数为最小单位</p>
+<p>面向对象：关注调用哪个对象，以对象/类为最小单位</p>
+</blockquote>
+<h2 id="1-类与对象"><a href="#1-类与对象" class="headerlink" title="1. 类与对象"></a>1. 类与对象</h2><h3 id="1-0-概念"><a href="#1-0-概念" class="headerlink" title="1.0. 概念"></a>1.0. 概念</h3><blockquote>
+<p>类：对一类具有相同特征的事物的抽象描述</p>
+<p>对象：类的实例，是具体的个体</p>
+</blockquote>
+<h3 id="1-1-关系"><a href="#1-1-关系" class="headerlink" title="1.1. 关系"></a>1.1. 关系</h3><blockquote>
+<p>类是对象的设计图，是创建对象的模板；对象是类的实例，是一个具体的个体</p>
+</blockquote>
+<h3 id="1-2-类的设计，成员"><a href="#1-2-类的设计，成员" class="headerlink" title="1.2. 类的设计，成员"></a>1.2. 类的设计，成员</h3><h4 id="1-2-0-属性"><a href="#1-2-0-属性" class="headerlink" title="1.2.0. 属性"></a>1.2.0. 属性</h4><ul>
+<li>声明的位置：类中，方法外</li>
+<li>保存的位置：静态属性(static修饰)保存在<strong>方法区</strong>中，非静态的属性保存在<strong>堆</strong>中</li>
+<li>默认值：byte,short,int,long是<strong>0</strong>，float,double是<strong>0.0</strong>，boolean是<strong>false</strong>，char是<strong>\u0000</strong>，引用数据类型都是<strong>null</strong></li>
+<li>作用域：整个类中</li>
+<li>生命周期：随着对象的创建而创建，到垃圾回收为止</li>
+</ul>
+<h4 id="1-2-1-构造器"><a href="#1-2-1-构造器" class="headerlink" title="1.2.1. 构造器"></a>1.2.1. 构造器</h4><ul>
+<li>作用：和<strong>new</strong>一起创建对象；为属性赋值</li>
+<li>声明格式：<ul>
+<li>无参格式：[修饰符] 类名 () {}</li>
+<li>有参格式：[修饰符] 类名 (形参列表) {}</li>
+</ul>
+</li>
+<li>特点：<ul>
+<li>构造器名与类名<strong>必须</strong>完全相同</li>
+<li>构造器没有返回值，也不能写void。实际每个构造方法结束后都有返回值，其类型为构造方法所在类的类型</li>
+<li>构造器可以重载</li>
+<li>如果一个类没有声明过构造器，编译器将<strong>默认添加一个无参构造器</strong>；如果这个类声明了构造器，编译器将不再自动添加无参构造器</li>
+</ul>
+</li>
+<li>调用方式：<ul>
+<li>和new一起：new 构造器 ()；new 构造器 (实参列表)</li>
+<li>在本类的其他构造器中：this () 或 this (实参列表)</li>
+<li>在子类的构造器中：super () 或 super (实参列表)</li>
+</ul>
+</li>
+</ul>
+<h4 id="1-2-2-方法"><a href="#1-2-2-方法" class="headerlink" title="1.2.2. 方法"></a>1.2.2. 方法</h4><blockquote>
+<p>无参无返回值;有参无返回值;无参有返回值;有参有返回值</p>
+</blockquote>
+<h4 id="1-2-3-代码块"><a href="#1-2-3-代码块" class="headerlink" title="1.2.3. 代码块"></a>1.2.3. 代码块</h4><blockquote>
+<p>静态代码块：随着类的加载而执行，一个类的静态代码块只执行一次。初始化静态变量</p>
+<p>非静态代码块：对象创建一次，调用一次，而且先于构造器调用。初始化实例变量</p>
+<p>局部代码块：在方法中</p>
+<p>赋值和执行的顺序：父类的静态代码块 –&gt; 子类的静态代码块  –&gt; 父类的构造块 –&gt; 父类的构造器 –&gt; 子类的构造块 –&gt; 子类的构造器</p>
+</blockquote>
+<p><strong>图示</strong></p>
+<p><img src="/2020/03/16/[%E7%AC%94%E8%AE%B0]%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/%E4%BB%A3%E7%A0%81%E5%9D%97%E7%9A%84%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F.png" alt="代码块执行顺序"></p>
+<h4 id="1-2-4-内部类"><a href="#1-2-4-内部类" class="headerlink" title="1.2.4. 内部类"></a>1.2.4. 内部类</h4><blockquote>
+<p>当一个事物的内部，还有一个部分需要一个完整的结构进行描述，而这个内部的完整的结构又只为外部事物提供服务，那么整个内部的完整结构最好使用内部类</p>
+<p><strong>内部类可以访问外部类的所有的成员，包括私有成员</strong></p>
+</blockquote>
+<h5 id="静态内部类"><a href="#静态内部类" class="headerlink" title="静态内部类"></a>静态内部类</h5><blockquote>
+<ul>
+<li>修饰符：static必须要有；可以用final和abstract修饰；</li>
+<li>成员情况：所有类型的成员都可以有</li>
+</ul>
+</blockquote>
+<p>调用问题：</p>
+<ul>
+<li>静态内部类中<strong>只能</strong>使用外部类的静态成员</li>
+<li>外部类中可以使用静态内部类的<strong>任何</strong>成员</li>
+<li>其他类<strong>调用格式</strong>：<ul>
+<li>外部类名.内部类名.静态成员；</li>
+<li>外部类名.内部类   变量 = new   外部类名.内部类()；变量.非静态成员；</li>
+</ul>
+</li>
+</ul>
+<h5 id="成员内部类-非静态内部类"><a href="#成员内部类-非静态内部类" class="headerlink" title="成员内部类(非静态内部类)"></a>成员内部类(非静态内部类)</h5><blockquote>
+<p>修饰符：没有static修饰；可以用final和abstract修饰；</p>
+<p>成员情况：允许定义常量；非静态内部类中<strong>不能含有</strong>静态属性、方法及静态代码块！！！！！</p>
+</blockquote>
+<p>调用问题：</p>
+<ul>
+<li>成员内部类中可以使用外部类的任何成员</li>
+<li>在外部类的<strong>静态成员</strong>中不能使用<strong>非静态成员内部类</strong></li>
+<li>其他类中使用成员内部类：<ul>
+<li><strong>外部类  out = new  外部类();外部类.内部类  in = out.new 内部类();in.成员</strong></li>
+</ul>
+</li>
+<li>外部类和内部类成员重名问题：<ul>
+<li>默认访问的是内部类的同名成员</li>
+<li>要想访问外部同名成员，格式为外部类.this.成员</li>
+</ul>
+</li>
+<li>关于”非静态内部类中不能有static成员变量，却可以有static final 属性的编译期常量？”的问题可参照：<ul>
+<li><a href="https://www.jianshu.com/p/4dbe68850e1b?from=timeline&amp;isappinstalled=0" target="_blank" rel="noopener">https://www.jianshu.com/p/4dbe68850e1b?from=timeline&amp;isappinstalled=0</a></li>
+</ul>
+</li>
+</ul>
+<h5 id="局部内部类"><a href="#局部内部类" class="headerlink" title="局部内部类"></a>局部内部类</h5><blockquote>
+<p>修饰符：4 种修饰符都不行；static不行；final和abstract可以</p>
+<p>成员情况：静态成员不能有；其他的可以有</p>
+</blockquote>
+<p>调用情况：</p>
+<ul>
+<li><strong>不可以</strong>在外部类的其他方法中调用局部内部类</li>
+<li><strong>不可以</strong>在其他类中调用局部内部类</li>
+<li>只能在声明<strong>局部内部类</strong>的方法中使用，而且在声明之后使用</li>
+<li>可以在内部类中使用外部类的<strong>局部变量</strong>，该变量得是final修饰的</li>
+<li>在内部类中使用外部类的成员时，受所在方法的约束，如果所在方法是静态的，那么只能使用外部类的静态成员，如果所在方法是非静态的，那么都可以使用</li>
+</ul>
+<h5 id="匿名内部类-其使用情况待修改"><a href="#匿名内部类-其使用情况待修改" class="headerlink" title="匿名内部类(其使用情况待修改)"></a>匿名内部类(其使用情况待修改)</h5><blockquote>
+<p>修饰符：没有任何修饰符修饰</p>
+<p>成员情况：除了非静态的都可以，但是一般很少自定义方法等成员，它的成员都是重写父类的，父接口的方法</p>
+<p>特点：声明类和创建对象同时进行；子类一定会调用父类的构造器。</p>
+</blockquote>
+<h2 id="2-面向对象的基本特征"><a href="#2-面向对象的基本特征" class="headerlink" title="2. 面向对象的基本特征"></a>2. 面向对象的基本特征</h2><h3 id="2-0-封装"><a href="#2-0-封装" class="headerlink" title="2.0. 封装"></a>2.0. 封装</h3><blockquote>
+<p>安全，使用方便(对于使用者屏蔽实现细节)</p>
+</blockquote>
+<h3 id="2-1-继承"><a href="#2-1-继承" class="headerlink" title="2.1. 继承"></a>2.1. 继承</h3><ul>
+<li>通过继承可以简化代码</li>
+<li>通过extends关键字继承</li>
+</ul>
+<h4 id="2-1-0-继承的影响"><a href="#2-1-0-继承的影响" class="headerlink" title="2.1.0. 继承的影响"></a>2.1.0. 继承的影响</h4><ul>
+<li><p>对属性的影响</p>
+<blockquote>
+<p>子类继承父类时，一定会继承父类的所有的属性，包括私有的，但是由于私有的关键字private的原因，在子类中无法直接操作它，但是可以通过get/set方式操作它</p>
+</blockquote>
+<blockquote>
+<p>当子类的属性与父类的属性重名时，而且父类的属性没有私有化，如果要访问父类的属性那么通过super.属性进行访问，如果子类中没有通过super.属性访问，那这个属性就表示是子类自己的</p>
+</blockquote>
+</li>
+<li><p>对方法的影响</p>
+<blockquote>
+<p>子类继承父类时，一定会继承父类的所有的方法，包括私有的，但是由于private，在子类中无法直接操作，但是可以间接操作</p>
+</blockquote>
+<blockquote>
+<p>当父类的方法实现不适用于子类时，子类可以对父类的方法的进行重写</p>
+</blockquote>
+</li>
+<li><p>对构造器的影响</p>
+<blockquote>
+<p>子类继承父类时，不会继承父类的构造器</p>
+</blockquote>
+<blockquote>
+<p>子类继承父类时，一定会调用父类的构造器</p>
+<blockquote>
+<p>如果父类有无参构造，那么子类会默认去调用父类的无参构造。如果父类没有无参构造，只有有参构造，那么子类必须在子类构造器中手动调用父类的有参构造！！！</p>
+</blockquote>
+<blockquote>
+<p>调用父类的无参构造的语句：super();调用父类的有参构造的语句：super(实参列表);而且这两个语句必须在子类的构造器的首行。</p>
+</blockquote>
+</blockquote>
+</li>
+</ul>
+<h4 id="2-1-1-继承的特点"><a href="#2-1-1-继承的特点" class="headerlink" title="2.1.1. 继承的特点"></a>2.1.1. 继承的特点</h4><ul>
+<li>单继承。Java中只支持单继承<br>   多层继承。在Java中，父类还可以有父类，而且在子类中会继承父类以及父类的父类的所有的属性与方法    </li>
+<li>一个类可以有很多个子类，子类还可以有子类</li>
+</ul>
+<h3 id="2-2-多态"><a href="#2-2-多态" class="headerlink" title="2.2. 多态"></a>2.2. 多态</h3><h4 id="2-2-0-多态的表现形式"><a href="#2-2-0-多态的表现形式" class="headerlink" title="2.2.0. 多态的表现形式"></a>2.2.0. 多态的表现形式</h4><ul>
+<li>方法形式的多态。<ul>
+<li>方法重载：同一个类中，功能的多种实现形式</li>
+<li>方法重写：父子类中，功能的不同实现形式</li>
+</ul>
+</li>
+<li>对象的多态性：父类引用指向子类对象。<ul>
+<li>编译时类型与运行时的类型不一致，编译时看“左边”，运行时看“右边”。编译时从“父类”中寻找方法，运行时执行的是“子类”重写过的代码</li>
+<li>对象多态性的前提：继承；方法的重写；多态的引用</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-2-1-类型的转换"><a href="#2-2-1-类型的转换" class="headerlink" title="2.2.1. 类型的转换"></a>2.2.1. 类型的转换</h4><ul>
+<li><p>向上转型：子类对象赋值给父类变量</p>
+</li>
+<li><p>向下转型：</p>
+<ul>
+<li><p>把父类变量赋值给子类变量</p>
+</li>
+<li><p>是强制类型转换</p>
+</li>
+<li><p>若想向下转型成功，父类限量本身指向的就是该子类的对象</p>
+</li>
+<li><p>向下转型时，要用<code>instanceof</code>判断</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(变量  <span class="keyword">instanceof</span>  子类类型)&#123;</span><br><span class="line">	子类类型  temp = (子类类型)变量;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="3-关键字"><a href="#3-关键字" class="headerlink" title="3. 关键字"></a>3. 关键字</h2><h3 id="3-0-class"><a href="#3-0-class" class="headerlink" title="3.0. class"></a>3.0. class</h3><blockquote>
+<p>用于声明类</p>
+</blockquote>
+<h3 id="3-1-new"><a href="#3-1-new" class="headerlink" title="3.1. new"></a>3.1. new</h3><blockquote>
+<p>用于创建对象，创建实例；new后面跟的是构造器</p>
+</blockquote>
+<h3 id="3-2-this"><a href="#3-2-this" class="headerlink" title="3.2. this"></a>3.2. this</h3><ul>
+<li>表示当前对象，里面存的是内存地址</li>
+<li>当成员变量与局部变量或形参重名时，使用this.属性进行区别</li>
+<li>this.方法<ul>
+<li>表示调用“当前类”的方法</li>
+<li>如果子类继承了父类，子类没有重写父类的方法，<strong>this.方法</strong>是调用从父类继承的方法</li>
+<li>如果子类继承了父类，子类重写父类的方法，<strong>this.方法</strong>表示调用子类重写过的方法</li>
+<li>this()或this(实参列表)，表示调用本类的其他构造器，而且必须在构造器的<strong>首行</strong></li>
+<li><strong>this不能用在静态方法中</strong></li>
+</ul>
+</li>
+</ul>
+<h3 id="3-3-super"><a href="#3-3-super" class="headerlink" title="3.3. super"></a>3.3. super</h3><blockquote>
+<p>父类引用，存的是空间标识</p>
+</blockquote>
+<ul>
+<li>当子类的属性与父类的属性重名时，而且父类的属性没有私有化。如果需要调用父类的属性，那么通过<strong>super.属性</strong>进行调用。</li>
+<li>当子类的方法重写了父类的方法时，如果需要调用父类的被重写的方法，那么通过<strong>super.方法</strong>进行调用。</li>
+<li>当子类需要调用父类的构造器时，通过<strong>super()</strong>或<strong>super(实参列表)</strong>进行调用。而且这两个语句必须在子类的构造器的<strong>首行</strong>。</li>
+</ul>
+<h3 id="3-4-权限修饰符"><a href="#3-4-权限修饰符" class="headerlink" title="3.4. 权限修饰符"></a>3.4. 权限修饰符</h3><blockquote>
+<p><strong>public</strong>：公共的，范围：<strong>任意位置可以调用</strong>，可以修饰   类、成员</p>
+<p><strong>protected</strong>：受保护的，范围：<strong>本包或子类中可以调用</strong>，可以修饰  成员</p>
+<p><strong>缺省(default)</strong>：默认的，范围：<strong>本包中可以调用</strong>，可以修饰   类、成员</p>
+<p><strong>private</strong>：私有的，范围：<strong>本类中可以调用</strong>，可以修饰   成员</p>
+</blockquote>
+<p>图示</p>
+<p><img src="/2020/03/16/[%E7%AC%94%E8%AE%B0]%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/%E6%9D%83%E9%99%90%E4%BF%AE%E9%A5%B0%E7%AC%A6%E5%9B%BE%E7%A4%BA.png" alt="权限修饰符"></p>
+<h3 id="3-5-static"><a href="#3-5-static" class="headerlink" title="3.5. static"></a>3.5. static</h3><blockquote>
+<p>静态的，可修饰成员(属性、方法、代码块、内部类)</p>
+</blockquote>
+<ul>
+<li>static修饰的属性称为<strong>类变量</strong>或<strong>静态变量</strong>，它的值是所有对象共享的，存储在<strong>方法区</strong>。该变量的get/set方法也是静态的</li>
+<li>static修饰的方法就称为<strong>类方法</strong>或<strong>静态方法</strong>，调用它不需要创建对象，直接可以通过”<strong>类名.方法</strong>“调用</li>
+<li>用static修饰的代码块称为<strong>静态代码块</strong>。随着类的加载并初始时而执行，而且一个类的静态代码块只执行一次。如果静态变量有显式初始化和静态代码块初始化，它俩属于同级，谁在前谁先执行</li>
+</ul>
+<h3 id="3-6-final"><a href="#3-6-final" class="headerlink" title="3.6. final"></a>3.6. final</h3><blockquote>
+<p>final修饰的类和方法<strong>不能被继承</strong>。</p>
+<p>final修饰的变量不能被<strong>修改</strong> ，必须<strong>手动初始化</strong>(显示赋值、代码块赋值或构造器赋值)</p>
+</blockquote>
+<h3 id="3-7-native"><a href="#3-7-native" class="headerlink" title="3.7. native"></a>3.7. native</h3><blockquote>
+<p>原生的</p>
+</blockquote>
+<ul>
+<li>修饰的方法的方法体是非Java语言实现的</li>
+<li>对于调用者来说，和普通Java方法一样使用</li>
+<li>如果有需要，也可以进行重写</li>
+</ul>
+<h2 id="4-包"><a href="#4-包" class="headerlink" title="4. 包"></a>4. 包</h2><h3 id="4-0-包的作用"><a href="#4-0-包的作用" class="headerlink" title="4.0. 包的作用"></a>4.0. 包的作用</h3><blockquote>
+<p>避免类重名；访问权限的控制；便于管理</p>
+</blockquote>
+<p>###4.1. 包的声明</p>
+<ul>
+<li>格式：package 包名</li>
+<li>必须在源文件的首行，一个源文件只能有一句</li>
+<li>遵循命名规范，所有字母都小写，单词之间使用.，一般以公司的域名倒置</li>
+</ul>
+<h3 id="4-2-使用其他包的类"><a href="#4-2-使用其他包的类" class="headerlink" title="4.2. 使用其他包的类"></a>4.2. 使用其他包的类</h3><ul>
+<li>import 包.类名;</li>
+<li>要求：在package和class之间声明，可以import多句</li>
+<li>被使用的类必须是public 或 protected（父子类）</li>
+<li>导包形式：<ul>
+<li>一一列举：import java.util.Random;import java.util.Scanner;</li>
+<li>导入某个包的全部类：import java.util.*;</li>
+<li>静态导入：import static java.lang.Math.*;</li>
+</ul>
+</li>
+</ul>
+<h3 id="4-3-打包编译处理命令"><a href="#4-3-打包编译处理命令" class="headerlink" title="4.3. 打包编译处理命令"></a>4.3. 打包编译处理命令</h3><blockquote>
+<p>javac -d . xxx.java</p>
+<p>-d 表示生成的目录；点表示在当前所在目录生成程序类文件</p>
+</blockquote>
+<h2 id="5-重载和重写的区别"><a href="#5-重载和重写的区别" class="headerlink" title="5. 重载和重写的区别"></a>5. 重载和重写的区别</h2><blockquote>
+<p><strong>overload</strong>:方法的重载。在同一类，方法名称相同，形参列表不同的两个或多个方法称为重载。</p>
+<p><strong>override</strong>:方法的重写。在子类继承父类时，如果父类的方法实现不适用于子类，子类就可以对父类的方法进行重写，覆盖。</p>
+</blockquote>
+<p>图示</p>
+<p><img src="/2020/03/16/[%E7%AC%94%E8%AE%B0]%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/%E9%87%8D%E8%BD%BD%E5%92%8C%E9%87%8D%E5%86%99%E7%9A%84%E5%8C%BA%E5%88%AB.png" alt="重载和重写"></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Java%E7%AC%94%E8%AE%B0/" rel="tag"># Java笔记</a>
+              <a href="/tags/Java%E5%9F%BA%E7%A1%80/" rel="tag"># Java基础</a>
+              <a href="/tags/%E5%AF%B9%E8%B1%A1/" rel="tag"># 对象</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/03/16/%5B%E7%AC%94%E8%AE%B0%5D%E6%96%B9%E6%B3%95/" rel="prev" title="方法">
+      <i class="fa fa-chevron-left"></i> 方法
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/03/27/%5B%E7%AC%94%E8%AE%B0%5D%E6%95%B0%E7%BB%84/" rel="next" title="数组">
+      数组 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#面向对象"><span class="nav-text">面向对象</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#0-面向对象与面向过程的区别"><span class="nav-text">0. 面向对象与面向过程的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-类与对象"><span class="nav-text">1. 类与对象</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-0-概念"><span class="nav-text">1.0. 概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-关系"><span class="nav-text">1.1. 关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-类的设计，成员"><span class="nav-text">1.2. 类的设计，成员</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-0-属性"><span class="nav-text">1.2.0. 属性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-1-构造器"><span class="nav-text">1.2.1. 构造器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-2-方法"><span class="nav-text">1.2.2. 方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-3-代码块"><span class="nav-text">1.2.3. 代码块</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-4-内部类"><span class="nav-text">1.2.4. 内部类</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#静态内部类"><span class="nav-text">静态内部类</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#成员内部类-非静态内部类"><span class="nav-text">成员内部类(非静态内部类)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#局部内部类"><span class="nav-text">局部内部类</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#匿名内部类-其使用情况待修改"><span class="nav-text">匿名内部类(其使用情况待修改)</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-面向对象的基本特征"><span class="nav-text">2. 面向对象的基本特征</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-0-封装"><span class="nav-text">2.0. 封装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-继承"><span class="nav-text">2.1. 继承</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-0-继承的影响"><span class="nav-text">2.1.0. 继承的影响</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-1-继承的特点"><span class="nav-text">2.1.1. 继承的特点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-多态"><span class="nav-text">2.2. 多态</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-0-多态的表现形式"><span class="nav-text">2.2.0. 多态的表现形式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-1-类型的转换"><span class="nav-text">2.2.1. 类型的转换</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-关键字"><span class="nav-text">3. 关键字</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-0-class"><span class="nav-text">3.0. class</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-new"><span class="nav-text">3.1. new</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-this"><span class="nav-text">3.2. this</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-super"><span class="nav-text">3.3. super</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-权限修饰符"><span class="nav-text">3.4. 权限修饰符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-5-static"><span class="nav-text">3.5. static</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-6-final"><span class="nav-text">3.6. final</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-7-native"><span class="nav-text">3.7. native</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-包"><span class="nav-text">4. 包</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-0-包的作用"><span class="nav-text">4.0. 包的作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-使用其他包的类"><span class="nav-text">4.2. 使用其他包的类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-打包编译处理命令"><span class="nav-text">4.3. 打包编译处理命令</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-重载和重写的区别"><span class="nav-text">5. 重载和重写的区别</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="纸人"
+      src="/images/hu.png">
+  <p class="site-author-name" itemprop="name">纸人</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">40</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">71</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">纸人</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.7.2
+  </div>
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共70k字</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+  
+  
+	<script type="text/javascript"
+	color="0,0,255" opacity='0.7' zIndex="-1" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+  
+</body>
+</html>
