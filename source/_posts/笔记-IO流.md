@@ -7,7 +7,7 @@ tags:
 - [Java笔记]
 ---
 
-施工中。各种各样的流
+各种各样的流
 
 <!-- more -->
 
@@ -568,5 +568,136 @@ public class InputStreamReaderAndOutputStreamWriter {
 
 ### 处理流之四 打印流
 
+打印流，**PrintStream**和**PrintWriter**。可将基本数据类型的数据格式转化为字符串输出。
+
+- 提供了一系列重载的print()和println()方法，用于多种数据类型的输出
+- **PrintStream**和**PrintWriter**的输出不会抛出IOException异常
+- **PrintStream**和**PrintWriter**有自动flush功能
+- **PrintStream** 打印的所有字符都使用平台的默认字符编码转换为字节。在需要写入字符而不是写入字节的情况下，应该使用 **PrintWriter** 类
+
+例：
+
+```java
+PrintStream ps = null;
+try {
+    FileOutputStream fos = new FileOutputStream(new File("D:\\IO\\text.txt"));
+    // 创建打印输出流,设置为自动刷新模式(写入换行符或字节 '\n' 时都会刷新输出缓冲区)
+    ps = new PrintStream(fos, true);
+    if (ps != null) {// 把标准输出流(控制台输出)改成文件
+        System.setOut(ps);
+    }	
+    for (int i = 0; i <= 255; i++) { // 输出ASCII字符
+        System.out.print((char) i);
+        if (i % 50 == 0) { // 每50个数据一行
+            System.out.println(); // 换行
+        }
+    }
+} catch (FileNotFoundException e) {
+    e.printStackTrace();
+} finally {
+    if (ps != null) {
+        ps.close();
+    }
+}
+```
 
 
+
+### 处理流之五 数据流
+
+数据流，**DataInputStream** 和 **DataOutputStream**。为了方便地操作Java语言的基本数据类型和String的数据，可以使用数据流。
+
+DataInputStream “套接”在 **InputStream**子类的流上。DataOutputStream“套接”在**OutputStream** 子类的流上。
+
+例：
+
+```java
+DataOutputStream dos = null;
+try { // 创建连接到指定文件的数据输出流对象
+    dos = new DataOutputStream(new FileOutputStream("destData.dat"));
+    dos.writeUTF("我爱北京天安门"); // 写UTF字符串
+    dos.writeBoolean(false); // 写入布尔值
+    dos.writeLong(1234567890L); // 写入长整数
+    System.out.println("写文件成功!");
+} catch (IOException e) {
+    e.printStackTrace();
+} finally { // 关闭流对象
+    try {
+        if (dos != null) {
+            // 关闭过滤流时,会自动关闭它包装的底层节点流
+            dos.close();
+        }
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+}
+```
+
+```java
+DataInputStream dis = null;
+try {
+    dis = new DataInputStream(new FileInputStream("destData.dat"));
+    String info = dis.readUTF();
+    boolean flag = dis.readBoolean();
+    long time = dis.readLong();
+    System.out.println(info);
+    System.out.println(flag);
+    System.out.println(time);
+} catch (Exception e) {
+    e.printStackTrace();
+} finally {
+    if (dis != null) {
+        try {
+            dis.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### 处理流之六 对象流
+
+对象流，**ObjectInputStream**和**OjbectOutputSteam**。可用于存储和读取基本数据类型数据或对象的处理流。可以把Java中的对象写入到数据源中，也能把对象从数据源中还原回来。
+
+#### 对象的序列化
+
+- **序列化**：用**ObjectOutputStream**类保存基本类型数据或对象的机制
+- **反序列化**：用**ObjectInputStream**类读取基本类型数据或对象的机制
+
+
+- 对象序列化机制允许把**内存中的Java对象转换成平台无关的二进制流**，从而允许把这种二进制流持久地保存在磁盘上，或通过网络将这种二进制流传输到另一个网络节点。
+- 序列化的好处在于可将任何实现了Serializable接口的对象转化为字节数据，使其在保存和传输时可被还原。
+- 凡是实现Serializable接口的类都有一个**表示序列化版本标识符的静态变量**：`private static final long serialVersionUID;`
+  - `serialVersionUID`用来表明类的不同版本间的兼容性。简言之，其目的是以序列化对象进行版本控制，有关各版本反序列化时是否兼容。
+  - 如果类没有显示定义这个静态常量，它的值是Java运行时环境根据类的内部细节自动生成的。若类的实例变量做了修改，serialVersionUID 可能发生变化。故建议，显式声明。
+
+##### 自定义类序列化的要求
+
+1. 必须实现Serializable接口或Externalizable接口
+   - Externalizable接口继承自 Serializable接口，**仅实现Serializable接口的类采用默认的序列化方式** ，而实现Externalizable接口的类完全由自身来控制序列化的行为。
+2. 提供全局常量：private static final long serialVersionUID
+3. 保证当前类的内部属性可序列化（默认情况下，基本数据类型可序列化）
+
+注：ObjectOutputStream和ObjectInputStream不能序列化**static**和**transient**修饰的成员变量
+
+#### 序列化示例
+
+```java
+ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(“data.txt"));
+Person p = new Person("韩梅梅", 18, "中华大街", new Pet());
+oos.writeObject(p);
+oos.flush();
+oos.close();
+```
+
+#### 反序列化示例
+
+```java
+ObjectInputStream ois = new ObjectInputStream(new FileInputStream(“data.txt"));
+Person p1 = (Person)ois.readObject();
+System.out.println(p1.toString());
+ois.close();
+```
+
+未完待续……
