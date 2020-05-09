@@ -13,29 +13,29 @@ NoSQL和Redis的基础了解
 
 # NoSQL
 
-> not only SQL,泛指非关系型的数据库。NoSQL数据库都具有非常高的读写性能。无需事先为要存储的数据建立字段，随时可以存储自定义的数据格式。
+not only SQL,泛指非关系型的数据库。NoSQL数据库都具有非常高的读写性能。无需事先为要存储的数据建立字段，随时可以存储自定义的数据格式。
 
 ## 0. NoSQL数据库的四大分类
 
-> KV键值；
->
-> 文档型数据库(bson格式)(CouchDB、MongoDB)；
->
-> 列存储数据库(Cassandra, HBase)；
->
-> 图关系数据库(Neo4J, InfoGrid)
+KV键值；
+
+文档型数据库(bson格式)(CouchDB、MongoDB)；
+
+列存储数据库(Cassandra, HBase)；
+
+图关系数据库(Neo4J, InfoGrid)
 
 ## 1. CAP
 
-> Consistency(强一致性)，Availability(可用性)Partition tolerance(分区容错性)
+Consistency(强一致性)，Availability(可用性)Partition tolerance(分区容错性)
 
-> CAP理论：一个分布式系统不可能同时很好的满足一致性，可用性和分区容错性这三个需求，最多只能同时较好的**满足两个**。
->
-> CA 传统Oracle数据库
->
-> AP 大多数网站架构的选择
->
-> CP Redis、Mongodb
+CAP理论：一个分布式系统不可能同时很好的满足一致性，可用性和分区容错性这三个需求，最多只能同时较好的**满足两个**。
+
+CA 传统Oracle数据库
+
+AP 大多数网站架构的选择
+
+CP Redis、Mongodb
 
 图示
 
@@ -43,25 +43,25 @@ NoSQL和Redis的基础了解
 
 ## 2. BASE
 
-> 为了解决关系数据库强一致性引起的问题而引起的可用性降低而提出的解决方案
->
-> 基本可用（Basically Available）
-> 软状态（Soft state）
-> 最终一致（Eventually consistent）
+为了解决关系数据库强一致性引起的问题而引起的可用性降低而提出的解决方案
+
+基本可用（Basically Available）
+软状态（Soft state）
+最终一致（Eventually consistent）
 
 ## 3. 分布式与集群
 
->简单来讲：
->
->分布式：不同的多台服务器上面**部署不同的服务模块**（工程），他们之间通过Rpc/Rmi之间通信和调用，对外提供服务和组内协作。
->
->集群：不同的多台服务器上面**部署相同的服务模块**，通过分布式调度软件进行统一的调度，对外提供服务和访问。
+简单来讲：
+
+分布式：不同的多台服务器上面**部署不同的服务模块**（工程），他们之间通过Rpc/Rmi之间通信和调用，对外提供服务和组内协作。
+
+集群：不同的多台服务器上面**部署相同的服务模块**，通过分布式调度软件进行统一的调度，对外提供服务和访问。
 
 # Redis
 
 ## 1. 概述
 
-> REmote DIctionary Server(远程字典服务器)。用C语言编写的一个高性能的(key/value)分布式内存数据库，基于内存运行，并支持持久化。
+Remote Dictionary Server(远程字典服务器)。用C语言编写的一个高性能的(key/value)分布式内存数据库，基于内存运行，并支持持久化。
 
 ## 2. 特点
 
@@ -83,7 +83,7 @@ NoSQL和Redis的基础了解
 
 ## 4. Redis的数据类型
 
-###4.0. 常用的`key`命令
+### 4.0. 常用的`key`命令
 
 - **KEYS \***：查看所有的`key`
 - **EXISTS key**：判断指定的`key`是否存在
@@ -92,7 +92,7 @@ NoSQL和Redis的基础了解
 - **TTL key**：查看指定的`key`还有多少秒过期。-1表示永不过期，-2表示已过期
 - **TYPE key**： 查看指定的`key`是什么类型
 
-###4.1. 其他的`key`命令
+### 4.1. 其他的`key`命令
 
 - **DEL key**：指定的`key`存在时，删除指定的`key`
 - **DUMP key**：序列化指定的`key`，并返回被序列化的值
@@ -107,18 +107,18 @@ NoSQL和Redis的基础了解
 
 ### 4.2. String(字符串)
 
-> string是redis最基本的类型，**单key单value**。
-> string类型是二进制安全的。可以包含任何数据。比如jpg图片或者序列化的对象 。
-> Redis中字符串value最多可以是512M
+string是redis最基本的类型，**单key单value**。
+string类型是二进制安全的。可以包含任何数据。比如jpg图片或者序列化的对象 。
+Redis中字符串value最多可以是512M
 
 - **SET key value**：设置指定`key`的值
 - **GET key**：获取指定`key`的值
 - **STRLEN key**：返回`key`所存储的字符串的长度
 - **APPEND key value**：如果`key`已经存在，该命令会在末尾追加value
-
-
-
 - **INCR key**：将`key`中存储的**数字值**增1
+
+
+
 - **INCRBY key increment**：将`key`所存储的值加上给定的增量值(increment)
 - **INCRBYFLOAT key increment**：将`key`所存储的值加上给定的浮点增量值(increment)
 - **DECR key**：将`key`中存储的数字值减1
@@ -135,61 +135,47 @@ NoSQL和Redis的基础了解
 
 ### 4.3. List(列表)
 
-> Redis的列表是简单的字符串列表，按照插入顺序排序。
-> 可以添加一个元素到列表的**头部**（左边）或者**尾部**（右边）。
-> 底层实际是个链表。
-> **单key多value**
+Redis的列表是简单的字符串列表，按照插入顺序排序。
+可以添加一个元素到列表的**头部**（左边）或者**尾部**（右边）。
+底层实际是个链表。
+**单key多value**
 
 - **LPUSH key value1[value2]**：将一个值和多个值插入到列表头部
-
 - **LPUSHX key value**：将一个或多个值插入到已存在的列表头部
-
 - **RPUSH key value1[value2]**：在列表中添加一个或多个值
-
 - **RPUSHX key value**：为已存在的列表添加值
-
 - **LRANGE key start stop**：获取列表中指定范围的元素
 
-  - ```shell
-    # 0 -1表示获取列表所有的元素
-    LRANGE list01 0 -1
-    ```
+```shell
+# 0 -1表示获取列表所有的元素
+LRANGE list01 0 -1
+```
 
 - **LPOP key**：移除并获取列表**头部**的第一个元素
-
 - **RPOP key**：移除并获取列表**尾部**的第一个元素
-
 - **LINDEX key index**：通过**索引**获取列表中的元素
-
 - **LLEN key**：获取列表长度
-
 - **LREM key count value**：移除列表元素，即删除n个value
 
-  - ```shell
-    # 从左向右删除2个值等于v1的元素，返回的值为实际删除的数量
-    LREM list01 2 v1
-    # LREM list3 0 值，表示删除全部给定的值。零个就是全部值
-    LREM list3 0
-    ```
+```shell
+# 从左向右删除2个值等于v1的元素，返回的值为实际删除的数量
+LREM list01 2 v1
+# LREM list3 0 值，表示删除全部给定的值。零个就是全部值
+LREM list3 0
+```
 
 - **LTRIM key start stop**：对列表进行修剪，只保留指定索引间(闭区间)的元素，其余的删除
-
 - **RPOPLPUSH source destination**：移除列表的最后一个元素，并将该元素添加到另一个列表的**头部**
-
 - **LSET key index value**：通过索引设置列表元素的值
-
 - **LINSERT key BEFORE|AFTER pivot value**：在列表元素**pivot**的前后插入元素**value**
-
 - **BLPOP key1 [key2] timeout**：移除并获取列表**头部**的一个元素，如果列表没有该元素会阻塞列表直到**超时**或发现可弹出的元素为止
-
 - **BRPOP key1 [key2] timeout**：移除并获取列表**尾部**的一个元素，如果列表没有该元素会阻塞列表直到**超时**或发现可弹出的元素为止
-
 - **BRPOPLPUSH source destination timeout**：移除并获取列表**尾部**的一个元素，并将该元素插入到另一个列表的**头部**，如果列表没有该元素会阻塞列表直到**超时**或发现可弹出的元素为止
 
-###4.4. Set
+### 4.4. Set
 
-> Redis的Set是string类型的无序集合。它是通过HashTable实现实现的。
-> 单值多value
+Redis的Set是string类型的无序集合。它是通过HashTable实现实现的。
+**单值多value**
 
 - **SADD key value1 [value2]**：向`key`中添加一个或多个value
 - **SMEMBERS key**：返回所有的`key`
@@ -206,7 +192,7 @@ NoSQL和Redis的基础了解
 
 ### 4.5. Hash(哈希)
 
-> KV模式，但V是一个或多个键值对。
+KV模式，但V是一个或多个键值对。
 
 - **HSET key field value**：将`key`中的字段field的值设为value
 - **HGET key field**：获取指定`key`中的指定字段field的值
@@ -222,48 +208,39 @@ NoSQL和Redis的基础了解
 - **HINCRBYFLOAT key field increment**：为指定`key`中的**指定字段**field的**浮点数值**加上增量increment
 - **HSETNX key field value**：在指定key中，如果**指定字段**field不存在，才会设置该字段的值
 
-###4.6. ZSet(Sorted Set，有序集合)
+### 4.6. ZSet(Sorted Set，有序集合)
 
-> Redis中的**ZSet** 和 Set 一样也是string类型元素的集合，且不允许成员望重复。
-> 不同的是每个元素都会关联一个**double类型的值**。
-> Redis正是通过分数来为集合中的成员进行从小到大的排序。
-> ZSet的成员是唯一的,但值**score**却可以重复。
+Redis中的**ZSet** 和 Set 一样也是string类型元素的集合，且不允许成员望重复。
+不同的是每个元素都会关联一个double类型的值**score**。
+Redis正是通过**score**来为集合中的成员进行从小到大的排序。
+ZSet的成员是唯一的,但值**score**却可以重复。
 
 - **ZADD key score1 value1 [score2 value2]**：向指定`key`中添加一个或多个value，或更新已存在的成员的值
-
 - **ZRANGE key start stop [WITHSCORES]**：在指定`key`中，返回指定**索引区间**(start~stop)内的**value**或**scores和value**
-
 - **ZRERANGE key stop start [WITHSCORES]**：在指定`key`中，**逆序**返回指定**索引区间**(start~stop)内的**value**或**scores和value**
-
 - **ZRANGEBYSCORE key min max [WITHSCORES]\[LIMIT]**
 
-  - ```shell
-    # 从key(ZSet)中，获取scores[60,90]闭区间内的value和score
-    ZRANGEBYSCORE ZSet 60 90 WITHSCORES
-    ```
+```shell
+# 从key(ZSet)中，获取scores[60,90]闭区间内的value和score
+  ZRANGEBYSCORE ZSet 60 90 WITHSCORES
+```
 
-  - ```shell
-    # 从key(ZSet)中，获取scores(60,90)开区间内的value和score
-    ZRANGEBYSCORE ZSet (60 (90 WITHSCORES
-    ```
+```shell
+# 从key(ZSet)中，获取scores(60,90)开区间内的value和score
+  ZRANGEBYSCORE ZSet (60 (90 WITHSCORES
+```
 
-  - ```shell
-    # 在之前的基础上，再加限制条件。LIMIT后有两个值，第一个值是从索引几开始，第二个值是选几个
-    ZRANGEBYSCORE ZSet (60 (90 WITHSCORES LIMIT 0 2
-    ```
+```shell
+# 在之前的基础上，再加限制条件。LIMIT后有两个值，第一个值是从索引几开始，第二个值是选几个
+ZRANGEBYSCORE ZSet (60 (90 WITHSCORES LIMIT 0 2
+```
 
 - **ZRERANGEBYSCORE key max min [WITHSCORES]\[LIMIT]**：**逆序**获取
-
 - **ZREM key value1 [value2]**：删除指定`key`中的**指定score**下的value值
-
 - **ZCARD key**：获取指定`key`中的value或score的数量
-
 - **ZCOUNT key min max**：计算指定`key`中指定score区间内value的数量
-
 - **ZRANK key value**：获取指定`key`中的**指定value** 的**索引**或下标
-
 - **ZSCORE key value**：获取指定`key`中的**指定value** 的**score**
-
 - **ZRERANK key value**：**逆序**获取指定`key`中的**指定value** 的**score**
 
 ## 5. 配置文件redis.conf的简单介绍
@@ -274,26 +251,25 @@ NoSQL和Redis的基础了解
 
 ### 6.0. RDB(Redis DataBase)
 
-####6.0.0. 简单介绍
+#### 6.0.0. 简单介绍
 
->在指定的时间间隔内将内存中的数据集快照写入磁盘，
->恢复时是将快照**文件**直接读到**内存**里
+在指定的时间间隔内将内存中的数据集快照写入磁盘，恢复时是将快照**文件**直接读到**内存**里
 
->Redis会单独创建（fork）一个子进程来进行持久化，会先将数据写入到一个临时文件中，待持久化过程都结束了，再用这个临时文件替换上次持久化好的文件。
+Redis会单独创建（fork）一个子进程来进行持久化，会先将数据写入到一个临时文件中，待持久化过程都结束了，再用这个临时文件替换上次持久化好的文件。
 
 #### 6.0.1. 默认配置文件
 
-> 配置文件默认名为**dump.rdb**
+配置文件默认名为**dump.rdb**
 
 #### 6.0.2. 如何触发RDB快照
 
 ##### 方式一
 
-> 冷拷贝后重新使用(cp dump.rdb dump_new.rdb)
+冷拷贝后重新使用(cp dump.rdb dump_new.rdb)
 
 ##### 方式二
 
-> 用**命令**save和bgsave
+用**命令**save和bgsave
 
 **save**：save只管保存，其余不管
 
@@ -301,11 +277,11 @@ NoSQL和Redis的基础了解
 
 ##### 方式三
 
-> 执行flushall**命令**，也会产生dump.rdb文件，但里面是空的，无意义
+执行flushall**命令**，也会产生dump.rdb文件，但里面是空的，无意义
 
 #### 6.0.3. 如何恢复
 
-> 将备份文件 (dump.rdb) **移动**到 redis 安装目录并**重启**服务即可
+将备份文件 (dump.rdb) **移动**到 redis 安装目录并**重启**服务即可
 
 可使用命令`CONFIG GET dir`来获取目录
 
@@ -313,28 +289,28 @@ NoSQL和Redis的基础了解
 
 ##### 优势
 
-> 适合大规模的数据恢复；对数据完整性和一致性要求不高
+适合大规模的数据恢复；对数据完整性和一致性要求不高
 
-#####劣势
+##### 劣势
 
-> 在一定间隔时间做一次备份，所以如果redis意外断掉的话，就会丢失最后一次快照后的所有修改；
->
-> Fork的时候，内存中的数据被克隆了一份，大致2倍的膨胀性需要考虑
+在一定间隔时间做一次备份，所以如果redis意外断掉的话，就会丢失最后一次快照后的所有修改；
+
+Fork的时候，内存中的数据被克隆了一份，大致2倍的膨胀性需要考虑
 
 #### 6.0.5. 动态停止RDB并保存的方法
 
-> 使用命令`redis-cli config set save ""`
+使用命令`redis-cli config set save ""`
 
 ### 6.1. AOF(Append only File)
 
 #### 6.1.0. 简单叙述
 
->以日志的形式来记录每个**写操作**，将Redis执行过的所有写指令记录下来(读操作不记录)
->**只许追加文件**但不可以改写文件，redis启动之初会读取该文件重新构建数据
+以日志的形式来记录每个**写操作**，将Redis执行过的所有写指令记录下来(读操作不记录)
+**只许追加文件**但不可以改写文件，redis启动之初会读取该文件重新构建数据
 
 #### 6.1.1. AOF配置文件
 
-> AOF的配置文件的默认名称为appendonly.aof
+AOF的配置文件的默认名称为appendonly.aof
 
 #### 6.1.2. AOF的正常恢复
 
@@ -351,16 +327,16 @@ NoSQL和Redis的基础了解
 
 #### 6.1.4. Rewrite
 
->AOF采用文件追加方式，文件会越来越大。为避免出现此种情况，新增了重写机制，当AOF文件的大小超过所设定的阈值时，Redis就会启动AOF文件的内容压缩。
->只保留可以恢复数据的最小指令集，可以使用命令`bgrewriteaof`
+AOF采用文件追加方式，文件会越来越大。为避免出现此种情况，新增了重写机制，当AOF文件的大小超过所设定的阈值时，Redis就会启动AOF文件的内容压缩。
+只保留可以恢复数据的最小指令集，可以使用命令`bgrewriteaof`
 
 ##### 重写原理
 
->AOF文件持续增长而过大时，会fork出一条新进程来将文件重写(也是先写临时文件最后再rename)，遍历新进程的内存中数据，每条记录有一条的Set语句。重写aof文件的操作，并没有读取旧的aof文件，而是将整个内存中的数据库内容用命令的方式重写了一个新的aof文件，这点和快照有点类似
+AOF文件持续增长而过大时，会fork出一条新进程来将文件重写(也是先写临时文件最后再rename)，遍历新进程的内存中数据，每条记录有一条的Set语句。重写aof文件的操作，并没有读取旧的aof文件，而是将整个内存中的数据库内容用命令的方式重写了一个新的aof文件，这点和快照有点类似
 
 ##### 触发机制
 
-> Redis会记录上次重写时的AOF文件大小，默认配置是当AOF文件大小是上次rewrite后大小的2倍且文件大于64M时触发
+Redis会记录上次重写时的AOF文件大小，默认配置是当AOF文件大小是上次rewrite后大小的2倍且文件大于64M时触发。
 
 #### 6.1.5. AOF的优劣势
 
@@ -370,31 +346,31 @@ NoSQL和Redis的基础了解
 - 每秒同步：**appendfsync everysec**    异步操作，每秒记录   如果一秒内宕机，会有数据丢失
 - 不同步：**appendfsync no**   从不同步
 
-#####劣势
+##### 劣势
 
 - 对于相同数据集的数据而言，aof文件要远大于rdb文件，恢复速度慢于rdb
 - aof运行效率要慢于rdb，每秒同步策略效率较好，不同步效率和rdb相同
 
 ### 6.3. RDB和AOF的小总结
 
-> RDB持久化方式能够在指定的时间间隔能对你的数据进行快照存储
+RDB持久化方式能够在指定的时间间隔能对你的数据进行快照存储
 
->AOF持久化方式记录每次对服务器写的操作，当服务器重启的时候会重新执行这些命令来恢复原始的数据。AOF命令以redis协议追加保存每次写的操作到文件末尾。
->Redis还能对AOF文件进行后台重写,使得AOF文件的体积不至于过大
+AOF持久化方式记录每次对服务器写的操作，当服务器重启的时候会重新执行这些命令来恢复原始的数据。AOF命令以redis协议追加保存每次写的操作到文件末尾。
+
+Redis还能对AOF文件进行后台重写,使得AOF文件的体积不至于过大
 
 #### 同时开启两种持久化方式
 
-> 当redis重启的时候会优先载入AOF文件来恢复原始的数据，因为在通常情况下AOF文件保存的数据集要比RDB文件保存的数据集要完整。
+当redis重启的时候会优先载入AOF文件来恢复原始的数据，因为在通常情况下AOF文件保存的数据集要比RDB文件保存的数据集要完整。
 
->RDB的数据不实时，同时使用两者时服务器重启也只会找AOF文件。那要不要只使用AOF呢？
->作者建议不要，因为RDB更适合用于备份数据库(AOF在不断变化不好备份)，快速重启，而且不会有AOF可能潜在的bug，留着作为一个万一的手段。
+RDB的数据不实时，同时使用两者时服务器重启也只会找AOF文件。那要不要只使用AOF呢？
+作者建议不要，因为RDB更适合用于备份数据库(AOF在不断变化不好备份)，快速重启，而且不会有AOF可能潜在的bug，留着作为一个万一的手段。
 
 ## 7. 事务
 
-###7.0. 简单叙述  
+### 7.0. 简单叙述
 
-> 可以**一次执行**多个命令。
-> 一个事务中的所有命令都会序列化，按顺序地串行化执行而不会被其它命令插入。
+可以**一次执行**多个命令。一个事务中的所有命令都会序列化，按顺序地串行化执行而不会被其它命令插入。
 
 ### 7.1. 常用命令
 
@@ -412,7 +388,7 @@ NoSQL和Redis的基础了解
 
 ## 8. Redis的发布订阅
 
-> 进程间的一种消息通信模式：发送者(pub)发送消息，订阅者(sub)接收消息。
+进程间的一种消息通信模式：发送者(pub)发送消息，订阅者(sub)接收消息。
 
 ### 8.0. 发布订阅命令
 
@@ -425,9 +401,9 @@ NoSQL和Redis的基础了解
 
 ## 9. 主从复制
 
-###9.0. 简单叙述
+### 9.0. 简单叙述
 
->主机数据更新后根据配置和策略，自动同步到备机的**master/slaver**机制，Master以写为主，Slave以读为主
+主机数据更新后根据配置和策略，自动同步到备机的**master/slaver**机制，Master以写为主，Slave以读为主
 
 ### 9.1. 特点
 
@@ -450,10 +426,10 @@ NoSQL和Redis的基础了解
 
 ### 9.4. 哨兵模式
 
-> 反客为主的自动版，能够后台监控主机是否故障，如果故障了根据投票数**自动将从库转换为主库**
+反客为主的自动版，能够后台监控主机是否故障，如果故障了根据投票数**自动将从库转换为主库**
 
-> 如果之前的master重启回来，不会出现双master冲突，而是会成为从机slave
-> 一组sentinel能同时监控多个Master
+如果之前的master重启回来，不会出现双master冲突，而是会成为从机slave
+一组sentinel能同时监控多个Master
 
 #### 9.4.0. 配置哨兵
 
@@ -463,8 +439,8 @@ NoSQL和Redis的基础了解
 
 ### 9.5. 主从复制的缺点 
 
-> 复制延时。
-> 由于所有的写操作都是先在Master上操作，然后同步更新到Slave上，所以从Master同步到Slave机器有一定的延迟，当系统很繁忙的时候，延迟问题会更加严重，Slave机器数量的增加也会使这个问题更加严重。
+复制延时。
+由于所有的写操作都是先在Master上操作，然后同步更新到Slave上，所以从Master同步到Slave机器有一定的延迟，当系统很繁忙的时候，延迟问题会更加严重，Slave机器数量的增加也会使这个问题更加严重。
 
 
 

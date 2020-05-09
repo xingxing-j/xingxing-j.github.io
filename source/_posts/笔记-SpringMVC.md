@@ -26,14 +26,14 @@ tags:
 
 导的包有：
 
-> spring-aop-4.0.0.RELEASE.jar
-> spring-beans-4.0.0.RELEASE.jar
-> spring-context-4.0.0.RELEASE.jar
-> spring-core-4.0.0.RELEASE.jar
-> spring-expression-4.0.0.RELEASE.jar
-> commons-logging-1.1.3.jar
-> spring-web-4.0.0.RELEASE.jar
-> spring-webmvc-4.0.0.RELEASE.jar
+spring-aop-4.0.0.RELEASE.jar
+spring-beans-4.0.0.RELEASE.jar
+spring-context-4.0.0.RELEASE.jar
+spring-core-4.0.0.RELEASE.jar
+spring-expression-4.0.0.RELEASE.jar
+commons-logging-1.1.3.jar
+spring-web-4.0.0.RELEASE.jar
+spring-webmvc-4.0.0.RELEASE.jar
 
 ### 2.1. Web.xml中配置DispathcerServlet
 
@@ -112,68 +112,68 @@ tags:
 
 - 限定请求参数
 
-  > param1: 表示请求必须包含名为 param1 的请求参数
-  >
-  > !param1: 表示请求不能包含名为 param1 的请求参数
-  >
-  > param1 != value1: 表示请求包含名为 param1 的请求参数，但其值不能为 value1
-  >
-  > param1 = value1: 表示请求包含名为 param1 的请求参数，但其值必须为 value1
+  param1: 表示请求必须包含名为 param1 的请求参数
+
+  !param1: 表示请求不能包含名为 param1 的请求参数
+
+  param1 != value1: 表示请求包含名为 param1 的请求参数，但其值不能为 value1
+
+  param1 = value1: 表示请求包含名为 param1 的请求参数，但其值必须为 value1
 
 - **示例：**params={"param1=value1", "param2","!param3","param4!=value4"}
 
-  > 请求必须包含名为 param1,2 的请求参数
-  >
-  > param1 参数的值必须为 value1；param2的值随意；
-  >
-  > 请求参数中不能有param3；参数中可以有param4，如果有，其值不能为value4
+  请求必须包含名为 param1,2 的请求参数
+
+  param1 参数的值必须为 value1；param2的值随意；
+
+  请求参数中不能有param3；参数中可以有param4，如果有，其值不能为value4
 
 ###### headers
 
 - 指定request中必须包含某些指定的header值，才能让该方法处理请求，用法同params
 
-  > 例：**@RequestMapping(headers={ "Accept-Language=en-US,zh;q=0.8"})**
+  例：**@RequestMapping(headers={ "Accept-Language=en-US,zh;q=0.8"})**
 
 ###### consumes
 
 - 指定处理请求的提交内容类型（Content-Type）
 
-  > 例：@RequestMapping(consumes="application/json")
-  >
-  > ​	仅处理request的Content-Type中为“application/json”类型的请求
+  例：@RequestMapping(consumes="application/json")
+
+  ​	仅处理request的Content-Type中为“application/json”类型的请求
 
 ###### produces
 
 - 指定返回的内容类型，仅当request请求头中的(Accept)类型中包含该指定类型才返回
 
-  > 例：@RequestMapping(produces="application/json")
-  >
-  > ​	方法仅处理request请求中Accept头中包含了"application/json"的请求，
-  >
-  > ​	同时暗示了返回的内容类型为application/json;
+  例：@RequestMapping(produces="application/json")
+
+  ​	方法仅处理request请求中Accept头中包含了"application/json"的请求，
+
+  ​	同时暗示了返回的内容类型为application/json;
 
 ##### @RequestMapping支持Ant资源路径风格
 
 1. ###### 路径中带有？
 
-   > 每一个**?**匹配单层路径中的一个字符 
-   >
-   > **例：**user/createUser??
-   > ​	匹配 /user/createUseraa、/user/createUserbb 等 URL
+   每一个**?**匹配单层路径中的一个字符 
+
+   **例：**user/createUser??
+   ​	匹配 /user/createUseraa、/user/createUserbb 等 URL
 
 2. ###### 路径中带有*
 
-   > 匹配单层路径中的任意字符
-   >
-   > **例：**/user/*/createUser
-   > ​	匹配 /user/aaa/createUser、/user/bbb/createUser 等 URL
+   匹配单层路径中的任意字符
+
+   **例：**/user/*/createUser
+   ​	匹配 /user/aaa/createUser、/user/bbb/createUser 等 URL
 
 3. ###### 路径中带有**
 
-   > 匹配多层路径
-   >
-   > **例：**/user/**/createUser
-   > ​	匹配 /user/createUser、/user/aaa/bbb/createUser 等 URL
+   匹配多层路径
+
+   **例：**/user/**/createUser
+   ​	匹配 /user/createUser、/user/aaa/bbb/createUser 等 URL
 
 #### 4.0.2. @PathVariable
 
@@ -195,21 +195,21 @@ public String testPathVariable(@PathVariable("id") Integer c){
 
 ##### 简述
 
-> 该注解在处理方法的入参处使用，可以把请求参数传给方法入参，常用于普通传值
+该注解在处理方法的入参处使用，可以把请求参数传给方法入参，常用于普通传值
 
 ##### 属性
 
 ###### value
 
-> 指定要获取的请求参数的Key
+指定要获取的请求参数的Key
 
 ###### required
 
-> 请求参数是否必须。默认为true，表示请求参数里必须包含对应的参数，否则会抛异常
+请求参数是否必须。默认为true，表示请求参数里必须包含对应的参数，否则会抛异常
 
 ###### defaultValue
 
-> 默认值，当required=false且没有传递参数时使用该值。默认为null
+默认值，当required=false且没有传递参数时使用该值。默认为null
 
 ##### 示例：
 
@@ -227,7 +227,7 @@ public String testRequestParam(
 
 ##### 简述
 
-> 将请求报头的指定属性值绑定到处理方法的入参上
+将请求报头的指定属性值绑定到处理方法的入参上
 
 ##### 属性
 
@@ -247,7 +247,7 @@ public String testRequestHeader(@RequestHeader(value="Accept-Language") String a
 
 ##### 简述
 
-> 将请求中的指定的 Cookie 值绑定到处理方法的入参上
+将请求中的指定的 Cookie 值绑定到处理方法的入参上
 
 ##### 属性
 
@@ -278,19 +278,17 @@ for (Cookie c : cookies) {
 
 #### 4.0.6. @RequestMapping的组合注解
 
-> @GetMapping、@PostMapping、@PutMapping、@DeleteMapping
->
-> 以@GetMapping为例，@GetMapping = @RequestMapping(method=RequestMethod.GET)
+@GetMapping、@PostMapping、@PutMapping、@DeleteMapping
 
-
+以@GetMapping为例，@GetMapping**等同于**@RequestMapping(method=RequestMethod.GET)
 
 ### 4.1. 参数封装
 
 #### 4.1.0. 普通参数类型
 
-> 只要 **请求参数的key** 和 **方法的参数名** 一样，数据便会自动封装上
->
-> 若不一致，可在方法参数上添加@ReuquestParam注解，注解的**value值**还是要和**请求参数的key**一致
+只要 **请求参数的key** 和 **方法的参数名** 一样，数据便会自动封装上。
+
+若不一致，可在方法参数上添加@ReuquestParam注解，注解的**value值**还是要和**请求参数的key**一致
 
 #### 4.1.1.数组类型
 
@@ -315,42 +313,42 @@ for (Cookie c : cookies) {
 
 1. 导包
 
-   > jackson-annotations-2.9.8.jar
-   >
-   > jackson-core-2.9.8.jar
-   >
-   > jackson-databind-2.9.8.jar
+   jackson-annotations-2.9.8.jar
+
+   jackson-core-2.9.8.jar
+
+   jackson-databind-2.9.8.jar
 
 2. 在Controller里的指定方法的参数前加@RequestBody。参数对象的属性要和Json字符串里的name对应
 
 ### 4.2. 使用Servlet API
 
-> SpringMVC支持调用原生Servlet API，Controller方法参数用ServletAPI类型的即可
+SpringMVC支持调用原生Servlet API，Controller方法参数用ServletAPI类型的即可
 
 可用的参数类型有：
 
-> HttpServletRequest;HttpServletResponse;HttpSession;
->
-> java.security.Principal;Locale;InputStream;OutputStream;Reader;Writer
+**HttpServletRequest;HttpServletResponse;HttpSession;**
+
+java.security.Principal;Locale;InputStream;OutputStream;Reader;Writer
 
 ### 4.3. 静态资源的处理
 
 #### 处理方式一
 
-> 在web.xml中配DispatcherServlet时，限定其拦截格式，没有被拦截的则交给**默认Servlet**处理
->
-> 缺点：不符合REST风格
+在web.xml中配DispatcherServlet时，限定其拦截格式，没有被拦截的则交给**默认Servlet**处理
+
+缺点：不符合REST风格
 
 ```xml
 <servlet-mapping>
-	<servlet-name>DispatcherServlet</servlet-name>
+    <servlet-name>DispatcherServlet</servlet-name>
     <url-pattern>*.do</url-pattern>
 </servlet-mapping>
 ```
 
 #### 处理方式二(常用)
 
-> springmvc.xml中配两个标签
+springmvc的配置文件中配两个标签
 
 ```xml
 <mvc:annotation-driven/>
@@ -359,7 +357,7 @@ for (Cookie c : cookies) {
 
 #### 处理方式三
 
-> springmvc.xml中配一个\<mvc:resources/>
+springmvc的配置文件中配一个\<mvc:resources/>
 
 ```xml 
 <!-- 配置静态资源映射
@@ -369,23 +367,21 @@ for (Cookie c : cookies) {
 <mvc:resources mapping="/pages/**" location="/pages"/><!-- **代表多层路径 -->
 ```
 
-
-
 ## 5. 数据输出
 
-> 除了在方法参数上传入原生的ServletAPI，Spring还提供了几种途径输出数据模型
+除了在方法参数上传入原生的ServletAPI，Spring还提供了几种途径输出数据模型
 
 ### 5.1. 方法参数为Map、Model或ModelMap
 
-> Controller方法参数为Map、ModelMap或Model 时，最终都是BindingAwareModelMap工作。
->
-> 里面保存的数据会放在请求域中，可以在页面进行获取
+Controller方法参数为Map、ModelMap或Model 时，最终都是BindingAwareModelMap工作。
+
+里面保存的数据会放在请求域中，可以在页面进行获取
 
 ### 5.2. 方法返回值类型为ModelAndView
 
-> ModelAndView既包含视图信息（页面地址）也包含模型数据（给页面带的数据）。数据仍放在了请求域中
->
-> 可在jsp页面用 JSTL 和 EL 表达式取出
+ModelAndView既包含视图信息（页面地址）也包含模型数据（给页面带的数据）。数据仍放在了请求域中
+
+可在jsp页面用 JSTL 和 EL 表达式取出
 
 #### 示例：
 
@@ -400,11 +396,9 @@ public ModelAndView testModelAndView(){
 }
 ```
 
+### 5.3. 方法返回值类型为String
 
-
-### 5.3. 返回值类型为字符串
-
-#### 5.3.0. 返回jsp页面
+#### 5.3.0. 跳转到jsp页面
 
 ##### 示例一：
 
@@ -437,9 +431,7 @@ public String testStringPage(Map map) {
 }
 ```
 
-
-
-#### 5.3.1. 返回普通字符串
+#### 5.3.1. 将字符串返回到页面上
 
 ##### 示例一：
 
@@ -463,7 +455,7 @@ public String testString() {
 
 #### 5.3.2. 转发和重定向
 
-> 一般情况下，控制器方法返回字符串类型的值会被当成逻辑视图名处理。             如果返回的字符串中带 forward: 或 redirect: 前缀时，SpringMVC 会对他们进行特殊处理：将 forward: 和 redirect: 当成指示符，其后的字符串作为 URL 来处理
+一般情况下，控制器方法返回字符串类型的值会被当成逻辑视图名处理。如果返回的字符串中带` forward: `或 `redirect: `前缀时，SpringMVC 会对他们进行特殊处理：将 `forward: `和 `redirect: `当成指示符，其后的字符串作为 URL 来处理
 
 ##### 转发
 
@@ -474,7 +466,7 @@ public String testForwad() {
 }
 ```
 
-重定向
+##### 重定向
 
 ```java
 @GetMapping("/testRedirect")
@@ -483,9 +475,9 @@ public String testForwad() {
 }
 ```
 
-### 5.4. 返回void（无返回值）
+### 5.4. 方法返回值为void（无返回值）
 
-> 方法返回值为void，访问地址就变成了响应的视图页面
+方法返回值为void，访问地址就变成了响应的视图页面。
 
 #### 示例：
 
@@ -503,9 +495,9 @@ public void testVoid02(HttpServletRequest request, HttpServletResponse response)
 }
 ```
 
-### 5.5. 返回对象
+### 5.5. 方法返回值为自定义对象
 
-> 需要jackson的支持和@ResponseBody，将对象转成了json，实际返回的是json格式的字符串
+需要jackson的支持和@ResponseBody，将对象转成了json，实际返回的是json格式的字符串
 
 #### 示例：
 
@@ -518,7 +510,7 @@ public Student testObject() {
 }
 ```
 
-### 5.6. 返回值类型为ResponseEntity
+### 5.6. 方法返回值为ResponseEntity
 
 #### 示例：
 
@@ -536,19 +528,17 @@ public ResponseEntity testentity() {
 }
 ```
 
-
-
 ## 6. 乱码问题
 
 #### 6.0. 参数格式为key-value格式时
 
 ##### 6.0.0. GET请求乱码
 
-> GET请求在tomcat 8 版本以上不乱码，8版本以下乱码
+GET请求在tomcat 8 版本以上不乱码，8版本以下乱码
 
 ###### 1. 解决方式一
 
-> 在接收参数的方法里自己转一下
+接收参数后，用如下方式自己转一下
 
 ```java
 String s = new String(username.getBytes("ISO‐8859‐1"), "utf‐8");
@@ -556,9 +546,9 @@ String s = new String(username.getBytes("ISO‐8859‐1"), "utf‐8");
 
 ###### 2. 解决方式二
 
-> 为tomcat中的config目录下 server.xml  添加  URIEncoding="utf‐8"。
->
-> 如果有useBodyEncodingForURI="true"，注释掉
+为tomcat中的config目录下 server.xml  添加  URIEncoding="utf‐8"。
+
+如果有useBodyEncodingForURI="true"，注释掉
 
 ```xml
 <Connector port="8080" protocol="HTTP/1.1"         
@@ -602,13 +592,13 @@ String s = new String(username.getBytes("ISO‐8859‐1"), "utf‐8");
 
 #### 6.1. 参数格式为Json格式时
 
-> 请求参数为Json格式时，因为走了jackson，所以没有乱码问题
+请求参数为Json格式时，因为走了jackson，所以没有乱码问题
 
 #### 6.2. 响应乱码
 
 ##### 字符串乱码
 
-> 通过设定@XxxMapping里的produces属性来避免字符串乱码
+通过设定@XxxMapping里的produces属性来避免字符串乱码
 
 ```java
 // 该方式不走jackson
@@ -633,11 +623,11 @@ public Student testString() {
 
 ## 7. REST风格的URL地址约束
 
-> 表述性状态传递（Representational State Transfer，简称REST）。以简洁的URL提交请求，以请求方式区分对资源的操作
->
-> GET请求：获取数据；POST请求：登录和添加数据；DELETE请求：删除操作；PUT请求：修改操作
->
-> 浏览器可以发送GET和POST请求。DELETE和PUT请求需要转换
+表述性状态传递（Representational State Transfer，简称REST）。以简洁的URL提交请求，以请求方式区分对资源的操作
+
+GET请求：获取数据；POST请求：登录和添加数据；DELETE请求：删除操作；PUT请求：修改操作。
+
+浏览器可以发送GET和POST请求。DELETE和PUT请求需要转换
 
 ### 转换步骤
 
@@ -656,25 +646,23 @@ public Student testString() {
 
 #### 2. 前端代码
 
-> 需满足几个条件：
->
-> 1、前端请求必须为POST；
->
-> 2、请求时必须要携带一个隐藏域，其参数名称为_method；参数值必须为PUT或DELETE(不区分大小写)
->
-> 注意点：8.0版本tomcat会在jsp页面报405异常
->
-> 解决方式：需在jsp页面中头标签中添加 isErrorpage="true"属性；
->
-> ​			<%@ …… page isErrorPage="true"%>
+需满足几个条件：
+
+1、前端请求必须为POST；
+
+2、请求时必须要携带一个隐藏域，其参数名称为_method；参数值必须为PUT或DELETE(不区分大小写)
+
+注意点：8.0版本tomcat会在jsp页面报405异常
+
+解决方式：需在jsp页面中头标签中添加 isErrorpage="true"属性；`<%@ …… page isErrorPage="true"%>`
 
 ```html
 <!-- 以PUT请求为例，测试 REST风格 PUT 请求 -->
 <form action="springmvc/testRESTPut/1" method="POST">
-	<input type="hidden" name="_method" value="PUT">
-	<input type="text" name="name" value="张三">
+    <input type="hidden" name="_method" value="PUT">
+    <input type="text" name="name" value="张三">
     <input type="text" name="age" value="13">
-	<input type="submit" value="restPath">
+    <input type="submit" value="restPath">
 </form>
 ```
 
@@ -692,9 +680,9 @@ public String testREST(@PathVarible("name")sname, @PathVarible("age")sage) {
 
 ### 8.0. 视图
 
-> 视图对象由视图解析器负责实例化。由于视图是无状态的，所以不会有线程安全的问题
->
-> 视图的顶级接口为View
+视图对象由视图解析器负责实例化。由于视图是无状态的，所以不会有线程安全的问题
+
+视图的顶级接口为View
 
 #### 8.0.0. 常用视图实现类图示
 
@@ -704,7 +692,7 @@ public String testREST(@PathVarible("name")sname, @PathVarible("age")sage) {
 
 ### 8.1. 视图解析器
 
-> 视图解析器根据方法的返回值得到视图对象。ViewResolver 是其顶级接口
+视图解析器根据方法的返回值得到视图对象。ViewResolver 是其顶级接口
 
 #### 8.1.0. 常用视图解析器图示
 
@@ -712,7 +700,7 @@ public String testREST(@PathVarible("name")sname, @PathVarible("age")sage) {
 
 ### 8.2. 其它
 
-> 若想直接响应通过 SpringMVC 渲染的页面，而不经过Controller来执行结果，可添加\<mvc:view-controller/>标签
+若想直接响应通过 SpringMVC 渲染的页面，而不经过Controller来执行结果，可在SpringMVC的配置文件中添加**\<mvc:view-controller/>**标签。
 
 #### 8.2.0. 示例：
 
@@ -722,52 +710,52 @@ public String testREST(@PathVarible("name")sname, @PathVarible("age")sage) {
 
 #### 8.2.1. 注意点
 
-> 配置\<mvc:view-controller/>会导致其他请求路径失效
->
-> 解决方式：再配一个\<mvc:annotation-driven/>标签
-
-
+配置**\<mvc:view-controller/>**会导致其他请求路径失效。解决方式：再配一个**\<mvc:annotation-driven/>**标签
 
 ## 9. 国际化
 
-> 针对不同的国家进行不同的视图显示，JstlView可以解析Jstl语言进行国际化操作
+针对不同的国家进行不同的视图显示，JstlView可以解析Jstl语言进行国际化操作
 
 ### 9.0. 实现步骤
 
 #### 9.0.0. 创建资源文件
 
-> 资源文件的命名规范：基名\_语言\_国家.properties
->
-> 例：base_zh_CN.properties；i18n_zh_CN.properties
+资源文件的命名规范：基名\_语言\_国家.properties
+
+例：base_zh_CN.properties；i18n_zh_CN.properties
 
 #### 9.0.1. springmvc.xml中配置特定\<bean/>标签
 
 ```xml
 <!-- 加载国际化资源文件 bean的id="messageSource",是固定的，因为springMVC在启动时会自动查询这个bean并加载-->
 <bean id="messageSource"class="org.springframework.context.support.ResourceBundleMessageSource">
-	<property name="basename" value="i18n"></property>
+    <property name="basename" value="i18n"></property>
 </bean>
 ```
 
 #### 9.0.2. 导包，配fmt标签
 
-> 要导的包：jstl.jar和standard.jar
->
-> 在具体的jsp页面里导入jstl下的fmt名称空间，并书写相应的标签。
->
-> \<fmt:message key="resource.welcome">\</fmt:message>
+要导的包：jstl.jar和standard.jar
+
+在具体的jsp页面里导入jstl下的fmt名称空间，并书写相应的标签。
+
+<fmt:message key="resource.welcome"/>
 
 ## 10. 文件上传
 
-> 流行的文件上传方式：提交表单（包括异步）的方式；Base64的方式
+流行的文件上传方式：提交表单（包括异步）的方式；Base64的方式
 
 ### 10.0. 文件上传之提交表单
 
-> 提交表单的三要素：前端请求必须为POST；必须有\<input tupe="file"/\>；enctype="mutlipart/form-data"
+提交表单的三要素：
+
+- 前端请求必须为POST
+- 前端必须要有**\<input tupe="file"/>**
+- form标签里必须要有enctype属性，且`enctype="mutlipart/form-data"`。
 
 #### 10.0.0. 文件上传之Part的方式
 
-> 该方式导个servlet-api.jar，不需配置任何视图解析器
+该方式只导个servlet-api.jar，不需配置任何视图解析器
 
 ##### 单文件Part上传
 
@@ -775,14 +763,14 @@ public String testREST(@PathVarible("name")sname, @PathVarible("age")sage) {
 
 ```html
 <form action="/upload" method="post" enctype="multipart/form-data">
-	<input type="file" name="image"/>
+    <input type="file" name="image"/>
     <input type="submit" value="上传图片"/>
 </form>
 ```
 
 ###### 2. 添加配置信息
 
-> 在web.xml中的DispatcherServlet中添加一个**\<multipart-config/>**标签
+在web.xml中的DispatcherServlet中添加一个**\<multipart-config/>**标签
 
 ```xml
 <servlet>
@@ -800,8 +788,7 @@ public String testREST(@PathVarible("name")sname, @PathVarible("age")sage) {
 
 ```java
 @Controller
-public class UploadController {
-    
+public class UploadController { 
     @PostMapping("upload")
     public String upload(HttpServletRequest request) throws Exception{
     	Part file = request.getPart("image");
@@ -818,15 +805,15 @@ public class UploadController {
 
 ```html
 <form action="/upload" method="post" enctype="multipart/form-data">
-    <!-- 相比单文件上传该标签里多了一个multiple属性>
-	<input type="file" name="image" multiple/>
+    <!-- 相比单文件上传该标签里多了一个multiple属性 -->
+    <input type="file" name="image" multiple/>
     <input type="submit" value="上传图片"/>
 </form>
 ```
 
 ###### 2. 添加配置信息
 
-> 在web.xml中的DispatcherServlet中添加一个**\<multipart-config/>**标签
+在web.xml中的DispatcherServlet中添加一个**\<multipart-config/>**标签
 
 ```xml
 <servlet>
@@ -859,25 +846,24 @@ public class UploadController {
             }
         });
         return "success";
-        
-        return "success";
     }
 }
 ```
 
 #### 10.0.1. 文件上传之SpringMVC
 
-> 需要导jar包，配多媒体视图解析器
+需要导jar包，配多媒体视图解析器
 
 ##### 1. 导jar包
 
-> commons-io-1.4.jar和commons-fileupload-1.2.1.jar
+commons-io-1.4.jar和commons-fileupload-1.2.1.jar
 
 ##### 2. 配置多媒体视图解析器
 
 ```xml
 <!-- 其id值固定 -->
-<bean id="multipartResolver" 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+<bean id="multipartResolver"
+      class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 	<property name="defaultEncoding" value="UTF-8"></property>
 	<!-- 上传单个文件的最大值，单位Byte;如果-1，表示无限制 -->
 	<property name="maxUploadSize"  value="102400"></property>
@@ -886,12 +872,11 @@ public class UploadController {
 
 ##### 3. 前端页面
 
-```
+```html
 <form action="/upload" method="post" enctype="multipart/form-data">
-	<input type="file" name="file"/>
+    <input type="file" name="file"/>
     <input type="submit" value="上传"/>
 </form>
-
 ```
 
 ##### 4. 编写Controller类
@@ -899,7 +884,6 @@ public class UploadController {
 ```java
 @Controller
 public class UploadController {
-    
     @PostMapping("upload")
     public String upload(HttpServletRequest request, MultipartFile[] avater) throws Exception{
     	String realPath = request.getServletContext().getRealPath("/WEB-INF/images/");
@@ -911,8 +895,7 @@ public class UploadController {
         for (int i = 0; i < avater.lenth; i++) {
             String fileName = avater[i].getOriginalFilename();
             avater[i].transferTo(new File(file, fileName));
-        }
-        
+        }  
         return "success";
     }
 }
@@ -922,7 +905,7 @@ public class UploadController {
 
 ### 11.0. 下载方式一
 
-> 直接在前端给出下载链接
+直接在前端给出下载链接
 
 #### 前端页面
 
@@ -972,21 +955,20 @@ public ResponseEntity<byte[]> testDownload(HttpServletRequest request)
 
 #### 解决方式一（局部配置）
 
-> 在实体类的Date属性上添加@DateTimeFormat注解。
->
-> 例：@DateTimeFormat(pattern="yyyy-MM-dd")
->
-> ​	或@DateTimeFormat(pattern="**yyyy-MM-ddTHH:mm:ss**")
->
-> 缺点：需要转换的属性都要加注解，做不到统一维护
+在实体类的Date属性上添加@DateTimeFormat注解。
+
+例：@DateTimeFormat(pattern="yyyy-MM-dd")
+
+​	或@DateTimeFormat(pattern="**yyyy-MM-ddTHH:mm:ss**")
+
+缺点：需要转换的属性都要加注解，做不到统一维护
 
 #### 解决方式二(全局配置)
 
-##### 1. 新建 类型转换器
+##### 1. 新建类型转换器
 
 ```java
- //Converter 第一个泛型 表示from             
-//第二个泛型 表示 to 
+//Converter 第一个泛型 表示from，第二个泛型 表示 to 
 public class MyConvert implements Converter<String,Date> {     
     @Override   
     public Date convert(String s) {       
@@ -1006,15 +988,16 @@ public class MyConvert implements Converter<String,Date> {     
     }
 ```
 
-##### 2. 配置转换器
+##### 2. SpringMVC配置文件中配置转换器
 
 ```xml
-<bean id="conversionService"  class="org.springframework.format.support.FormattingConversionServiceFactoryBean">     <property name="converters">               
-    	<set>
-            <!-- 此处放置了一个内部bean。也可在外部定义，内部来引用 -->
-        	<bean class="com.shangma.cn.MyConvert"/>               
-    	</set>           
-    </property>       
+<bean id="conversionService" 
+      class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+    <property name="conventers">
+        <set>
+            <bean class="com.shangma.cn.MyConvert"/> 
+        </set>
+    </property>
 </bean>
 <!-- 将conversionService注册到annotation-driven中 -->
 <mvc:annotation‐driven conversion‐service="conversionService"/>
@@ -1026,57 +1009,49 @@ public class MyConvert implements Converter<String,Date> {     
 
 ##### 1. 导包
 
-> jackson-annotations-2.9.8.jar
->
-> jackson-core-2.9.8.jar
->
-> jackson-databind-2.9.8.jar
+jackson-annotations-2.9.8.jar；jackson-core-2.9.8.jar；jackson-databind-2.9.8.jar
 
 ##### 2. 加注解
 
-> 在相应的Date属性上加@JsonFormat注解。
->
-> **不加注解的话**，也能通过jackson转换，默认支持yyyy-MM-dd HH:mm:ss和yyyy-MM-dd 格式的转换
+在相应的Date属性上加@JsonFormat注解。
 
-
+**不加注解的话**，也能通过jackson转换，默认支持yyyy-MM-dd HH:mm:ss和yyyy-MM-dd 格式的转换
 
 #### 解决方式二(全局配置)
 
 ##### 1. 导包
 
-> jackson-annotations-2.9.8.jar
->
-> jackson-core-2.9.8.jar
->
-> jackson-databind-2.9.8.jar
+jackson-annotations-2.9.8.jar；jackson-core-2.9.8.jar；jackson-databind-2.9.8.jar
 
-##### 2. 配置springmvc.xml
+##### 2. springmvc的配置文件
 
 ```xml
 <mvc:annotation‐driven>         
     <mvc:message‐converters>
         <bean 
-            class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">                 <property name="objectMapper" ref="objectMapper"/>             
+            class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+            <property name="objectMapper" ref="objectMapper"/>             
         </bean>           
     </mvc:message‐converters>     
 </mvc:annotation‐driven>       
 
 <bean id="objectMapper" 
       class="org.springframework.http.converter.json.Jackson2ObjectMapperFactoryBean"
-      p:indentOutput="true" p:simpleDateFormat="yyyy‐MM‐dd HH:mm:ss"/>
+      p:indentOutput="true" 
+      p:simpleDateFormat="yyyy‐MM‐dd HH:mm:ss"/>
 ```
 
 ### 12.2. key-value格式转LocalDate&LocalDateTime
 
 #### 解决方式一(局部配置)
 
-> 在实体类的Date属性上添加@DateTimeFormat注解。
->
-> 例：@DateTimeFormat(pattern="yyyy-MM-dd")(不能加在LocalDateTime上)
->
-> ​	@DateTimeFormat(pattern="**yyyy-MM-dd HH:mm:ss**")(两种类型都可加)
->
-> 缺点：需要转换的属性都要加注解，做不到统一维护
+在实体类的Date属性上添加@DateTimeFormat注解。
+
+例：@DateTimeFormat(pattern="yyyy-MM-dd")(不能加在LocalDateTime上)
+
+​	@DateTimeFormat(pattern="**yyyy-MM-dd HH:mm:ss**")(两种类型都可加)
+
+缺点：需要转换的属性都要加注解，做不到统一维护
 
 #### 解决方式二(全局配置)
 
@@ -1085,13 +1060,15 @@ public class MyConvert implements Converter<String,Date> {     
 ```java
 public class MyConvert1 implements Converter<String,LocalDateTime> {     
     @Override     
-    public LocalDateTime convert(String s) {        return LocalDateTime.parse(s,DateTimeFormatter.ofPattern("yyyy‐MM‐dd  HH:mm:ss"));     
+    public LocalDateTime convert(String s) {
+        return LocalDateTime.parse(s,DateTimeFormatter.ofPattern("yyyy‐MM‐dd  HH:mm:ss"));     
     } 
 }
 
 public class MyConvert2 implements Converter<String,LocalDate> {     
     @Override     
-    public LocalDate convert(String s) {        return LocalDate.parse(s,DateTimeFormatter.ofPattern("yyyy‐MM‐dd"));     
+    public LocalDate convert(String s) {
+        return LocalDate.parse(s,DateTimeFormatter.ofPattern("yyyy‐MM‐dd"));     
     } 
 }
 ```
@@ -1099,7 +1076,9 @@ public class MyConvert2 implements Converter<String,LocalDate> {     
 ##### 2.配置转换器
 
 ```xml
-<bean id="conversionService"  class="org.springframework.format.support.FormattingConversionServiceFactoryBean">     <property name="converters">               
+<bean id="conversionService" 
+      class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+    <property name="converters">               
     	<set>
             <!-- 此处放置的为内部bean。也可在外部定义，内部来引用 -->
         	<bean class="com.shangma.cn.MyConvert1"/>    
@@ -1107,11 +1086,10 @@ public class MyConvert2 implements Converter<String,LocalDate> {     
     	</set>           
     </property>       
 </bean>
+
 <!-- 将conversionService注册到annotation-driven中 -->
 <mvc:annotation‐driven conversion‐service="conversionService"/>
 ```
-
-
 
 ### 12.3. Json格式转LocalDate&LocalDateTime
 
@@ -1119,27 +1097,27 @@ public class MyConvert2 implements Converter<String,LocalDate> {     
 
 ##### 1. 导包
 
-> jackson-annotations-2.9.8.jar；jackson-core-2.9.8.jar
->
-> jackson-databind-2.9.8.jar；jackson-datatype-jsr310-2.9.8.jar
+jackson-annotations-2.9.8.jar；jackson-core-2.9.8.jar
+
+jackson-databind-2.9.8.jar；jackson-datatype-jsr310-2.9.8.jar
 
 ##### 2. 加注解
 
-> @JsonFormat(pattern="yyyy-MM-dd")(不能加在LocalDateTime上)
->
-> @JsonFormat(pattern="**yyyy-MM-dd HH:mm:ss**")(两种类型都可加)
->
-> **不加注解的话**，也能通过jackson转换，默认支持yyyy-MM-dd HH:mm:ss和yyyy-MM-dd 格式的转换
+@JsonFormat(pattern="yyyy-MM-dd")(不能加在LocalDateTime上)
+
+@JsonFormat(pattern="**yyyy-MM-dd HH:mm:ss**")(两种类型都可加)
+
+**不加注解的话**，也能通过jackson转换，默认支持yyyy-MM-dd HH:mm:ss和yyyy-MM-dd 格式的转换
 
 #### 解决方式二
 
 ##### 1. 导包
 
-> jackson-annotations-2.9.8.jar；jackson-core-2.9.8.jar
->
-> jackson-databind-2.9.8.jar；jackson-datatype-jsr310-2.9.8.jar
+jackson-annotations-2.9.8.jar；jackson-core-2.9.8.jar
 
-##### 2. 配置springmvc.xml
+jackson-databind-2.9.8.jar；jackson-datatype-jsr310-2.9.8.jar
+
+##### 2. SpringMVC配置文件
 
 ```xml
 <mvc:annotation‐driven>         
@@ -1152,28 +1130,28 @@ public class MyConvert2 implements Converter<String,LocalDate> {     
 
 <bean id="objectMapper" 
       class="org.springframework.http.converter.json.Jackson2ObjectMapperFactoryBean"
-      p:indentOutput="true" p:modules-ref="module"/>
+      p:indentOutput="true" 
+      p:modules-ref="module"/>
 
-<bean id="module" class="com.fastxml.jackson.datatype.jsr310.JavaTimeModule"/>
+<bean id="module" 
+      class="com.fastxml.jackson.datatype.jsr310.JavaTimeModule"/>
 ```
 
 ### 12.4. Date&LocalDate&LocalDateTime转Json
 
 #### 1. 导包
 
-> jackson-annotations-2.9.8.jar；jackson-core-2.9.8.jar
->
-> jackson-databind-2.9.8.jar；jackson-datatype-jsr310-2.9.8.jar
+jackson-annotations-2.9.8.jar；jackson-core-2.9.8.jar
+
+jackson-databind-2.9.8.jar；jackson-datatype-jsr310-2.9.8.jar
 
 #### 2. 加注解
 
-> @JsonFormat(pattern="yyyy-MM-dd")(不能加在LocalDateTime上)
->
-> @JsonFormat(pattern="**yyyy-MM-dd HH:mm:ss**")(两种类型都可加)
->
-> **不加注解的话**，时间类型会转成**Json格式的时间辍**
+@JsonFormat(pattern="yyyy-MM-dd")(不能加在LocalDateTime上)
 
+@JsonFormat(pattern="**yyyy-MM-dd HH:mm:ss**")(两种类型都可加)
 
+**不加注解的话**，时间类型会转成**Json格式的时间辍**
 
 ## 13. 拦截器
 
@@ -1188,14 +1166,16 @@ public class FirstInteceptor implements HandlerInterceptor {       
     // 返回true  程序继续往下执行 类似放行的意思     
     @Override     
     public boolean preHandle(HttpServletRequest request, 
-                             HttpServletResponse response,  Object handler) {         System.out.println("preHandle执行了");         
+                             HttpServletResponse response,  Object handler) {
+        System.out.println("preHandle执行了");         
         return true;     
     }
     //Controller 方法执行完成后 还没有返回视图时执行   
     @Override
     public void postHandle(HttpServletRequest request, 
                            HttpServletResponse response, 
-                           Object  handler, ModelAndView modelAndView) {       System.out.println("postHandle执行了");   
+                           Object  handler, ModelAndView modelAndView) {
+        System.out.println("postHandle执行了");   
     }     
     //请求和响应都完成了才执行
     @Override
@@ -1210,29 +1190,25 @@ public class FirstInteceptor implements HandlerInterceptor {       
 
 ```xml
 <mvc:interceptors>
-
-	<!-- 配置具体的拦截路径 -->
-	<mvc:interceptor>
-	<!-- 指定拦截的路径,基于ant风格 -->
-		<mvc:mapping path="/**"/>  
-		<!-- 指定不拦截的路径 -->
-		<mvc:exclude-mapping path="/handler/testUpload"/> 
-		<bean  class="org.lanqiao.interceptor.MyInterceptor"></bean>
-	</mvc:interceptor>
-			
-		<!-- 配置具体的拦截路径 -->
-		<mvc:interceptor>
-			<!-- 指定拦截的路径,基于ant风格 -->
-			<mvc:mapping path="/**"/>  
-			<!-- 指定不拦截的路径 -->
-			<mvc:exclude-mapping path="/handler/testUpload"/> 
-			<bean  class="org.lanqiao.interceptor.MySecondInterceptor"></bean>
-		</mvc:interceptor>
+    <!-- 配置具体的拦截路径 -->
+    <mvc:interceptor>
+        <!-- 指定拦截的路径,基于ant风格 -->
+        <mvc:mapping path="/**"/>  
+        <!-- 指定不拦截的路径 -->
+        <mvc:exclude-mapping path="/handler/testUpload"/> 
+        <bean  class="org.lanqiao.interceptor.MyInterceptor"></bean>
+    </mvc:interceptor>
+    <!-- 配置具体的拦截路径 -->
+    <mvc:interceptor>
+        <!-- 指定拦截的路径,基于ant风格 -->
+        <mvc:mapping path="/**"/>
+        <!-- 指定不拦截的路径 -->
+        <mvc:exclude-mapping path="/handler/testUpload"/> 
+        	<bean  class="org.lanqiao.interceptor.MySecondInterceptor"></bean>
+    </mvc:interceptor>
 
 </mvc:interceptors>
 ```
-
-
 
 ## 14. 异常处理
 
@@ -1248,11 +1224,11 @@ public class FirstInteceptor implements HandlerInterceptor {       
 
 ##### 2. 异常时会跳转到该页面
 
-> 缺点：页面固定，传值麻烦
+缺点：页面固定，传值麻烦
 
 ### 14.1. 处理方式二
 
-> 缺点：虽然可以动态显示错误信息 但是只能返回jsp页面 想要返回html页面 需要依赖模板引擎 
+缺点：虽然可以动态显示错误信息 但是只能返回jsp页面 想要返回html页面 需要依赖模板引擎 
 
 ##### 1. 创建异常处理类
 
@@ -1261,13 +1237,14 @@ public class FirstInteceptor implements HandlerInterceptor {       
 public class MyExceptionHander implements HandlerExceptionResolver {
     
     @Override
-    public ModelAndView resolverException(HttpServletRequest httpServletRequest,
-                                         HttpServletResponse httpServletResponse,
-                                          Object o, Exception e) {
+    public ModelAndView resolverException(
+        HttpServletRequest httpServletRequest, 
+        HttpServletResponse httpServletResponse, 
+        Object o, Exception e) {
+        
         ModelAndView mv = new ModelAndView();
         mv.addObject("msg", e.getMessage());
         mv.setViewName("error");
-        
         return mv;
     }
 }
@@ -1300,7 +1277,7 @@ public class ErrorController {
 
 ### 14.2. 处理方式三
 
-> 必须掌握
+必须掌握
 
 #### 1. 创建枚举类保存状态
 

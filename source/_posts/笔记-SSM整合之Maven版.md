@@ -12,7 +12,7 @@ Maven下SSM整合的相关配置文件
 
 <!-- more -->
 
-###聚合工程的父工程的pom.xml
+### 聚合工程的父工程的pom.xml
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -121,7 +121,7 @@ Maven下SSM整合的相关配置文件
 </project>
 ```
 
-###聚合工程的子工程ssm-entity的pom.xml
+### 聚合工程的子工程ssm-entity的pom.xml
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -140,7 +140,7 @@ Maven下SSM整合的相关配置文件
 </project>
 ```
 
-###聚合工程的子工程ssm-mapper的pom.xml
+### 聚合工程的子工程ssm-mapper的pom.xml
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -240,7 +240,7 @@ Maven下SSM整合的相关配置文件
 </beans>
 ```
 
-###聚合工程的子工程ssm-service的pom.xml
+### 聚合工程的子工程ssm-service的pom.xml
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>

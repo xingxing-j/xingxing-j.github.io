@@ -14,7 +14,7 @@ ES6的新特性简单介绍
 
 # ES6
 
-##0. 块级作用域
+## 0. 块级作用域
 
  ES6之前没有块级作用域，**ES5的var没有块级作用域**的概念，只有function有作用域的概念。ES6的let、const引入了块级作用域。
 
@@ -22,7 +22,7 @@ ES6的新特性简单介绍
 
 ### 0.1. 没有块级作用域出现的问题
 
-####0.1.0. ES5的**if**没有块级作用域
+#### 0.1.0. ES5的**if**没有块级作用域
 
 下列代码输出结果为`'zzz','ttt','ttt'`，第一次调用func()，此时name=‘zzz’，在if块外将name置成‘ttt’，此时生效了，if没有块级作用域。
 
@@ -40,7 +40,7 @@ func();
 console.log(name);
 ```
 
-####0.1.1. ES5的for没有块级作用域
+#### 0.1.1. ES5的for没有块级作用域
 
 ```javascript
 <!DOCTYPE html>
@@ -96,7 +96,7 @@ const btns = document.getElementsByTagName("button");
 }
 ```
 
-####0.1.2. const的使用
+#### 0.1.2. const的使用
 
 - const用来定义常量，赋值之后不能再赋值，再次赋值会报错。
 
@@ -119,9 +119,9 @@ const btns = document.getElementsByTagName("button");
       </script>
   ```
 
-##1. ES6的增强写法
+## 1. ES6的增强写法
 
-###1.0. ES6的对象属性增强型写法
+### 1.0. ES6的对象属性增强型写法
 
  ES6以前定义一个对象
 
@@ -146,7 +146,7 @@ const user = {
 console.log(user);
 ```
 
-###1.1. ES6对象的函数增强型写法
+### 1.1. ES6对象的函数增强型写法
 
  ES6之前对象内定义函数
 
@@ -179,11 +179,11 @@ const obj = {
 }
 ```
 
-##2. 箭头函数
+## 2. 箭头函数
 
-###2.0. 认识箭头函数
+### 2.0. 认识箭头函数
 
-> 传统定义函数的方式
+传统定义函数的方式
 
 ```javascript
 const aaa = function (param) {
@@ -191,7 +191,7 @@ const aaa = function (param) {
 }
 ```
 
-> 对象字面量中定义函数
+对象字面量中定义函数
 
 ```javascript
 const obj = {
@@ -199,18 +199,18 @@ const obj = {
 }
 ```
 
-> ES6中的箭头函数
+ES6中的箭头函数
 
 ```javascript
 // const ccc = (参数列表) =>{}
 const ccc = () => {}
 ```
 
-###2.1. 箭头函数的参数和返回值
+### 2.1. 箭头函数的参数和返回值
 
-####2.1.0. 参数问题
+#### 2.1.0. 参数问题
 
-> 放两个参数
+放两个参数时
 
 ```javascript
 const sum = (num1,num2) => {
@@ -218,7 +218,7 @@ const sum = (num1,num2) => {
 }
 ```
 
-> 放入一个参数时，()可以省略
+放入一个参数时，()可以省略
 
 ```javascript
 const power = num => {
@@ -226,9 +226,9 @@ const power = num => {
 }
 ```
 
-####2.1.1. 函数内部
+#### 2.1.1. 函数内部
 
-> 函数内部代码块中有多行代码时
+函数内部代码块中有多行代码时
 
 ```javascript
 const test = () => {
@@ -237,7 +237,7 @@ const test = () => {
 }
 ```
 
-> 代码块中只有一行代码，可以省略**{}**和return
+代码块中只有一行代码，可以省略**{}**和return
 
 ```javascript
 // const mul = (num1,num2) => {
@@ -250,14 +250,14 @@ const mul = (num1,num2) => num1* num2
 const log = () => console.log("log")
 ```
 
-####2.1.2. 箭头函数this的使用
+#### 2.1.2. 箭头函数this的使用
 
 ##### 什么时候使用箭头函数
 
 - 对于需要使用object.method()方式调用的函数，使用普通函数定义，不要使用箭头函数。对象方法中所使用的this值有确定的含义，指的就是object本身。
 - 其他情况下，全部使用箭头函数。
 
-> 箭头函数**没有自己的this值**，箭头函数中所使用的this都是来自函数作用域链，它的取值遵循普通变量一样的规则，在函数作用域链中**一层一层往上找**。
+箭头函数**没有自己的this值**，箭头函数中所使用的this都是来自函数作用域链，它的取值遵循普通变量一样的规则，在函数作用域链中**一层一层往上找**。
 
 ##### 测试示例
 
@@ -293,9 +293,9 @@ const log = () => console.log("log")
     obj.aaa()
 ```
 
-##3. 高阶函数
+## 3. 高阶函数
 
-###3.0. filter过滤函数
+### 3.0. filter过滤函数
 
 ```javascript
 const nums = [2,3,5,1,77,55,100,200]
@@ -312,7 +312,7 @@ let newNums = nums.filter(function (num) {
 //  let newNums = nums.filter(num => num >50)
 ```
 
-###3.1. map高阶函数
+### 3.1. map高阶函数
 
 ```javascript
 // 要求：将上面已经过滤的新数组每项乘以2
@@ -327,7 +327,7 @@ let newNums2 = newNums.map(function (num) {
 console.log(newNums2);
 ```
 
-###3.2. reduce高阶函数
+### 3.2. reduce高阶函数
 
 ```javascript
 //要求：将上面map函数得到的newNums2数组所有数累加
@@ -343,7 +343,7 @@ let newNum = newNums2.reduce(function (preValue,currentValue) {
 console.log(newNum);
 ```
 
-###3.3. filter、map和reduce三者结合使用
+### 3.3. filter、map和reduce三者结合使用
 
 ```javascript
 //上述三个需求综合使用
@@ -351,16 +351,16 @@ let n = nums.filter(num => num > 50).map(num => num * 2).reduce((preValue,curren
 console.log(n);
 ```
 
-##4.  参数解构
+## 4.  参数解构
 
 **解构**(Destructuring)：是将一个数据结构分解为更小的部分的过程。大大的简化数组或者对象里面的元素的赋值语句。
 在ES6中，从数组和对象中提取值，对变量进行赋值。
 
-###4.0. 数组的解构赋值
+### 4.0. 数组的解构赋值
 
-> 使用ES6的结构语法，可以一次性给多个变量赋值。还有可以很简单的交换变量值：
+使用ES6的结构语法，可以一次性给多个变量赋值。还有可以很简单的交换变量值：
 
-####4.0.0. ES6前的数组赋值方式
+#### 4.0.0. ES6前的数组赋值方式
 
 ```javascript
 var arr = [1,2,3];
@@ -368,7 +368,7 @@ console.log(arr[0]); //1
 console.log(arr[1]); //2
 ```
 
-####4.0.1. ES6的数组赋值方式一
+#### 4.0.1. ES6的数组赋值方式一
 
 ```javascript
 var [a,b,c] = [1,2,3];
@@ -376,7 +376,7 @@ console.log(a); //1
 console.log(b); //2
 ```
 
-####4.0.2. ES6的数组赋值方式二
+#### 4.0.2. ES6的数组赋值方式二
 
 ```javascript
 var [a,[b,c]] = [1,[2,3]];
@@ -385,7 +385,7 @@ console.log(b);//2
 console.log(c);//3
 ```
 
-####4.0.3. ES6的数组赋值方式三
+#### 4.0.3. ES6的数组赋值方式三
 
 ```javascript
 var [a,b,c] = new Set([4,5,6]);
@@ -394,7 +394,7 @@ console.log(b);//5
 console.log(c);//6
 ```
 
-####4.0.4. ES6的数组赋值方式四
+#### 4.0.4. ES6的数组赋值方式四
 
 ```javascript
 var [a=1,b=a] = [];// 相当于指定了a和b的默认值，a=1,b=a=1
@@ -402,7 +402,7 @@ console.log(a);//1
 console.log(b);//1
 ```
 
-####4.0.5. ES6的数组赋值方式五
+#### 4.0.5. ES6的数组赋值方式五
 
 ```javascript
 var [a=1,b=a] = [2,3];
@@ -410,14 +410,14 @@ console.log(a);//2
 console.log(b);//3
 ```
 
-####4.0.6. ES6的数组赋值方式六
+#### 4.0.6. ES6的数组赋值方式六
 
 ```javascript
 //类似函数的剩余参数，数组解构有个类似的，剩余项的概念。 ...tail，里面的tail就是剩余项，也是个数组
 let [head,...tail] = [1,2,3,4]; //head:1,tail:[2,3,4]
 ```
 
-####4.0.7. ES6中用剩余项克隆数组的方式
+#### 4.0.7. ES6中用剩余项克隆数组的方式
 
 ```javascript
 let colors = ["red","green","blue"];
@@ -434,9 +434,9 @@ let [,,thirdColor] = colors;
 console.log(thirdColor)  //blue
 ```
 
-###5.0. 对象的解构赋值
+### 5.0. 对象的解构赋值
 
-####5.0.0. ES6前的对象赋值
+#### 5.0.0. ES6前的对象赋值
 
 ```javascript
 var json = {
@@ -445,7 +445,7 @@ var json = {
 };
 ```
 
-####5.0.1. ES6的对象赋值
+#### 5.0.1. ES6的对象赋值
 
 ```javascript
 var {a:name,b} = {a:3,b:4};
@@ -468,9 +468,9 @@ console.log(name);//hi
 console.log(b);//hello
 ```
 
-###6.0. 函数的解构赋值
+### 6.0. 函数的解构赋值
 
-####6.0.0. ES6前的函数赋值
+#### 6.0.0. ES6前的函数赋值
 
 ```javascript
 　　function fn(a,b){
@@ -479,7 +479,7 @@ console.log(b);//hello
 　　fn(1,2);//[1,2]
 ```
 
-####6.0.1. ES6的函数赋值方式一
+#### 6.0.1. ES6的函数赋值方式一
 
 ```javascript
 function fn([a,b]){
@@ -488,7 +488,7 @@ function fn([a,b]){
 fn([3,4]);//[3, 4]
 ```
 
-####6.0.2. ES6的函数赋值方式二
+#### 6.0.2. ES6的函数赋值方式二
 
 ```javascript
 　　function fn({a=1,b=2} = {}){
@@ -511,9 +511,9 @@ fn([3,4]);//[3, 4]
 　　fn({a:10,b:11}); //[10, 11]
 ```
 
-##7.0. ES6的字符串拼接
+## 7.0. ES6的字符串拼接
 
-> 不需要任何的加号和引号，全部字符仅仅由一组``符号包裹即可，而放置动态数据或者变量即用${变量}方式即可。
+不需要任何的加号和引号，全部字符仅仅由一组``符号包裹即可，而放置动态数据或者变量即用${变量}方式即可。
 
 ```javascript
 var firstname="张"

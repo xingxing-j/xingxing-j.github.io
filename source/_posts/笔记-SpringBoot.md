@@ -30,7 +30,7 @@ tags:
 
 ### 2.0. Maven设置
 
-> 如果本地Maven配置未配好，需要在本地Maven的setting.xml文件里配一下。
+如果本地Maven配置未配好，需要在本地Maven的setting.xml文件里配一下。
 
 ```xml
 <profile>
@@ -211,7 +211,7 @@ public @interface SpringBootApplication
 
 #### 3.2.0. @SpringBootConfiguration 
 
->`@SpringBootConfiguration`注解标注在SpringBoot的配置类上，源码如下：
+`@SpringBootConfiguration`注解标注在SpringBoot的配置类上，源码如下：
 
 ```java
  @Target({ElementType.TYPE})
@@ -224,7 +224,7 @@ public @interface SpringBootApplication
 
 ##### @Configuration
 
-> 该注解用在Spring的配置类上，而配置类也是容器的一个组件(Component)。源码如下：
+该注解用在Spring的配置类上，而配置类也是容器的一个组件(Component)。源码如下：
 
 ```java
 @Target({ElementType.TYPE})
@@ -236,7 +236,7 @@ public @interface Configuration
 
 #### 3.2.1. @EnableAutoConfiguration
 
-> 该注解用来开启**自动配置**的，源码如下：
+该注解用来开启**自动配置**的，源码如下：
 
 ```java
  @Target({ElementType.TYPE})
@@ -252,7 +252,7 @@ public @interface Configuration
 
 #####  @AutoConfigurationPackage
 
-> 字面意思，自动配置包，源码如下：
+字面意思，自动配置包，源码如下：
 
 ```java
 @Target({ElementType.TYPE})
@@ -266,7 +266,7 @@ public @interface AutoConfigurationPackage
 
 ###### @Import
 
->@Import是Spring的底层注解，是用来给容器导入组件的
+@Import是Spring的底层注解，是用来给容器导入组件的
 
 `@Import({Registrar.class})`表示`org.springframework.boot.autoconfigure.AutoConfigurationPackages.Registrar`会将**主配置类（@SpringBootApplication标注的类）的所在包**及其下所有子包里面的所有组件注册到Spring容器中。
 
@@ -510,7 +510,7 @@ class HelloworldquickstartApplicationTests {
 
 ##### @PropertySource
 
-> 该注解的作用是加载指定的配置文件，该注解的value是一个数组，所以可以加载多个配置文件
+该注解的作用是加载指定的配置文件，该注解的value是一个数组，所以可以加载多个配置文件
 
 ###### 示例
 
@@ -530,7 +530,7 @@ public class Person {
 
 ##### @ImportResource
 
-> SpringBoot不能自动识别Spring的配置文件。而`@ImportResource`注解用于导入Spring的配置文件。
+SpringBoot不能自动识别Spring的配置文件。而`@ImportResource`注解用于导入Spring的配置文件。
 
 ```java
 @ImportResource(locations = {"classpath:beans.xml"})
@@ -677,19 +677,13 @@ java -jar spring-boot-02-config-02-0.0.1-SNAPSHOT.jar --spring.config.location=G
 
 #### 5.RandomValuePropertySource配置的random.*属性值
 
-
-
-==**由jar包外向jar包内进行寻找；**==
-
-==**优先加载带profile的**==
+**由jar包外向jar包内进行寻找**；**优先加载带profile的**
 
 #### **6.jar包外部的application-{profile}.properties或application.yml(带spring.profile)配置文件**
 
 #### **7.jar包内部的application-{profile}.properties或application.yml(带spring.profile)配置文件**
 
-
-
-==**再加载不带profile的**==
+**再加载不带profile的**
 
 #### **8.jar包外部的application.properties或application.yml(不带spring.profile)配置文件**
 
@@ -747,8 +741,6 @@ SpringBoot是用`spring-boot-starter-logging`来记录日志的，用的时候�
 	<artifactId>spring-boot-starter-logging</artifactId>
 </dependency>
 ```
-
-
 
 - SpringBoot底层使用的是SLF4j+logback进行日志记录
 
@@ -820,9 +812,9 @@ logging.pattern.file=%d{yyyy-MM-dd} === [%thread] === %-5level === %logger{50} =
 | Log4j2                  | `log4j2-spring.xml` or `log4j2.xml`                          |
 | JDK (Java Util Logging) | `logging.properties`                                         |
 
-​	以logback为例，当日志的配置文件的默认名称为`logback.xml`时，该配置文件会被日志框架识别。
+以logback为例，当日志的配置文件的默认名称为`logback.xml`时，该配置文件会被日志框架识别。
 
-​	当日志的配置文件是其他名称时，如`logback-spring.xml`，会由SpringBoot直接进行日志解析。这时可以使用SpringBoot的**高级Profile功能**，只需在对应的配置文件里加上相应的`springProfile`标签即可，示例如下：
+当日志的配置文件是其他名称时，如`logback-spring.xml`，会由SpringBoot直接进行日志解析。这时可以使用SpringBoot的**高级Profile功能**，只需在对应的配置文件里加上相应的`springProfile`标签即可，示例如下：
 
 ```xml
 <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
@@ -854,7 +846,7 @@ SpringBoot默认使用的日志框架是**SLF4j+logback**。要想切换成其�
 
 ##### 切换方式一
 
->首先要排除`logback-classic`和`log4j-over-slf4j`，通过之前的SLF4j日志适配图，可以看出，要想使用log4j，需要slf4j-log4j12这个包。具体的**日志适配图**和**添加修改的依赖关系**如下：
+首先要排除`logback-classic`和`log4j-over-slf4j`，通过之前的SLF4j日志适配图，可以看出，要想使用log4j，需要slf4j-log4j12这个包。具体的**日志适配图**和**添加修改的依赖关系**如下：
 
 **SLF4j日志适配图**
 
@@ -884,7 +876,7 @@ SpringBoot默认使用的日志框架是**SLF4j+logback**。要想切换成其�
 
 ##### 方式二
 
-> 在Maven的pom.xml文件中直接去除`spring-boot-starter-logging`依赖，转而添加`spring-boot-starter-log4j2`依赖
+在Maven的pom.xml文件中直接去除`spring-boot-starter-logging`依赖，转而添加`spring-boot-starter-log4j2`依赖
 
 ```xml
 <dependency>
@@ -1012,7 +1004,6 @@ public void addResourceHandlers(ResourceHandlerRegistry registry) {
   spring.resources.static-location=classpath:/hello,classpath:/xxx
   ```
 
-  ​
 
 #### 6.0.1. 欢迎页映射规则
 

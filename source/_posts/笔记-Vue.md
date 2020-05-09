@@ -94,15 +94,15 @@ var vm = new Vue({
 
 ### 3.0. 模板的理解
 
-> 动态的html页面，包含了一些JS语法代码。例如：Mustache语法和指令(以v开头的标签属性)
+动态的html页面，包含了一些JS语法代码。例如：Mustache语法和指令(以v开头的标签属性)
 
 ### 3.1. 插值操作
 
 #### 3.1.0. Mustache语法
 
->  mustache是胡须的意思，因为{&#123; &#125;}像胡须，又叫大括号语法。
->
->  在vue对象挂载的dom元素中，{&#123; &#125;}不仅可以直接写变量，还可以写简单表达式。
+mustache是胡须的意思，因为{&#123; &#125;}像胡须，又叫大括号语法。
+
+在vue对象挂载的dom元素中，{&#123; &#125;}不仅可以直接写变量，还可以写简单表达式。
 
 ##### 示例
 
@@ -133,7 +133,7 @@ var vm = new Vue({
 
 #### 3.1.1. v-html
 
-> 在某些时候我们不希望直接输出`<a href='http://www.baidu.com'>百度一下</a>`这样的字符串，而输出被html自己转化的超链接。此时可以使用**v-html**。
+在某些时候我们不希望直接输出`<a href='http://www.baidu.com'>百度一下</a>`这样的字符串，而输出被html自己转化的超链接。此时可以使用**v-html**。
 
 ```html
   <div id="app">
@@ -157,9 +157,9 @@ var vm = new Vue({
 
 #### 3.1.2. v-text
 
-> v-text会覆盖DOM元素中的数据，相当于JS的**innerHtml**方法
+v-text会覆盖DOM元素中的数据，相当于JS的**innerHtml**方法
 
-> 使用{&#123;message&#125;}是拼接变量和字符串，而是用v-text是**直接覆盖字符串内容**。
+使用{&#123;message&#125;}是拼接变量和字符串，而是用v-text是**直接覆盖字符串内容**。
 
 ```html
   <div id="app">
@@ -182,9 +182,9 @@ var vm = new Vue({
 
 #### 3.1.3. v-pre
 
-> 有时候我们期望直接输出{&#123;message&#125;}这样的字符串，而不是被{&#123;&#125;}语法转化的message的变量值，此时可以使用`v-pre`标签。
+有时候我们期望直接输出{&#123;message&#125;}这样的字符串，而不是被{&#123;&#125;}语法转化的message的变量值，此时可以使用`v-pre`标签。
 
-> 使用v-pre修饰的dom会直接输出字符串。
+使用v-pre修饰的dom会直接输出字符串。
 
 ```html
   <div id="app">
@@ -207,10 +207,9 @@ var vm = new Vue({
 
 #### 3.1.4. v-cloak
 
->有时因为加载延时问题，数据没有及时刷新，就造成了页面显示从{&#123;message&#125;}到message变量“你好啊”的变化，这样闪动的变化，会造成用户体验不好。
->此时需要使用到`v-cloak`的这个标签。
->在vue**解析之前**，div属性中有`v-cloak`这个标签，在vue**解析完成之后**，v-cloak标签被移除。
->类似于div开始有一个css属性`display:none;`，加载完成之后，css属性变成`display:block`，元素才显示出来。
+有时因为加载延时问题，数据没有及时刷新，就造成了页面显示从{&#123;message&#125;}到message变量“你好啊”的变化，这样闪动的变化，会造成用户体验不好。此时需要使用到`v-cloak`的这个标签。
+在vue**解析之前**，div属性中有`v-cloak`这个标签，在vue**解析完成之后**，v-cloak标签被移除。
+类似于div开始有一个css属性`display:none;`，加载完成之后，css属性变成`display:block`，元素才显示出来。
 
 ```html
 <!DOCTYPE html>
@@ -250,12 +249,12 @@ var vm = new Vue({
 
 ### 3.2. 动态绑定属性v-bind
 
-> 完整写法: **v-bind:xxx='yyy' //yyy**， 会作为表达式解析执行
->
-> 简洁写法: **:xxx='yyy'**
+完整写法: **v-bind:xxx='yyy' //yyy**， 会作为表达式解析执行
 
-> 某些时候我们并不想将变量放在标签内容中，但是我们期望将变量`imgURL`写在如下位置
-> 如：这样`<img src="imgURL" alt="">`导入图片是希望动态获取图片的链接，此时的imgURL并非变量而是字符串imgURL，如果要将其生效为变量，需要使用到一个标签`v-bind:`
+简洁写法: **:xxx='yyy'**
+
+某些时候我们并不想将变量放在标签内容中，但是我们期望将变量`imgURL`写在如下位置
+如：这样`<img src="imgURL" alt="">`导入图片是希望动态获取图片的链接，此时的imgURL并非变量而是字符串imgURL，如果要将其生效为变量，需要使用到一个标签`v-bind:`
 
 ```html
   <div id="app">
@@ -281,12 +280,12 @@ var vm = new Vue({
 
 ### 3.3. 事件监听
 
-> 功能: 绑定指定事件名的回调函数 
-> 完整写法: v-on:keyup='xxx' 
-> ​		 v-on:keyup='xxx(参数)' 
-> ​		 v-on:keyup.enter='xxx' 
-> 简洁写法: @keyup='xxx' ==>@是`v-on`的语法糖，方法名的`()`在	`@事件`中可以省略
-> ​		 @keyup.enter='xxx'
+功能: 绑定指定事件名的回调函数 
+完整写法: v-on:keyup='xxx' 
+​		 v-on:keyup='xxx(参数)' 
+​		 v-on:keyup.enter='xxx' 
+简洁写法: @keyup='xxx' ==>@是`v-on`的语法糖，方法名的`()`在	`@事件`中可以省略
+​		 @keyup.enter='xxx'
 
 #### 3.3.0. v-on的基本使用
 
@@ -343,15 +342,15 @@ var vm = new Vue({
   </script>
 ```
 
-> 按钮4调用`btnClick2(value){}`，此时为`undefined`。
-> 按钮5调用时省略了()，会自动传入原生event事件。
-> 按钮6调用时需要传入**某个参数**和**event事件**，可以通过`$event`传入事件
+按钮4调用`btnClick2(value){}`，此时为`undefined`。
+按钮5调用时省略了()，会自动传入原生event事件。
+按钮6调用时需要传入**某个参数**和**event事件**，可以通过`$event`传入事件
 
 #### 3.3.2. v-on的修饰符
 
-> `.stop`修饰的事件不会传播，不会冒泡到上层，调用了`event.stopPropagation()`。
-> `.prevent` 修饰的事件会调用`event.preeventDefault`阻止默认行为。
-> `.enter`修饰的事件会监听键盘事件
+`.stop`修饰的事件不会传播，不会冒泡到上层，调用了`event.stopPropagation()`。
+`.prevent` 修饰的事件会调用`event.preeventDefault`阻止默认行为。
+`.enter`修饰的事件会监听键盘事件
 
 ```html
   <div id="app">
@@ -391,11 +390,9 @@ var vm = new Vue({
 
 ### 3.4. 计算属性和侦听器
 
-> 在 computed 属性对象中定义**计算属性**的方法 
-> 然后在**标签属性中**使用`方法名`或在**页面中**使用{&#123;方法名&#125;}来显示计算的结果
+在 computed 属性对象中定义**计算属性**的方法。然后在**标签属性中**使用`方法名`或在**页面中**使用{&#123;方法名&#125;}来显示计算的结果。
 
-> 性能上`computed`明显比`methods`好。
-> methods，即使数据没有改变，也需要再次执行。**计算属性有缓存**，只有关联属性改变才会再次计算。
+性能上`computed`明显比`methods`好。而methods，即使数据没有改变，也需要再次执行。**计算属性有缓存**，只有关联属性改变才会再次计算。
 
 #### 3.4.0. 计算属性的基本使用
 
@@ -503,8 +500,8 @@ var vm = new Vue({
 
 #### 3.4.3. 计算属性之侦听器wach
 
-> `computed`范围在vue实例内，修改vue实例外部对象，不会重新计算渲染。
-> 但是如果先修改了vue实例外对象，再修改vue的`computed`，那么vue实例外部对象的值也会重新渲染。
+`computed`范围在vue实例内，修改vue实例外部对象，不会重新计算渲染。
+但是如果先修改了vue实例外对象，再修改vue的`computed`，那么vue实例外部对象的值也会重新渲染。
 
 ```html
         <div id="app">
@@ -539,16 +536,16 @@ var vm = new Vue({
         </script>
 ```
 
-> `computed`通常监听多个变量，watch监听数据变化，一般只监听一个变量或数组。
-> watch(`异步场景`)，computed(`数据联动`)
+`computed`通常监听多个变量，watch监听数据变化，一般只监听一个变量或数组。
+watch(`异步场景`)，computed(`数据联动`)
 
 ### 3.5. 条件判断
 
 #### 3.5.0. v-if、v-else、v-else-if
 
-> v-if用于条件判断，判断DOM元素是否显示。
-> v-if的变量值为**布尔值**，为true才渲染DOM
-> v-if、v-else、v-else-if联合使用相当于if、elseif、else，但是在条件比较多的时候建议使用计算属性。 
+v-if用于条件判断，判断DOM元素是否显示。
+v-if的变量值为**布尔值**，为true才渲染DOM
+v-if、v-else、v-else-if联合使用相当于if、elseif、else，但是在条件比较多的时候建议使用计算属性。 
 
 ```html
   <div id="app">
@@ -573,7 +570,7 @@ var vm = new Vue({
 
 #### 3.5.1. v-if的示例
 
-> 点击按钮切换登录方式的示例
+点击按钮切换登录方式的示例
 
 ```html
 <div id="app">
@@ -598,25 +595,25 @@ var vm = new Vue({
   </script>
 ```
 
-> 该示例使用`v-if`和`v-else`选择渲染指定的Dom，点击按钮对`isUser`变量取反。
-> 存在的问题：切换输入框后，输入框未自动清空
+该示例使用`v-if`和`v-else`选择渲染指定的Dom，点击按钮对`isUser`变量取反。
+存在的问题：切换输入框后，输入框未自动清空
 
-> 解决方式：给对应的dom元素加上`key`值，并保证`key`不同。
+解决方式：给对应的dom元素加上`key`值，并保证`key`不同。
 
 ```html
 <input type="text" id="username" placeholder="请输入用户名" key="username">
 <input type="text" id="email" placeholder="请输入用户邮箱" key="email">
 ```
 
-> 出现问题的原因：`input`输入框被复用了
->
-> 1. vue在进行DOM渲染是，处于性能考虑，会复用已经存在的元素，而不是每次都创建新的DOM元素。
-> 2. 在上面demo中，Vue内部发现原来的input元素不再使用，所以直接将其映射对应虚拟DOM，用来复用。
+出现问题的原因：`input`输入框被复用了
+
+1. vue在进行DOM渲染是，处于性能考虑，会复用已经存在的元素，而不是每次都创建新的DOM元素。
+2. 在上面demo中，Vue内部发现原来的input元素不再使用，所以直接将其映射对应虚拟DOM，用来复用。
 
 #### 3.5.2. v-show
 
-> `v-show`的变量也是布尔值，为true才显示内容，类似CSS的`display` 
-> `v-show`看似和`v-if`实现一样的效果，但是内部`v-show`只是用css将操作的元素**隐藏显示**，而`v-if`是新增和删除元素。
+`v-show`的变量也是布尔值，为true才显示内容，类似CSS的`display` 
+`v-show`看似和`v-if`实现一样的效果，但是内部`v-show`只是用css将操作的元素**隐藏显示**，而`v-if`是新增和删除元素。
 
 ```html
   <div id="app">
@@ -661,8 +658,8 @@ var vm = new Vue({
 		</script>
 ```
 
-> 一般情况下，需要使用索引值。
-> `<li v-for="(item,index) in names" >{&#123;index+":"+item&#125;}</li>`index表示**索引**，item表示当前遍**历的元素**。
+一般情况下，需要使用索引值。
+`<li v-for="(item,index) in names" >{&#123;index+":"+item&#125;}</li>`index表示**索引**，item表示当前遍**历的元素**。
 
 #### 3.6.1. v-for遍历对象
 
@@ -695,14 +692,14 @@ var vm = new Vue({
 			</script>
 ```
 
-> `item`是当前对象的属性值，`index`是索引(下标)，`key`是当前对象的属性名
+`item`是当前对象的属性值，`index`是索引(下标)，`key`是当前对象的属性名
 
 #### 3.6.2. v-for使用key
 
 #### 3.6.3. 数组的响应方式
 
-> 1. btn2按钮是通过索引值修改数组的值，这种情况，数组letters变化，**DOM不会变化**。
-> 2. 而数组的方法，例如`push()`、`pop()`、`shift()`、`unshift()`、`splice()`、`sort()`、`reverse()`等方法修改数组的数据，**DOM元素会随之修改**。
+1. btn2按钮是通过索引值修改数组的值，这种情况，数组letters变化，**DOM不会变化**。
+2. 而数组的方法，例如`push()`、`pop()`、`shift()`、`unshift()`、`splice()`、`sort()`、`reverse()`等方法修改数组的数据，**DOM元素会随之修改**。
 
 ```html
   <div id="app">
