@@ -34,7 +34,7 @@
 <meta property="og:image" content="http://yoursite.com/2020/04/25/%E7%AC%94%E8%AE%B0-Maven/%E8%B7%AF%E5%BE%84%E6%9C%80%E7%9F%AD%E8%80%85%E4%BC%98%E5%85%88.png">
 <meta property="og:image" content="http://yoursite.com/2020/04/25/%E7%AC%94%E8%AE%B0-Maven/%E8%B7%AF%E5%BE%84%E6%9C%80%E7%9F%AD%E8%80%85%E4%BC%98%E5%85%88.png">
 <meta property="article:published_time" content="2020-04-25T10:52:24.000Z">
-<meta property="article:modified_time" content="2020-05-07T10:57:52.450Z">
+<meta property="article:modified_time" content="2020-05-09T09:27:04.479Z">
 <meta property="article:author" content="纸人">
 <meta property="article:tag" content="Maven">
 <meta name="twitter:card" content="summary">
@@ -236,7 +236,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-05-07 18:57:52" itemprop="dateModified" datetime="2020-05-07T18:57:52+08:00">2020-05-07</time>
+                <time title="修改时间：2020-05-09 17:27:04" itemprop="dateModified" datetime="2020-05-09T17:27:04+08:00">2020-05-09</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -262,16 +262,9 @@
         <p>Maven的介绍及使用</p>
 <a id="more"></a>
 
-<h1 id="Maven"><a href="#Maven" class="headerlink" title="Maven"></a>Maven</h1><p>##0. Maven简述</p>
-<blockquote>
-<p>Maven,是一个基于Java平台的自动化构建工具。</p>
-</blockquote>
-<p>##1. Maven构建的几个主要环节：</p>
-<blockquote>
-<p>①<strong>清理</strong>：删除以前的编译结果，为重新编译做好准备。<br>②<strong>编译</strong>：将 Java 源程序编译为字节码文件。<br>③<strong>测试</strong>：针对项目中的关键点进行测试，确保项目在迭代开发过程中关键点的正确性。 ④<strong>报告</strong>：在每一次测试后以标准的格式记录和展示测试结果。<br>⑤<strong>打包</strong>：将一个包含诸多文件的工程封装为一个压缩文件用于安装或部署。Java 工程对应 jar 包，Web 工程对应 war 包。<br>⑥<strong>安装</strong>：在 Maven 环境下特指将打包的结果——jar 包或 war 包安装到本地仓库中。<br>⑦<strong>部署</strong>：将打包的结果部署到远程仓库或将 war 包部署到服务器上运行</p>
-</blockquote>
-<p>##2. Maven仓库</p>
-<h3 id="2-0-本地仓库"><a href="#2-0-本地仓库" class="headerlink" title="2.0. 本地仓库"></a>2.0. 本地仓库</h3><ul>
+<h1 id="Maven"><a href="#Maven" class="headerlink" title="Maven"></a>Maven</h1><h2 id="0-Maven简述"><a href="#0-Maven简述" class="headerlink" title="0. Maven简述"></a>0. Maven简述</h2><p>Maven,是一个基于Java平台的自动化构建工具。</p>
+<h2 id="1-Maven构建的几个主要环节："><a href="#1-Maven构建的几个主要环节：" class="headerlink" title="1. Maven构建的几个主要环节："></a>1. Maven构建的几个主要环节：</h2><p>①<strong>清理</strong>：删除以前的编译结果，为重新编译做好准备。<br>②<strong>编译</strong>：将 Java 源程序编译为字节码文件。<br>③<strong>测试</strong>：针对项目中的关键点进行测试，确保项目在迭代开发过程中关键点的正确性。 ④<strong>报告</strong>：在每一次测试后以标准的格式记录和展示测试结果。<br>⑤<strong>打包</strong>：将一个包含诸多文件的工程封装为一个压缩文件用于安装或部署。Java 工程对应 jar 包，Web 工程对应 war 包。<br>⑥<strong>安装</strong>：在 Maven 环境下特指将打包的结果——jar 包或 war 包安装到本地仓库中。<br>⑦<strong>部署</strong>：将打包的结果部署到远程仓库或将 war 包部署到服务器上运行</p>
+<h2 id="2-Maven仓库"><a href="#2-Maven仓库" class="headerlink" title="2. Maven仓库"></a>2. Maven仓库</h2><h3 id="2-0-本地仓库"><a href="#2-0-本地仓库" class="headerlink" title="2.0. 本地仓库"></a>2.0. 本地仓库</h3><ul>
 <li>默认地址为<strong>~\.m2\repository</strong></li>
 </ul>
 <ul>
@@ -280,34 +273,22 @@
 
 </li>
 </ul>
-<p>###2.1. 远程仓库(私服)</p>
-<p>###2.2. 中央仓库</p>
-<p>###中央仓库的镜像</p>
-<blockquote>
-<p>架设在各个大洲，为中央仓库分担流量。减轻中央仓库的压力，同时更快的响应用户请求。</p>
-</blockquote>
-<p>##3. Maven下的项目标准目录</p>
-<p>###3.0. Java项目目录</p>
-<ul>
+<h3 id="2-1-远程仓库-私服"><a href="#2-1-远程仓库-私服" class="headerlink" title="2.1. 远程仓库(私服)"></a>2.1. 远程仓库(私服)</h3><h3 id="2-2-中央仓库"><a href="#2-2-中央仓库" class="headerlink" title="2.2. 中央仓库"></a>2.2. 中央仓库</h3><h4 id="中央仓库的镜像"><a href="#中央仓库的镜像" class="headerlink" title="中央仓库的镜像"></a>中央仓库的镜像</h4><p>架设在各个大洲，为中央仓库分担流量。减轻中央仓库的压力，同时更快的响应用户请求。</p>
+<h2 id="3-Maven下的项目标准目录"><a href="#3-Maven下的项目标准目录" class="headerlink" title="3. Maven下的项目标准目录"></a>3. Maven下的项目标准目录</h2><h3 id="3-0-Java项目目录"><a href="#3-0-Java项目目录" class="headerlink" title="3.0. Java项目目录"></a>3.0. Java项目目录</h3><ul>
 <li>src/main/java：核心代码部分</li>
 <li>src/main/resources：配置文件部分</li>
 <li>src/test/java：测试代码部分</li>
 <li>src/test/resources：测试配置文件部分</li>
 </ul>
-<p>###3.1.  Java-Web项目目录</p>
-<ul>
+<h3 id="3-1-Java-Web项目目录"><a href="#3-1-Java-Web项目目录" class="headerlink" title="3.1.  Java-Web项目目录"></a>3.1.  Java-Web项目目录</h3><ul>
 <li>src/main/java：核心代码部分</li>
 <li>src/main/resources：配置文件部分</li>
 <li>src/test/java：测试代码部分</li>
 <li>src/test/resources：测试配置文件部分\</li>
 <li>src/main/webapp：页面资源部分</li>
 </ul>
-<p>##4. POM</p>
-<blockquote>
-<p>Project Object Model：项目对象模型。将 Java 工程的相关信息封装为对象作为便于操作和管理的模型。 Maven 工程的核心配置。可以说学习 Maven 就是学习 pom.xml 文件中的配置。</p>
-</blockquote>
-<p>##5. Maven坐标</p>
-<p>使用如下三个向量在 Maven 的仓库中唯一的确定一个 Maven 工程。</p>
+<h2 id="4-POM"><a href="#4-POM" class="headerlink" title="4. POM"></a>4. POM</h2><p>Project Object Model：项目对象模型。将 Java 工程的相关信息封装为对象作为便于操作和管理的模型。 Maven 工程的核心配置。可以说学习 Maven 就是学习 pom.xml 文件中的配置。</p>
+<h2 id="5-Maven坐标"><a href="#5-Maven坐标" class="headerlink" title="5. Maven坐标"></a>5. Maven坐标</h2><p>使用如下三个向量在 Maven 的仓库中唯一的确定一个 Maven 工程。</p>
 <ul>
 <li><strong>groupId</strong>：公司或组织的域名倒序+当前项目名称 </li>
 <li><strong>artifactId</strong>：当前项目的模块名称 </li>
@@ -316,25 +297,15 @@
 <p>例：</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.xxx.maven<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span>  </span><br><span class="line"><span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>Hello<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">version</span>&gt;</span>0.0.1-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-<p>###如何通过坐标到仓库中查找 jar 包?</p>
-<p>####1. 将 gav 三个向量连起来 </p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">com.xxx.maven+Hello+0.0.1-SNAPSHOT</span><br></pre></td></tr></table></figure>
+<h3 id="如何通过坐标到仓库中查找-jar-包"><a href="#如何通过坐标到仓库中查找-jar-包" class="headerlink" title="如何通过坐标到仓库中查找 jar 包?"></a>如何通过坐标到仓库中查找 jar 包?</h3><h4 id="1-将-gav-三个向量连起来"><a href="#1-将-gav-三个向量连起来" class="headerlink" title="1. 将 gav 三个向量连起来"></a>1. 将 gav 三个向量连起来</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">com.xxx.maven+Hello+0.0.1-SNAPSHOT</span><br></pre></td></tr></table></figure>
 
-<p>####2. 将连起来的字符串作为目录结构到仓库中查找</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">com/xxx/maven/Hello/0.0.1-SNAPSHOT/Hello-0.0.1-SNAPSHOT.jar</span><br></pre></td></tr></table></figure>
+<h4 id="2-将连起来的字符串作为目录结构到仓库中查找"><a href="#2-将连起来的字符串作为目录结构到仓库中查找" class="headerlink" title="2. 将连起来的字符串作为目录结构到仓库中查找"></a>2. 将连起来的字符串作为目录结构到仓库中查找</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">com/xxx/maven/Hello/0.0.1-SNAPSHOT/Hello-0.0.1-SNAPSHOT.jar</span><br></pre></td></tr></table></figure>
 
-<p>##6. 依赖</p>
-<blockquote>
-<p>当 A jar 包用到了 B jar 包中的某些类时，A 就对 B 产生了依赖。</p>
-</blockquote>
-<p>###6.0. 引入方式</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.atguigu.maven<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>Hello<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>0.0.1-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">scope</span>&gt;</span>compile<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="6-依赖"><a href="#6-依赖" class="headerlink" title="6. 依赖"></a>6. 依赖</h2><p>当 A jar 包用到了 B jar 包中的某些类时，A 就对 B 产生了依赖。</p>
+<h3 id="6-0-引入方式"><a href="#6-0-引入方式" class="headerlink" title="6.0. 引入方式"></a>6.0. 引入方式</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.atguigu.maven<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>Hello<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>0.0.1-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">scope</span>&gt;</span>compile<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-<p>###6.1. 依赖范围</p>
-<blockquote>
-<p>依赖信息中的 scope 设置，就是依赖的范围。</p>
+<h3 id="6-1-依赖范围"><a href="#6-1-依赖范围" class="headerlink" title="6.1. 依赖范围"></a>6.1. 依赖范围</h3><p>依赖信息中的 scope 设置，就是依赖的范围。</p>
 <p>常用的有：complie、test、provided</p>
-</blockquote>
 <p>complie和test的简单区别图示：</p>
 <p><img src="/2020/04/25/%E7%AC%94%E8%AE%B0-Maven/complie%E5%92%8Ctest%E7%9A%84%E5%8C%BA%E5%88%AB%E5%9B%BE.png" alt="complie、test"></p>
 <p>complie和provided的简单区别图示：</p>
@@ -368,8 +339,7 @@
 <td align="center">×</td>
 </tr>
 </tbody></table>
-<p>###6.2. 依赖的传递性</p>
-<p>A 依赖 B，B 依赖 C，A和C的依赖关系如下表：</p>
+<h3 id="6-2-依赖的传递性"><a href="#6-2-依赖的传递性" class="headerlink" title="6.2. 依赖的传递性"></a>6.2. 依赖的传递性</h3><p>A 依赖 B，B 依赖 C，A和C的依赖关系如下表：</p>
 <table>
 <thead>
 <tr>
@@ -411,44 +381,25 @@
 </tbody></table>
 <p><strong>最左一列为直接依赖</strong>，理解为 A 依赖 B 的范围。<strong>最顶层一行为为传递依赖</strong>，理解为 B<br>依赖 C 的范围，行与列的交叉即为 A传递依赖 C的范围。</p>
 <p><strong>解释</strong>：</p>
-<blockquote>
 <p>比如 A 对 B 有 compile 依赖，B 对 C 有 runtime 依赖，那么根据表格所示 A 对 C 有runtime 依赖。 </p>
-</blockquote>
-<p>###6.3. 依赖的排除</p>
-<blockquote>
-<p>在当前工程中引入了一个依赖是A，而 A 又依赖了 B，那么 Maven 会自动将 A 依赖的 B 引入当前工程，但是个别情况下 B 有可能是一个不稳定版，或对当前工程有不良影响。这时我们可以在引入 A 的时 候将 B 排除。</p>
-</blockquote>
-<blockquote>
+<h3 id="6-3-依赖的排除"><a href="#6-3-依赖的排除" class="headerlink" title="6.3. 依赖的排除"></a>6.3. 依赖的排除</h3><p>在当前工程中引入了一个依赖是A，而 A 又依赖了 B，那么 Maven 会自动将 A 依赖的 B 引入当前工程，但是个别情况下 B 有可能是一个不稳定版，或对当前工程有不良影响。这时我们可以在引入 A 的时 候将 B 排除。</p>
 <p>注：如果X.jar 依赖于Y.jar，但是在引入X.jar之前  已经存在了Y.jar，则maven不会再在 引入X.jar时 引入Y.jar</p>
-</blockquote>
 <p>例：</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span>      </span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.atguigu.maven<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>HelloFriend<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>0.0.1-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">type</span>&gt;</span>jar<span class="tag">&lt;/<span class="name">type</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">scope</span>&gt;</span>compile<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">    </span><br><span class="line">    <span class="tag">&lt;<span class="name">exclusions</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">exclusion</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>commons-logging<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>commons-logging<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">exclusion</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">exclusions</span>&gt;</span></span><br><span class="line">    </span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-<p>###6.4. 统一管理所依赖 jar 包的版本</p>
-<blockquote>
-<p>对同一个框架的一组 jar 包最好使用相同的版本。为了方便升级框架，可以将 jar 包的版本信息统一提取出来</p>
-</blockquote>
-<p>####统一声明版本号</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">xxx.spring.version</span>&gt;</span>4.1.1.RELEASE<span class="tag">&lt;/<span class="name">xxx.spring.version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="6-4-统一管理所依赖-jar-包的版本"><a href="#6-4-统一管理所依赖-jar-包的版本" class="headerlink" title="6.4. 统一管理所依赖 jar 包的版本"></a>6.4. 统一管理所依赖 jar 包的版本</h3><p>对同一个框架的一组 jar 包最好使用相同的版本。为了方便升级框架，可以将 jar 包的版本信息统一提取出来</p>
+<h4 id="统一声明版本号"><a href="#统一声明版本号" class="headerlink" title="统一声明版本号"></a>统一声明版本号</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">xxx.spring.version</span>&gt;</span>4.1.1.RELEASE<span class="tag">&lt;/<span class="name">xxx.spring.version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-<p>####引用前面声明的版本号</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-core<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;xxx.spring.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span> …… </span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="引用前面声明的版本号"><a href="#引用前面声明的版本号" class="headerlink" title="引用前面声明的版本号"></a>引用前面声明的版本号</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-core<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;xxx.spring.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span> …… </span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-<p>###6.5. 依赖原则</p>
-<p>####路径最短者优先</p>
-<p><img src="/2020/04/25/%E7%AC%94%E8%AE%B0-Maven/%E8%B7%AF%E5%BE%84%E6%9C%80%E7%9F%AD%E8%80%85%E4%BC%98%E5%85%88.png" alt="最短者优先"></p>
-<p>####路径长度相同时</p>
-<ul>
+<h3 id="6-5-依赖原则"><a href="#6-5-依赖原则" class="headerlink" title="6.5. 依赖原则"></a>6.5. 依赖原则</h3><h4 id="路径最短者优先"><a href="#路径最短者优先" class="headerlink" title="路径最短者优先"></a>路径最短者优先</h4><p><img src="/2020/04/25/%E7%AC%94%E8%AE%B0-Maven/%E8%B7%AF%E5%BE%84%E6%9C%80%E7%9F%AD%E8%80%85%E4%BC%98%E5%85%88.png" alt="最短者优先"></p>
+<h4 id="路径长度相同时"><a href="#路径长度相同时" class="headerlink" title="路径长度相同时"></a>路径长度相同时</h4><ul>
 <li>在同一个pom.xml文件中有2个相同的依赖（覆盖）：后面声明的依赖 会覆盖前面声明的依赖 （<strong>严禁使用本情况，严禁在同一个pom中声明2个版本不同的依赖</strong>）</li>
 <li>如果是不同的 pom.xml中有2个相同的依赖（优先）：则先声明的依赖 ，会覆盖后声明的依赖</li>
 </ul>
-<p>####路径相同时先声明者优先</p>
-<blockquote>
-<p>这里“<strong>声明</strong>”的先后顺序指的是 dependency 标签配置的先后顺序。 </p>
-</blockquote>
+<h5 id="路径相同时先声明者优先"><a href="#路径相同时先声明者优先" class="headerlink" title="路径相同时先声明者优先"></a>路径相同时先声明者优先</h5><p>这里“<strong>声明</strong>”的先后顺序指的是 dependency 标签配置的先后顺序。 </p>
 <p><img src="/2020/04/25/%E7%AC%94%E8%AE%B0-Maven/%E8%B7%AF%E5%BE%84%E6%9C%80%E7%9F%AD%E8%80%85%E4%BC%98%E5%85%88.png" alt="路径相同"></p>
-<p>###6.6. 多个maven项目（模块）之间如何依赖</p>
-<p>p项目 依赖于 q项目</p>
+<h3 id="6-6-多个maven项目（模块）之间如何依赖"><a href="#6-6-多个maven项目（模块）之间如何依赖" class="headerlink" title="6.6. 多个maven项目（模块）之间如何依赖"></a>6.6. 多个maven项目（模块）之间如何依赖</h3><p>p项目 依赖于 q项目</p>
 <ul>
 <li><p><strong>先</strong>p项目 install 到本地仓库</p>
 </li>
@@ -466,9 +417,7 @@
 <li>②Default Lifecycle 构建的核心部分，编译，测试，打包，安装，部署等等。 </li>
 <li>③Site Lifecycle 生成项目报告，站点，发布站点</li>
 </ul>
-<blockquote>
 <p>每套生命周期都由一组<strong>阶段</strong>(Phase)组成，我们平时在命令行输入的命令总会对应于一个特定的阶段。比 如，运行 mvn clean，这个 clean 是 Clean 生命周期的一个阶段。有 Clean 生命周期，也有 clean 阶段。</p>
-</blockquote>
 </li>
 </ul>
 <h3 id="7-1-Clean-生命周期"><a href="#7-1-Clean-生命周期" class="headerlink" title="7.1. Clean 生命周期"></a>7.1. Clean 生命周期</h3><p><strong>Clean 生命周期</strong>一共包含了三个阶段：</p>
@@ -485,57 +434,31 @@
 <li><p>③post-site 执行一些需要在生成站点文档之后完成的工作，并且为部署做准备 </p>
 </li>
 <li><p>④site-deploy 将生成的站点文档部署到特定的服务器上</p>
-<blockquote>
 <p>经常用到的是 <strong>site</strong> 阶段和 <strong>site-deploy</strong> 阶段，用以生成和发布 Maven 站点。是 Maven 相当强大 的功能，Manager 比较喜欢，文档及统计数据自动生成，很好看。 </p>
-</blockquote>
 </li>
 </ul>
-<h3 id="7-3-Default-生命周期"><a href="#7-3-Default-生命周期" class="headerlink" title="7.3. Default 生命周期"></a>7.3. Default 生命周期</h3><blockquote>
-<p>Default 生命周期是 Maven 生命周期中最重要的一个，绝大部分工作都发生在这个生命周期中。只解释一些比较重要和常用的阶段。</p>
-</blockquote>
+<h3 id="7-3-Default-生命周期"><a href="#7-3-Default-生命周期" class="headerlink" title="7.3. Default 生命周期"></a>7.3. Default 生命周期</h3><p>Default 生命周期是 Maven 生命周期中最重要的一个，绝大部分工作都发生在这个生命周期中。只解释一些比较重要和常用的阶段。</p>
 <p>validate<br>generate-sources<br>process-sources<br>generate-resources<br>process-resources 复制并处理资源文件，至目标目录，准备打包。<br><strong>compile</strong> 编译项目的源代码。<br>process-classes<br>generate-test-sources<br>process-test-sources<br>generate-test-resources<br>process-test-resources 复制并处理资源文件，至目标测试目录。<br>test-compile 编译测试源代码。<br>process-test-classes<br><strong>test</strong> 使用合适的单元测试框架运行测试。这些测试代码不会被打包或部署。<br>prepare-package package 接受编译好的代码，打包成可发布的格式，如 JAR。<br>pre-integration-test<br>integration-test<br>post-integration-test<br>verify<br><strong>install</strong> 将包安装至本地仓库，以让其它项目依赖。<br><strong>deploy</strong> 将最终的包复制到远程的仓库，以让其它开发人员与项目共享或部署到服务器上运行。 </p>
-<h4 id="7-4-生命周期与自动化构建"><a href="#7-4-生命周期与自动化构建" class="headerlink" title="7.4. 生命周期与自动化构建"></a>7.4. 生命周期与自动化构建</h4><blockquote>
-<p>运行任何一个阶段的时候，它前面的所有阶段都会被运行。</p>
-</blockquote>
-<h2 id="8-继承"><a href="#8-继承" class="headerlink" title="8. 继承"></a>8. 继承</h2><blockquote>
-<p>非 compile 范围的依赖信息是不能在“依赖链”中传递的。<br>要想项目的<strong>各个模块版本能够统一</strong>，使用继承机制就可以将依赖信息<strong>统一提取</strong>到父工程模块中进行统一管理。 </p>
-</blockquote>
-<blockquote>
-<p>通常继承和聚合同时使用。</p>
-</blockquote>
-<h3 id="8-0-设置步骤"><a href="#8-0-设置步骤" class="headerlink" title="8.0. 设置步骤"></a>8.0. 设置步骤</h3><h4 id="8-0-0-创建父工程"><a href="#8-0-0-创建父工程" class="headerlink" title="8.0.0. 创建父工程"></a>8.0.0. 创建父工程</h4><blockquote>
-<p>创建父工程和创建一般的 Java 工程操作一致，唯一需要注意的是：打包方式处要设置为 <strong>pom</strong>。 </p>
-</blockquote>
+<h4 id="7-4-生命周期与自动化构建"><a href="#7-4-生命周期与自动化构建" class="headerlink" title="7.4. 生命周期与自动化构建"></a>7.4. 生命周期与自动化构建</h4><p>运行任何一个阶段的时候，它前面的所有阶段都会被运行。</p>
+<h2 id="8-继承"><a href="#8-继承" class="headerlink" title="8. 继承"></a>8. 继承</h2><p>非 compile 范围的依赖信息是不能在“依赖链”中传递的。<br>要想项目的<strong>各个模块版本能够统一</strong>，使用继承机制就可以将依赖信息<strong>统一提取</strong>到父工程模块中进行统一管理。 </p>
+<p><strong>通常继承和聚合同时使用</strong>。</p>
+<h3 id="8-0-设置步骤"><a href="#8-0-设置步骤" class="headerlink" title="8.0. 设置步骤"></a>8.0. 设置步骤</h3><h4 id="8-0-0-创建父工程"><a href="#8-0-0-创建父工程" class="headerlink" title="8.0.0. 创建父工程"></a>8.0.0. 创建父工程</h4><p>创建父工程和创建一般的 Java 工程操作一致，唯一需要注意的是：打包方式处要设置为 <strong>pom</strong>。 </p>
 <h3 id="8-0-1-在子工程的pom-xml文件中引用父工程"><a href="#8-0-1-在子工程的pom-xml文件中引用父工程" class="headerlink" title="8.0.1.  在子工程的pom.xml文件中引用父工程"></a>8.0.1.  在子工程的pom.xml文件中引用父工程</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">parent</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.atguigu.maven<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>Parent<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span><span class="tag">&lt;<span class="name">version</span>&gt;</span>0.0.1-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 指定从当前子工程的pom.xml文件出发，查找父工程的pom.xml的路径 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">relativePath</span>&gt;</span>../Parent/pom.xml<span class="tag">&lt;/<span class="name">relativePath</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">parent</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-<blockquote>
 <p>如果子工程的 <strong>groupId</strong> 和 <strong>version</strong> 和父工程重复则可以删除。 </p>
-</blockquote>
-<h3 id="8-0-2-在父工程中管理依赖"><a href="#8-0-2-在父工程中管理依赖" class="headerlink" title="8.0.2. 在父工程中管理依赖"></a>8.0.2. 在父工程中管理依赖</h3><blockquote>
-<p>父工程的pom文件中设置，将 Parent 项目中的 <strong>dependencies</strong> 标签，用 <strong>dependencyManagement</strong> 标签括起来。</p>
-</blockquote>
+<h3 id="8-0-2-在父工程中管理依赖"><a href="#8-0-2-在父工程中管理依赖" class="headerlink" title="8.0.2. 在父工程中管理依赖"></a>8.0.2. 在父工程中管理依赖</h3><p>父工程的pom文件中设置，将 Parent 项目中的 <strong>dependencies</strong> 标签，用 <strong>dependencyManagement</strong> 标签括起来。</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependencyManagement</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>4.9<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencyManagement</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-<h3 id="8-0-3-子项目中重新指定需要的依赖"><a href="#8-0-3-子项目中重新指定需要的依赖" class="headerlink" title="8.0.3. 子项目中重新指定需要的依赖"></a>8.0.3. 子项目中重新指定需要的依赖</h3><blockquote>
-<p>子工程的pom.xml文件中设置，需要删除<strong>范围</strong>和<strong>版本号</strong></p>
-</blockquote>
+<h3 id="8-0-3-子项目中重新指定需要的依赖"><a href="#8-0-3-子项目中重新指定需要的依赖" class="headerlink" title="8.0.3. 子项目中重新指定需要的依赖"></a>8.0.3. 子项目中重新指定需要的依赖</h3><p>子工程的pom.xml文件中设置，需要删除<strong>范围</strong>和<strong>版本号</strong></p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-<h3 id="8-0-4-注意"><a href="#8-0-4-注意" class="headerlink" title="8.0.4. 注意"></a>8.0.4. 注意</h3><blockquote>
-<p>配置继承后，执行安装命令时要先安装父工程</p>
-</blockquote>
-<h2 id="9-聚合"><a href="#9-聚合" class="headerlink" title="9. 聚合"></a>9. 聚合</h2><blockquote>
-<p>使用了聚合之后就可以<strong>批量</strong>进行 Maven工程的安装、清理工作。 </p>
-</blockquote>
-<h3 id="9-0-配置聚合"><a href="#9-0-配置聚合" class="headerlink" title="9.0. 配置聚合"></a>9.0. 配置聚合</h3><blockquote>
-<p>在总的聚合工程中使用 modules/module 标签组合，指定模块工程的相对路径即可 </p>
-</blockquote>
+<h3 id="8-0-4-注意"><a href="#8-0-4-注意" class="headerlink" title="8.0.4. 注意"></a>8.0.4. 注意</h3><p>配置继承后，执行安装命令时要先安装父工程</p>
+<h2 id="9-聚合"><a href="#9-聚合" class="headerlink" title="9. 聚合"></a>9. 聚合</h2><p>使用了聚合之后就可以<strong>批量</strong>进行 Maven工程的安装、清理工作。 </p>
+<h3 id="9-0-配置聚合"><a href="#9-0-配置聚合" class="headerlink" title="9.0. 配置聚合"></a>9.0. 配置聚合</h3><p>在总的聚合工程中使用 modules/module 标签组合，指定模块工程的相对路径即可 </p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">modules</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">module</span>&gt;</span>../Hello<span class="tag">&lt;/<span class="name">module</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">module</span>&gt;</span>../HelloFriend<span class="tag">&lt;/<span class="name">module</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">module</span>&gt;</span>../MakeFriends<span class="tag">&lt;/<span class="name">module</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">modules</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p>使用方式：在聚合工程的pom.xml文件上右键–&gt;run as–&gt;maven install</p>
-<h2 id="10-其他注意项"><a href="#10-其他注意项" class="headerlink" title="10. 其他注意项"></a>10. 其他注意项</h2><h3 id="10-0-修改Maven的JDK版本"><a href="#10-0-修改Maven的JDK版本" class="headerlink" title="10.0. 修改Maven的JDK版本"></a>10.0. 修改Maven的JDK版本</h3><blockquote>
-<p>在本地Maven的配置文件里改</p>
-</blockquote>
+<h2 id="10-其他注意项"><a href="#10-其他注意项" class="headerlink" title="10. 其他注意项"></a>10. 其他注意项</h2><h3 id="10-0-修改Maven的JDK版本"><a href="#10-0-修改Maven的JDK版本" class="headerlink" title="10.0. 修改Maven的JDK版本"></a>10.0. 修改Maven的JDK版本</h3><p>在本地Maven的配置文件里修改</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">profiles</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">profile</span>&gt;</span>  </span><br><span class="line">        <span class="tag">&lt;<span class="name">id</span>&gt;</span>jdk-18<span class="tag">&lt;/<span class="name">id</span>&gt;</span>  </span><br><span class="line">        <span class="tag">&lt;<span class="name">activation</span>&gt;</span>  </span><br><span class="line">            <span class="tag">&lt;<span class="name">activeByDefault</span>&gt;</span>true<span class="tag">&lt;/<span class="name">activeByDefault</span>&gt;</span>  </span><br><span class="line">            <span class="tag">&lt;<span class="name">jdk</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">jdk</span>&gt;</span>  </span><br><span class="line">        <span class="tag">&lt;/<span class="name">activation</span>&gt;</span>  </span><br><span class="line">        <span class="tag">&lt;<span class="name">properties</span>&gt;</span>  </span><br><span class="line">            <span class="tag">&lt;<span class="name">maven.compiler.source</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">maven.compiler.source</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">maven.compiler.target</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">maven.compiler.target</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">maven.compiler.compilerVersion</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">maven.compiler.compilerVersion</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">properties</span>&gt;</span>   </span><br><span class="line">    <span class="tag">&lt;/<span class="name">profile</span>&gt;</span>  </span><br><span class="line"><span class="tag">&lt;/<span class="name">profiles</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 
@@ -622,7 +545,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Maven"><span class="nav-text">Maven</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-0-本地仓库"><span class="nav-text">2.0. 本地仓库</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-Maven生命周期"><span class="nav-text">7. Maven生命周期</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#7-1-Clean-生命周期"><span class="nav-text">7.1. Clean 生命周期</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-2-Site-生命周期"><span class="nav-text">7.2. Site 生命周期</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-3-Default-生命周期"><span class="nav-text">7.3. Default 生命周期</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#7-4-生命周期与自动化构建"><span class="nav-text">7.4. 生命周期与自动化构建</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-继承"><span class="nav-text">8. 继承</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#8-0-设置步骤"><span class="nav-text">8.0. 设置步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#8-0-0-创建父工程"><span class="nav-text">8.0.0. 创建父工程</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-0-1-在子工程的pom-xml文件中引用父工程"><span class="nav-text">8.0.1.  在子工程的pom.xml文件中引用父工程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-0-2-在父工程中管理依赖"><span class="nav-text">8.0.2. 在父工程中管理依赖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-0-3-子项目中重新指定需要的依赖"><span class="nav-text">8.0.3. 子项目中重新指定需要的依赖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-0-4-注意"><span class="nav-text">8.0.4. 注意</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-聚合"><span class="nav-text">9. 聚合</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#9-0-配置聚合"><span class="nav-text">9.0. 配置聚合</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10-其他注意项"><span class="nav-text">10. 其他注意项</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#10-0-修改Maven的JDK版本"><span class="nav-text">10.0. 修改Maven的JDK版本</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Maven"><span class="nav-text">Maven</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#0-Maven简述"><span class="nav-text">0. Maven简述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Maven构建的几个主要环节："><span class="nav-text">1. Maven构建的几个主要环节：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Maven仓库"><span class="nav-text">2. Maven仓库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-0-本地仓库"><span class="nav-text">2.0. 本地仓库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-远程仓库-私服"><span class="nav-text">2.1. 远程仓库(私服)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-中央仓库"><span class="nav-text">2.2. 中央仓库</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#中央仓库的镜像"><span class="nav-text">中央仓库的镜像</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Maven下的项目标准目录"><span class="nav-text">3. Maven下的项目标准目录</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-0-Java项目目录"><span class="nav-text">3.0. Java项目目录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-Java-Web项目目录"><span class="nav-text">3.1.  Java-Web项目目录</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-POM"><span class="nav-text">4. POM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-Maven坐标"><span class="nav-text">5. Maven坐标</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#如何通过坐标到仓库中查找-jar-包"><span class="nav-text">如何通过坐标到仓库中查找 jar 包?</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-将-gav-三个向量连起来"><span class="nav-text">1. 将 gav 三个向量连起来</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-将连起来的字符串作为目录结构到仓库中查找"><span class="nav-text">2. 将连起来的字符串作为目录结构到仓库中查找</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-依赖"><span class="nav-text">6. 依赖</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#6-0-引入方式"><span class="nav-text">6.0. 引入方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-1-依赖范围"><span class="nav-text">6.1. 依赖范围</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-2-依赖的传递性"><span class="nav-text">6.2. 依赖的传递性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-3-依赖的排除"><span class="nav-text">6.3. 依赖的排除</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-4-统一管理所依赖-jar-包的版本"><span class="nav-text">6.4. 统一管理所依赖 jar 包的版本</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#统一声明版本号"><span class="nav-text">统一声明版本号</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#引用前面声明的版本号"><span class="nav-text">引用前面声明的版本号</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-5-依赖原则"><span class="nav-text">6.5. 依赖原则</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#路径最短者优先"><span class="nav-text">路径最短者优先</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#路径长度相同时"><span class="nav-text">路径长度相同时</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#路径相同时先声明者优先"><span class="nav-text">路径相同时先声明者优先</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-6-多个maven项目（模块）之间如何依赖"><span class="nav-text">6.6. 多个maven项目（模块）之间如何依赖</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-Maven生命周期"><span class="nav-text">7. Maven生命周期</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#7-1-Clean-生命周期"><span class="nav-text">7.1. Clean 生命周期</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-2-Site-生命周期"><span class="nav-text">7.2. Site 生命周期</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-3-Default-生命周期"><span class="nav-text">7.3. Default 生命周期</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#7-4-生命周期与自动化构建"><span class="nav-text">7.4. 生命周期与自动化构建</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-继承"><span class="nav-text">8. 继承</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#8-0-设置步骤"><span class="nav-text">8.0. 设置步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#8-0-0-创建父工程"><span class="nav-text">8.0.0. 创建父工程</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-0-1-在子工程的pom-xml文件中引用父工程"><span class="nav-text">8.0.1.  在子工程的pom.xml文件中引用父工程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-0-2-在父工程中管理依赖"><span class="nav-text">8.0.2. 在父工程中管理依赖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-0-3-子项目中重新指定需要的依赖"><span class="nav-text">8.0.3. 子项目中重新指定需要的依赖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-0-4-注意"><span class="nav-text">8.0.4. 注意</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-聚合"><span class="nav-text">9. 聚合</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#9-0-配置聚合"><span class="nav-text">9.0. 配置聚合</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10-其他注意项"><span class="nav-text">10. 其他注意项</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#10-0-修改Maven的JDK版本"><span class="nav-text">10.0. 修改Maven的JDK版本</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -696,7 +619,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共77.2k字</span>
+  <span class="post-count">博客全站共77.1k字</span>
 </div>
 
         

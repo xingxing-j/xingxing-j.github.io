@@ -31,7 +31,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://yoursite.com/2020/04/25/%E7%AC%94%E8%AE%B0-Redis/CAP%E7%90%86%E8%AE%BA%E5%9B%BE.bmp">
 <meta property="article:published_time" content="2020-04-24T19:21:29.000Z">
-<meta property="article:modified_time" content="2020-05-07T10:58:29.725Z">
+<meta property="article:modified_time" content="2020-05-09T09:19:20.647Z">
 <meta property="article:author" content="纸人">
 <meta property="article:tag" content="NoSQL">
 <meta property="article:tag" content="Redis">
@@ -234,7 +234,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-05-07 18:58:29" itemprop="dateModified" datetime="2020-05-07T18:58:29+08:00">2020-05-07</time>
+                <time title="修改时间：2020-05-09 17:19:20" itemprop="dateModified" datetime="2020-05-09T17:19:20+08:00">2020-05-09</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -260,38 +260,24 @@
         <p>NoSQL和Redis的基础了解</p>
 <a id="more"></a>
 
-<h1 id="NoSQL"><a href="#NoSQL" class="headerlink" title="NoSQL"></a>NoSQL</h1><blockquote>
-<p>not only SQL,泛指非关系型的数据库。NoSQL数据库都具有非常高的读写性能。无需事先为要存储的数据建立字段，随时可以存储自定义的数据格式。</p>
-</blockquote>
-<h2 id="0-NoSQL数据库的四大分类"><a href="#0-NoSQL数据库的四大分类" class="headerlink" title="0. NoSQL数据库的四大分类"></a>0. NoSQL数据库的四大分类</h2><blockquote>
-<p>KV键值；</p>
+<h1 id="NoSQL"><a href="#NoSQL" class="headerlink" title="NoSQL"></a>NoSQL</h1><p>not only SQL,泛指非关系型的数据库。NoSQL数据库都具有非常高的读写性能。无需事先为要存储的数据建立字段，随时可以存储自定义的数据格式。</p>
+<h2 id="0-NoSQL数据库的四大分类"><a href="#0-NoSQL数据库的四大分类" class="headerlink" title="0. NoSQL数据库的四大分类"></a>0. NoSQL数据库的四大分类</h2><p>KV键值；</p>
 <p>文档型数据库(bson格式)(CouchDB、MongoDB)；</p>
 <p>列存储数据库(Cassandra, HBase)；</p>
 <p>图关系数据库(Neo4J, InfoGrid)</p>
-</blockquote>
-<h2 id="1-CAP"><a href="#1-CAP" class="headerlink" title="1. CAP"></a>1. CAP</h2><blockquote>
-<p>Consistency(强一致性)，Availability(可用性)Partition tolerance(分区容错性)</p>
-</blockquote>
-<blockquote>
+<h2 id="1-CAP"><a href="#1-CAP" class="headerlink" title="1. CAP"></a>1. CAP</h2><p>Consistency(强一致性)，Availability(可用性)Partition tolerance(分区容错性)</p>
 <p>CAP理论：一个分布式系统不可能同时很好的满足一致性，可用性和分区容错性这三个需求，最多只能同时较好的<strong>满足两个</strong>。</p>
 <p>CA 传统Oracle数据库</p>
 <p>AP 大多数网站架构的选择</p>
 <p>CP Redis、Mongodb</p>
-</blockquote>
 <p>图示</p>
 <p><img src="/2020/04/25/%E7%AC%94%E8%AE%B0-Redis/CAP%E7%90%86%E8%AE%BA%E5%9B%BE.bmp" alt="CAP"></p>
-<h2 id="2-BASE"><a href="#2-BASE" class="headerlink" title="2. BASE"></a>2. BASE</h2><blockquote>
-<p>为了解决关系数据库强一致性引起的问题而引起的可用性降低而提出的解决方案</p>
+<h2 id="2-BASE"><a href="#2-BASE" class="headerlink" title="2. BASE"></a>2. BASE</h2><p>为了解决关系数据库强一致性引起的问题而引起的可用性降低而提出的解决方案</p>
 <p>基本可用（Basically Available）<br>软状态（Soft state）<br>最终一致（Eventually consistent）</p>
-</blockquote>
-<h2 id="3-分布式与集群"><a href="#3-分布式与集群" class="headerlink" title="3. 分布式与集群"></a>3. 分布式与集群</h2><blockquote>
-<p>简单来讲：</p>
+<h2 id="3-分布式与集群"><a href="#3-分布式与集群" class="headerlink" title="3. 分布式与集群"></a>3. 分布式与集群</h2><p>简单来讲：</p>
 <p>分布式：不同的多台服务器上面<strong>部署不同的服务模块</strong>（工程），他们之间通过Rpc/Rmi之间通信和调用，对外提供服务和组内协作。</p>
 <p>集群：不同的多台服务器上面<strong>部署相同的服务模块</strong>，通过分布式调度软件进行统一的调度，对外提供服务和访问。</p>
-</blockquote>
-<h1 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h1><h2 id="1-概述"><a href="#1-概述" class="headerlink" title="1. 概述"></a>1. 概述</h2><blockquote>
-<p>REmote DIctionary Server(远程字典服务器)。用C语言编写的一个高性能的(key/value)分布式内存数据库，基于内存运行，并支持持久化。</p>
-</blockquote>
+<h1 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h1><h2 id="1-概述"><a href="#1-概述" class="headerlink" title="1. 概述"></a>1. 概述</h2><p>Remote Dictionary Server(远程字典服务器)。用C语言编写的一个高性能的(key/value)分布式内存数据库，基于内存运行，并支持持久化。</p>
 <h2 id="2-特点"><a href="#2-特点" class="headerlink" title="2. 特点"></a>2. 特点</h2><ul>
 <li>支持数据的持久化，可以将内存中的数据保持在磁盘中，重启的时候可以再次加载进行使用</li>
 <li>不仅仅支持简单的key-value类型的数据，同时还提供list，set，zset，hash等数据结构的存储</li>
@@ -308,8 +294,7 @@
 <li><strong>Flushall命令</strong>通杀全部库</li>
 <li>Redis默认端口6379</li>
 </ul>
-<h2 id="4-Redis的数据类型"><a href="#4-Redis的数据类型" class="headerlink" title="4. Redis的数据类型"></a>4. Redis的数据类型</h2><p>###4.0. 常用的<code>key</code>命令</p>
-<ul>
+<h2 id="4-Redis的数据类型"><a href="#4-Redis的数据类型" class="headerlink" title="4. Redis的数据类型"></a>4. Redis的数据类型</h2><h3 id="4-0-常用的key命令"><a href="#4-0-常用的key命令" class="headerlink" title="4.0. 常用的key命令"></a>4.0. 常用的<code>key</code>命令</h3><ul>
 <li><strong>KEYS *</strong>：查看所有的<code>key</code></li>
 <li><strong>EXISTS key</strong>：判断指定的<code>key</code>是否存在</li>
 <li><strong>MOVE key db</strong> ：从当前的库中移除指定的<code>key</code>，将它移到指定的库(db)中</li>
@@ -317,8 +302,7 @@
 <li><strong>TTL key</strong>：查看指定的<code>key</code>还有多少秒过期。-1表示永不过期，-2表示已过期</li>
 <li><strong>TYPE key</strong>： 查看指定的<code>key</code>是什么类型</li>
 </ul>
-<p>###4.1. 其他的<code>key</code>命令</p>
-<ul>
+<h3 id="4-1-其他的key命令"><a href="#4-1-其他的key命令" class="headerlink" title="4.1. 其他的key命令"></a>4.1. 其他的<code>key</code>命令</h3><ul>
 <li><strong>DEL key</strong>：指定的<code>key</code>存在时，删除指定的<code>key</code></li>
 <li><strong>DUMP key</strong>：序列化指定的<code>key</code>，并返回被序列化的值</li>
 <li><strong>PERSIST key</strong>：移除<code>key</code>的过期时间</li>
@@ -330,17 +314,15 @@
 <li><strong>RENAME key newkey</strong>：修改<code>key</code>的名称</li>
 <li><strong>RANAMENX key newkey</strong>：仅当newkey不存在时，将<code>key</code>改名为newkey</li>
 </ul>
-<h3 id="4-2-String-字符串"><a href="#4-2-String-字符串" class="headerlink" title="4.2. String(字符串)"></a>4.2. String(字符串)</h3><blockquote>
-<p>string是redis最基本的类型，<strong>单key单value</strong>。<br>string类型是二进制安全的。可以包含任何数据。比如jpg图片或者序列化的对象 。<br>Redis中字符串value最多可以是512M</p>
-</blockquote>
+<h3 id="4-2-String-字符串"><a href="#4-2-String-字符串" class="headerlink" title="4.2. String(字符串)"></a>4.2. String(字符串)</h3><p>string是redis最基本的类型，<strong>单key单value</strong>。<br>string类型是二进制安全的。可以包含任何数据。比如jpg图片或者序列化的对象 。<br>Redis中字符串value最多可以是512M</p>
 <ul>
 <li><strong>SET key value</strong>：设置指定<code>key</code>的值</li>
 <li><strong>GET key</strong>：获取指定<code>key</code>的值</li>
 <li><strong>STRLEN key</strong>：返回<code>key</code>所存储的字符串的长度</li>
 <li><strong>APPEND key value</strong>：如果<code>key</code>已经存在，该命令会在末尾追加value</li>
+<li><strong>INCR key</strong>：将<code>key</code>中存储的<strong>数字值</strong>增1</li>
 </ul>
 <ul>
-<li><strong>INCR key</strong>：将<code>key</code>中存储的<strong>数字值</strong>增1</li>
 <li><strong>INCRBY key increment</strong>：将<code>key</code>所存储的值加上给定的增量值(increment)</li>
 <li><strong>INCRBYFLOAT key increment</strong>：将<code>key</code>所存储的值加上给定的浮点增量值(increment)</li>
 <li><strong>DECR key</strong>：将<code>key</code>中存储的数字值减1</li>
@@ -355,45 +337,35 @@
 <li><strong>GETSET key value</strong>：将指定的<code>key</code>的值设为value，并返回<code>key</code>的旧值(old value)</li>
 <li>……</li>
 </ul>
-<h3 id="4-3-List-列表"><a href="#4-3-List-列表" class="headerlink" title="4.3. List(列表)"></a>4.3. List(列表)</h3><blockquote>
-<p>Redis的列表是简单的字符串列表，按照插入顺序排序。<br>可以添加一个元素到列表的<strong>头部</strong>（左边）或者<strong>尾部</strong>（右边）。<br>底层实际是个链表。<br><strong>单key多value</strong></p>
-</blockquote>
+<h3 id="4-3-List-列表"><a href="#4-3-List-列表" class="headerlink" title="4.3. List(列表)"></a>4.3. List(列表)</h3><p>Redis的列表是简单的字符串列表，按照插入顺序排序。<br>可以添加一个元素到列表的<strong>头部</strong>（左边）或者<strong>尾部</strong>（右边）。<br>底层实际是个链表。<br><strong>单key多value</strong></p>
 <ul>
-<li><p><strong>LPUSH key value1[value2]</strong>：将一个值和多个值插入到列表头部</p>
-</li>
-<li><p><strong>LPUSHX key value</strong>：将一个或多个值插入到已存在的列表头部</p>
-</li>
-<li><p><strong>RPUSH key value1[value2]</strong>：在列表中添加一个或多个值</p>
-</li>
-<li><p><strong>RPUSHX key value</strong>：为已存在的列表添加值</p>
-</li>
-<li><p><strong>LRANGE key start stop</strong>：获取列表中指定范围的元素</p>
+<li><strong>LPUSH key value1[value2]</strong>：将一个值和多个值插入到列表头部</li>
+<li><strong>LPUSHX key value</strong>：将一个或多个值插入到已存在的列表头部</li>
+<li><strong>RPUSH key value1[value2]</strong>：在列表中添加一个或多个值</li>
+<li><strong>RPUSHX key value</strong>：为已存在的列表添加值</li>
+<li><strong>LRANGE key start stop</strong>：获取列表中指定范围的元素</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 0 -1表示获取列表所有的元素</span></span><br><span class="line">LRANGE list01 0 -1</span><br></pre></td></tr></table></figure>
+
 <ul>
-<li><pre><code class="shell"><span class="meta">#</span><span class="bash"> 0 -1表示获取列表所有的元素</span>
-LRANGE list01 0 -1
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- **LPOP key**：移除并获取列表**头部**的第一个元素</span><br><span class="line"></span><br><span class="line">- **RPOP key**：移除并获取列表**尾部**的第一个元素</span><br><span class="line"></span><br><span class="line">- **LINDEX key index**：通过**索引**获取列表中的元素</span><br><span class="line"></span><br><span class="line">- **LLEN key**：获取列表长度</span><br><span class="line"></span><br><span class="line">- **LREM key count value**：移除列表元素，即删除n个value</span><br><span class="line"></span><br><span class="line">  - &#96;&#96;&#96;shell</span><br><span class="line">    # 从左向右删除2个值等于v1的元素，返回的值为实际删除的数量</span><br><span class="line">    LREM list01 2 v1</span><br><span class="line">    # LREM list3 0 值，表示删除全部给定的值。零个就是全部值</span><br><span class="line">    LREM list3 0</span><br></pre></td></tr></table></figure></code></pre>
-</li>
+<li><strong>LPOP key</strong>：移除并获取列表<strong>头部</strong>的第一个元素</li>
+<li><strong>RPOP key</strong>：移除并获取列表<strong>尾部</strong>的第一个元素</li>
+<li><strong>LINDEX key index</strong>：通过<strong>索引</strong>获取列表中的元素</li>
+<li><strong>LLEN key</strong>：获取列表长度</li>
+<li><strong>LREM key count value</strong>：移除列表元素，即删除n个value</li>
 </ul>
-</li>
-<li><p><strong>LTRIM key start stop</strong>：对列表进行修剪，只保留指定索引间(闭区间)的元素，其余的删除</p>
-</li>
-<li><p><strong>RPOPLPUSH source destination</strong>：移除列表的最后一个元素，并将该元素添加到另一个列表的<strong>头部</strong></p>
-</li>
-<li><p><strong>LSET key index value</strong>：通过索引设置列表元素的值</p>
-</li>
-<li><p><strong>LINSERT key BEFORE|AFTER pivot value</strong>：在列表元素<strong>pivot</strong>的前后插入元素<strong>value</strong></p>
-</li>
-<li><p><strong>BLPOP key1 [key2] timeout</strong>：移除并获取列表<strong>头部</strong>的一个元素，如果列表没有该元素会阻塞列表直到<strong>超时</strong>或发现可弹出的元素为止</p>
-</li>
-<li><p><strong>BRPOP key1 [key2] timeout</strong>：移除并获取列表<strong>尾部</strong>的一个元素，如果列表没有该元素会阻塞列表直到<strong>超时</strong>或发现可弹出的元素为止</p>
-</li>
-<li><p><strong>BRPOPLPUSH source destination timeout</strong>：移除并获取列表<strong>尾部</strong>的一个元素，并将该元素插入到另一个列表的<strong>头部</strong>，如果列表没有该元素会阻塞列表直到<strong>超时</strong>或发现可弹出的元素为止</p>
-</li>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 从左向右删除2个值等于v1的元素，返回的值为实际删除的数量</span></span><br><span class="line">LREM list01 2 v1</span><br><span class="line"><span class="meta">#</span><span class="bash"> LREM list3 0 值，表示删除全部给定的值。零个就是全部值</span></span><br><span class="line">LREM list3 0</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>LTRIM key start stop</strong>：对列表进行修剪，只保留指定索引间(闭区间)的元素，其余的删除</li>
+<li><strong>RPOPLPUSH source destination</strong>：移除列表的最后一个元素，并将该元素添加到另一个列表的<strong>头部</strong></li>
+<li><strong>LSET key index value</strong>：通过索引设置列表元素的值</li>
+<li><strong>LINSERT key BEFORE|AFTER pivot value</strong>：在列表元素<strong>pivot</strong>的前后插入元素<strong>value</strong></li>
+<li><strong>BLPOP key1 [key2] timeout</strong>：移除并获取列表<strong>头部</strong>的一个元素，如果列表没有该元素会阻塞列表直到<strong>超时</strong>或发现可弹出的元素为止</li>
+<li><strong>BRPOP key1 [key2] timeout</strong>：移除并获取列表<strong>尾部</strong>的一个元素，如果列表没有该元素会阻塞列表直到<strong>超时</strong>或发现可弹出的元素为止</li>
+<li><strong>BRPOPLPUSH source destination timeout</strong>：移除并获取列表<strong>尾部</strong>的一个元素，并将该元素插入到另一个列表的<strong>头部</strong>，如果列表没有该元素会阻塞列表直到<strong>超时</strong>或发现可弹出的元素为止</li>
 </ul>
-<p>###4.4. Set</p>
-<blockquote>
-<p>Redis的Set是string类型的无序集合。它是通过HashTable实现实现的。<br>单值多value</p>
-</blockquote>
+<h3 id="4-4-Set"><a href="#4-4-Set" class="headerlink" title="4.4. Set"></a>4.4. Set</h3><p>Redis的Set是string类型的无序集合。它是通过HashTable实现实现的。<br><strong>单值多value</strong></p>
 <ul>
 <li><strong>SADD key value1 [value2]</strong>：向<code>key</code>中添加一个或多个value</li>
 <li><strong>SMEMBERS key</strong>：返回所有的<code>key</code></li>
@@ -408,9 +380,7 @@ LRANGE list01 0 -1
 <li><strong>SUNION key1 [key2]</strong>：返回<code>key1</code>和<code>key2</code>的并集</li>
 <li>……</li>
 </ul>
-<h3 id="4-5-Hash-哈希"><a href="#4-5-Hash-哈希" class="headerlink" title="4.5. Hash(哈希)"></a>4.5. Hash(哈希)</h3><blockquote>
-<p>KV模式，但V是一个或多个键值对。</p>
-</blockquote>
+<h3 id="4-5-Hash-哈希"><a href="#4-5-Hash-哈希" class="headerlink" title="4.5. Hash(哈希)"></a>4.5. Hash(哈希)</h3><p>KV模式，但V是一个或多个键值对。</p>
 <ul>
 <li><strong>HSET key field value</strong>：将<code>key</code>中的字段field的值设为value</li>
 <li><strong>HGET key field</strong>：获取指定<code>key</code>中的指定字段field的值</li>
@@ -426,86 +396,45 @@ LRANGE list01 0 -1
 <li><strong>HINCRBYFLOAT key field increment</strong>：为指定<code>key</code>中的<strong>指定字段</strong>field的<strong>浮点数值</strong>加上增量increment</li>
 <li><strong>HSETNX key field value</strong>：在指定key中，如果<strong>指定字段</strong>field不存在，才会设置该字段的值</li>
 </ul>
-<p>###4.6. ZSet(Sorted Set，有序集合)</p>
-<blockquote>
-<p>Redis中的<strong>ZSet</strong> 和 Set 一样也是string类型元素的集合，且不允许成员望重复。<br>不同的是每个元素都会关联一个<strong>double类型的值</strong>。<br>Redis正是通过分数来为集合中的成员进行从小到大的排序。<br>ZSet的成员是唯一的,但值<strong>score</strong>却可以重复。</p>
-</blockquote>
+<h3 id="4-6-ZSet-Sorted-Set，有序集合"><a href="#4-6-ZSet-Sorted-Set，有序集合" class="headerlink" title="4.6. ZSet(Sorted Set，有序集合)"></a>4.6. ZSet(Sorted Set，有序集合)</h3><p>Redis中的<strong>ZSet</strong> 和 Set 一样也是string类型元素的集合，且不允许成员望重复。<br>不同的是每个元素都会关联一个double类型的值<strong>score</strong>。<br>Redis正是通过<strong>score</strong>来为集合中的成员进行从小到大的排序。<br>ZSet的成员是唯一的,但值<strong>score</strong>却可以重复。</p>
 <ul>
-<li><p><strong>ZADD key score1 value1 [score2 value2]</strong>：向指定<code>key</code>中添加一个或多个value，或更新已存在的成员的值</p>
-</li>
-<li><p><strong>ZRANGE key start stop [WITHSCORES]</strong>：在指定<code>key</code>中，返回指定<strong>索引区间</strong>(start~stop)内的<strong>value</strong>或<strong>scores和value</strong></p>
-</li>
-<li><p><strong>ZRERANGE key stop start [WITHSCORES]</strong>：在指定<code>key</code>中，<strong>逆序</strong>返回指定<strong>索引区间</strong>(start~stop)内的<strong>value</strong>或<strong>scores和value</strong></p>
-</li>
-<li><p><strong>ZRANGEBYSCORE key min max [WITHSCORES][LIMIT]</strong></p>
-<ul>
-<li><pre><code class="shell"><span class="meta">#</span><span class="bash"> 从key(ZSet)中，获取scores[60,90]闭区间内的value和score</span>
-ZRANGEBYSCORE ZSet 60 90 WITHSCORES
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- &#96;&#96;&#96;shell</span><br><span class="line">  # 从key(ZSet)中，获取scores(60,90)开区间内的value和score</span><br><span class="line">  ZRANGEBYSCORE ZSet (60 (90 WITHSCORES</span><br></pre></td></tr></table></figure></code></pre>
-</li>
-<li><pre><code class="shell"><span class="meta">#</span><span class="bash"> 在之前的基础上，再加限制条件。LIMIT后有两个值，第一个值是从索引几开始，第二个值是选几个</span>
-ZRANGEBYSCORE ZSet (60 (90 WITHSCORES LIMIT 0 2</code></pre>
-</li>
+<li><strong>ZADD key score1 value1 [score2 value2]</strong>：向指定<code>key</code>中添加一个或多个value，或更新已存在的成员的值</li>
+<li><strong>ZRANGE key start stop [WITHSCORES]</strong>：在指定<code>key</code>中，返回指定<strong>索引区间</strong>(start~stop)内的<strong>value</strong>或<strong>scores和value</strong></li>
+<li><strong>ZRERANGE key stop start [WITHSCORES]</strong>：在指定<code>key</code>中，<strong>逆序</strong>返回指定<strong>索引区间</strong>(start~stop)内的<strong>value</strong>或<strong>scores和value</strong></li>
+<li><strong>ZRANGEBYSCORE key min max [WITHSCORES][LIMIT]</strong></li>
 </ul>
-</li>
-<li><p><strong>ZRERANGEBYSCORE key max min [WITHSCORES][LIMIT]</strong>：<strong>逆序</strong>获取</p>
-</li>
-<li><p><strong>ZREM key value1 [value2]</strong>：删除指定<code>key</code>中的<strong>指定score</strong>下的value值</p>
-</li>
-<li><p><strong>ZCARD key</strong>：获取指定<code>key</code>中的value或score的数量</p>
-</li>
-<li><p><strong>ZCOUNT key min max</strong>：计算指定<code>key</code>中指定score区间内value的数量</p>
-</li>
-<li><p><strong>ZRANK key value</strong>：获取指定<code>key</code>中的<strong>指定value</strong> 的<strong>索引</strong>或下标</p>
-</li>
-<li><p><strong>ZSCORE key value</strong>：获取指定<code>key</code>中的<strong>指定value</strong> 的<strong>score</strong></p>
-</li>
-<li><p><strong>ZRERANK key value</strong>：<strong>逆序</strong>获取指定<code>key</code>中的<strong>指定value</strong> 的<strong>score</strong></p>
-</li>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 从key(ZSet)中，获取scores[60,90]闭区间内的value和score</span></span><br><span class="line">  ZRANGEBYSCORE ZSet 60 90 WITHSCORES</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 从key(ZSet)中，获取scores(60,90)开区间内的value和score</span></span><br><span class="line">  ZRANGEBYSCORE ZSet (60 (90 WITHSCORES</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 在之前的基础上，再加限制条件。LIMIT后有两个值，第一个值是从索引几开始，第二个值是选几个</span></span><br><span class="line">ZRANGEBYSCORE ZSet (60 (90 WITHSCORES LIMIT 0 2</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>ZRERANGEBYSCORE key max min [WITHSCORES][LIMIT]</strong>：<strong>逆序</strong>获取</li>
+<li><strong>ZREM key value1 [value2]</strong>：删除指定<code>key</code>中的<strong>指定score</strong>下的value值</li>
+<li><strong>ZCARD key</strong>：获取指定<code>key</code>中的value或score的数量</li>
+<li><strong>ZCOUNT key min max</strong>：计算指定<code>key</code>中指定score区间内value的数量</li>
+<li><strong>ZRANK key value</strong>：获取指定<code>key</code>中的<strong>指定value</strong> 的<strong>索引</strong>或下标</li>
+<li><strong>ZSCORE key value</strong>：获取指定<code>key</code>中的<strong>指定value</strong> 的<strong>score</strong></li>
+<li><strong>ZRERANK key value</strong>：<strong>逆序</strong>获取指定<code>key</code>中的<strong>指定value</strong> 的<strong>score</strong></li>
 </ul>
 <h2 id="5-配置文件redis-conf的简单介绍"><a href="#5-配置文件redis-conf的简单介绍" class="headerlink" title="5. 配置文件redis.conf的简单介绍"></a>5. 配置文件redis.conf的简单介绍</h2><p>待整理</p>
-<h2 id="6-Redis的持久化"><a href="#6-Redis的持久化" class="headerlink" title="6. Redis的持久化"></a>6. Redis的持久化</h2><h3 id="6-0-RDB-Redis-DataBase"><a href="#6-0-RDB-Redis-DataBase" class="headerlink" title="6.0. RDB(Redis DataBase)"></a>6.0. RDB(Redis DataBase)</h3><p>####6.0.0. 简单介绍</p>
-<blockquote>
-<p>在指定的时间间隔内将内存中的数据集快照写入磁盘，<br>恢复时是将快照<strong>文件</strong>直接读到<strong>内存</strong>里</p>
-</blockquote>
-<blockquote>
+<h2 id="6-Redis的持久化"><a href="#6-Redis的持久化" class="headerlink" title="6. Redis的持久化"></a>6. Redis的持久化</h2><h3 id="6-0-RDB-Redis-DataBase"><a href="#6-0-RDB-Redis-DataBase" class="headerlink" title="6.0. RDB(Redis DataBase)"></a>6.0. RDB(Redis DataBase)</h3><h4 id="6-0-0-简单介绍"><a href="#6-0-0-简单介绍" class="headerlink" title="6.0.0. 简单介绍"></a>6.0.0. 简单介绍</h4><p>在指定的时间间隔内将内存中的数据集快照写入磁盘，恢复时是将快照<strong>文件</strong>直接读到<strong>内存</strong>里</p>
 <p>Redis会单独创建（fork）一个子进程来进行持久化，会先将数据写入到一个临时文件中，待持久化过程都结束了，再用这个临时文件替换上次持久化好的文件。</p>
-</blockquote>
-<h4 id="6-0-1-默认配置文件"><a href="#6-0-1-默认配置文件" class="headerlink" title="6.0.1. 默认配置文件"></a>6.0.1. 默认配置文件</h4><blockquote>
-<p>配置文件默认名为<strong>dump.rdb</strong></p>
-</blockquote>
-<h4 id="6-0-2-如何触发RDB快照"><a href="#6-0-2-如何触发RDB快照" class="headerlink" title="6.0.2. 如何触发RDB快照"></a>6.0.2. 如何触发RDB快照</h4><h5 id="方式一"><a href="#方式一" class="headerlink" title="方式一"></a>方式一</h5><blockquote>
-<p>冷拷贝后重新使用(cp dump.rdb dump_new.rdb)</p>
-</blockquote>
-<h5 id="方式二"><a href="#方式二" class="headerlink" title="方式二"></a>方式二</h5><blockquote>
-<p>用<strong>命令</strong>save和bgsave</p>
-</blockquote>
+<h4 id="6-0-1-默认配置文件"><a href="#6-0-1-默认配置文件" class="headerlink" title="6.0.1. 默认配置文件"></a>6.0.1. 默认配置文件</h4><p>配置文件默认名为<strong>dump.rdb</strong></p>
+<h4 id="6-0-2-如何触发RDB快照"><a href="#6-0-2-如何触发RDB快照" class="headerlink" title="6.0.2. 如何触发RDB快照"></a>6.0.2. 如何触发RDB快照</h4><h5 id="方式一"><a href="#方式一" class="headerlink" title="方式一"></a>方式一</h5><p>冷拷贝后重新使用(cp dump.rdb dump_new.rdb)</p>
+<h5 id="方式二"><a href="#方式二" class="headerlink" title="方式二"></a>方式二</h5><p>用<strong>命令</strong>save和bgsave</p>
 <p><strong>save</strong>：save只管保存，其余不管</p>
 <p><strong>bgsave</strong>：Redis会在后台<strong>异步</strong>进行快照操作，快照同时还可以响应客户端请求。可以通过lastsave命令获取最后一次成功执行快照的时间。</p>
-<h5 id="方式三"><a href="#方式三" class="headerlink" title="方式三"></a>方式三</h5><blockquote>
-<p>执行flushall<strong>命令</strong>，也会产生dump.rdb文件，但里面是空的，无意义</p>
-</blockquote>
-<h4 id="6-0-3-如何恢复"><a href="#6-0-3-如何恢复" class="headerlink" title="6.0.3. 如何恢复"></a>6.0.3. 如何恢复</h4><blockquote>
-<p>将备份文件 (dump.rdb) <strong>移动</strong>到 redis 安装目录并<strong>重启</strong>服务即可</p>
-</blockquote>
+<h5 id="方式三"><a href="#方式三" class="headerlink" title="方式三"></a>方式三</h5><p>执行flushall<strong>命令</strong>，也会产生dump.rdb文件，但里面是空的，无意义</p>
+<h4 id="6-0-3-如何恢复"><a href="#6-0-3-如何恢复" class="headerlink" title="6.0.3. 如何恢复"></a>6.0.3. 如何恢复</h4><p>将备份文件 (dump.rdb) <strong>移动</strong>到 redis 安装目录并<strong>重启</strong>服务即可</p>
 <p>可使用命令<code>CONFIG GET dir</code>来获取目录</p>
-<h4 id="6-0-4-RDB的优劣势"><a href="#6-0-4-RDB的优劣势" class="headerlink" title="6.0.4. RDB的优劣势"></a>6.0.4. RDB的优劣势</h4><h5 id="优势"><a href="#优势" class="headerlink" title="优势"></a>优势</h5><blockquote>
-<p>适合大规模的数据恢复；对数据完整性和一致性要求不高</p>
-</blockquote>
-<p>#####劣势</p>
-<blockquote>
-<p>在一定间隔时间做一次备份，所以如果redis意外断掉的话，就会丢失最后一次快照后的所有修改；</p>
+<h4 id="6-0-4-RDB的优劣势"><a href="#6-0-4-RDB的优劣势" class="headerlink" title="6.0.4. RDB的优劣势"></a>6.0.4. RDB的优劣势</h4><h5 id="优势"><a href="#优势" class="headerlink" title="优势"></a>优势</h5><p>适合大规模的数据恢复；对数据完整性和一致性要求不高</p>
+<h5 id="劣势"><a href="#劣势" class="headerlink" title="劣势"></a>劣势</h5><p>在一定间隔时间做一次备份，所以如果redis意外断掉的话，就会丢失最后一次快照后的所有修改；</p>
 <p>Fork的时候，内存中的数据被克隆了一份，大致2倍的膨胀性需要考虑</p>
-</blockquote>
-<h4 id="6-0-5-动态停止RDB并保存的方法"><a href="#6-0-5-动态停止RDB并保存的方法" class="headerlink" title="6.0.5. 动态停止RDB并保存的方法"></a>6.0.5. 动态停止RDB并保存的方法</h4><blockquote>
-<p>使用命令<code>redis-cli config set save &quot;&quot;</code></p>
-</blockquote>
-<h3 id="6-1-AOF-Append-only-File"><a href="#6-1-AOF-Append-only-File" class="headerlink" title="6.1. AOF(Append only File)"></a>6.1. AOF(Append only File)</h3><h4 id="6-1-0-简单叙述"><a href="#6-1-0-简单叙述" class="headerlink" title="6.1.0. 简单叙述"></a>6.1.0. 简单叙述</h4><blockquote>
-<p>以日志的形式来记录每个<strong>写操作</strong>，将Redis执行过的所有写指令记录下来(读操作不记录)<br><strong>只许追加文件</strong>但不可以改写文件，redis启动之初会读取该文件重新构建数据</p>
-</blockquote>
-<h4 id="6-1-1-AOF配置文件"><a href="#6-1-1-AOF配置文件" class="headerlink" title="6.1.1. AOF配置文件"></a>6.1.1. AOF配置文件</h4><blockquote>
-<p>AOF的配置文件的默认名称为appendonly.aof</p>
-</blockquote>
+<h4 id="6-0-5-动态停止RDB并保存的方法"><a href="#6-0-5-动态停止RDB并保存的方法" class="headerlink" title="6.0.5. 动态停止RDB并保存的方法"></a>6.0.5. 动态停止RDB并保存的方法</h4><p>使用命令<code>redis-cli config set save &quot;&quot;</code></p>
+<h3 id="6-1-AOF-Append-only-File"><a href="#6-1-AOF-Append-only-File" class="headerlink" title="6.1. AOF(Append only File)"></a>6.1. AOF(Append only File)</h3><h4 id="6-1-0-简单叙述"><a href="#6-1-0-简单叙述" class="headerlink" title="6.1.0. 简单叙述"></a>6.1.0. 简单叙述</h4><p>以日志的形式来记录每个<strong>写操作</strong>，将Redis执行过的所有写指令记录下来(读操作不记录)<br><strong>只许追加文件</strong>但不可以改写文件，redis启动之初会读取该文件重新构建数据</p>
+<h4 id="6-1-1-AOF配置文件"><a href="#6-1-1-AOF配置文件" class="headerlink" title="6.1.1. AOF配置文件"></a>6.1.1. AOF配置文件</h4><p>AOF的配置文件的默认名称为appendonly.aof</p>
 <h4 id="6-1-2-AOF的正常恢复"><a href="#6-1-2-AOF的正常恢复" class="headerlink" title="6.1.2. AOF的正常恢复"></a>6.1.2. AOF的正常恢复</h4><ul>
 <li>启动：修改Redis配置文件，默认的appendonly no，改为yes</li>
 <li>将有数据的aof文件复制一份保存到对应目录(config get dir)</li>
@@ -517,41 +446,24 @@ ZRANGEBYSCORE ZSet (60 (90 WITHSCORES LIMIT 0 2</code></pre>
 <li>修复：用命令<code>Redis-check-aof --fix 文件名</code>进行修复</li>
 <li>恢复：重启redis然后重新加载</li>
 </ul>
-<h4 id="6-1-4-Rewrite"><a href="#6-1-4-Rewrite" class="headerlink" title="6.1.4. Rewrite"></a>6.1.4. Rewrite</h4><blockquote>
-<p>AOF采用文件追加方式，文件会越来越大。为避免出现此种情况，新增了重写机制，当AOF文件的大小超过所设定的阈值时，Redis就会启动AOF文件的内容压缩。<br>只保留可以恢复数据的最小指令集，可以使用命令<code>bgrewriteaof</code></p>
-</blockquote>
-<h5 id="重写原理"><a href="#重写原理" class="headerlink" title="重写原理"></a>重写原理</h5><blockquote>
-<p>AOF文件持续增长而过大时，会fork出一条新进程来将文件重写(也是先写临时文件最后再rename)，遍历新进程的内存中数据，每条记录有一条的Set语句。重写aof文件的操作，并没有读取旧的aof文件，而是将整个内存中的数据库内容用命令的方式重写了一个新的aof文件，这点和快照有点类似</p>
-</blockquote>
-<h5 id="触发机制"><a href="#触发机制" class="headerlink" title="触发机制"></a>触发机制</h5><blockquote>
-<p>Redis会记录上次重写时的AOF文件大小，默认配置是当AOF文件大小是上次rewrite后大小的2倍且文件大于64M时触发</p>
-</blockquote>
+<h4 id="6-1-4-Rewrite"><a href="#6-1-4-Rewrite" class="headerlink" title="6.1.4. Rewrite"></a>6.1.4. Rewrite</h4><p>AOF采用文件追加方式，文件会越来越大。为避免出现此种情况，新增了重写机制，当AOF文件的大小超过所设定的阈值时，Redis就会启动AOF文件的内容压缩。<br>只保留可以恢复数据的最小指令集，可以使用命令<code>bgrewriteaof</code></p>
+<h5 id="重写原理"><a href="#重写原理" class="headerlink" title="重写原理"></a>重写原理</h5><p>AOF文件持续增长而过大时，会fork出一条新进程来将文件重写(也是先写临时文件最后再rename)，遍历新进程的内存中数据，每条记录有一条的Set语句。重写aof文件的操作，并没有读取旧的aof文件，而是将整个内存中的数据库内容用命令的方式重写了一个新的aof文件，这点和快照有点类似</p>
+<h5 id="触发机制"><a href="#触发机制" class="headerlink" title="触发机制"></a>触发机制</h5><p>Redis会记录上次重写时的AOF文件大小，默认配置是当AOF文件大小是上次rewrite后大小的2倍且文件大于64M时触发。</p>
 <h4 id="6-1-5-AOF的优劣势"><a href="#6-1-5-AOF的优劣势" class="headerlink" title="6.1.5. AOF的优劣势"></a>6.1.5. AOF的优劣势</h4><h5 id="优势-1"><a href="#优势-1" class="headerlink" title="优势"></a>优势</h5><ul>
 <li>每修改同步：<strong>appendfsync always</strong>   同步持久化 每次发生数据变更会被立即记录到磁盘  性能较差但数据完整性比较好</li>
 <li>每秒同步：<strong>appendfsync everysec</strong>    异步操作，每秒记录   如果一秒内宕机，会有数据丢失</li>
 <li>不同步：<strong>appendfsync no</strong>   从不同步</li>
 </ul>
-<p>#####劣势</p>
-<ul>
+<h5 id="劣势-1"><a href="#劣势-1" class="headerlink" title="劣势"></a>劣势</h5><ul>
 <li>对于相同数据集的数据而言，aof文件要远大于rdb文件，恢复速度慢于rdb</li>
 <li>aof运行效率要慢于rdb，每秒同步策略效率较好，不同步效率和rdb相同</li>
 </ul>
-<h3 id="6-3-RDB和AOF的小总结"><a href="#6-3-RDB和AOF的小总结" class="headerlink" title="6.3. RDB和AOF的小总结"></a>6.3. RDB和AOF的小总结</h3><blockquote>
-<p>RDB持久化方式能够在指定的时间间隔能对你的数据进行快照存储</p>
-</blockquote>
-<blockquote>
-<p>AOF持久化方式记录每次对服务器写的操作，当服务器重启的时候会重新执行这些命令来恢复原始的数据。AOF命令以redis协议追加保存每次写的操作到文件末尾。<br>Redis还能对AOF文件进行后台重写,使得AOF文件的体积不至于过大</p>
-</blockquote>
-<h4 id="同时开启两种持久化方式"><a href="#同时开启两种持久化方式" class="headerlink" title="同时开启两种持久化方式"></a>同时开启两种持久化方式</h4><blockquote>
-<p>当redis重启的时候会优先载入AOF文件来恢复原始的数据，因为在通常情况下AOF文件保存的数据集要比RDB文件保存的数据集要完整。</p>
-</blockquote>
-<blockquote>
+<h3 id="6-3-RDB和AOF的小总结"><a href="#6-3-RDB和AOF的小总结" class="headerlink" title="6.3. RDB和AOF的小总结"></a>6.3. RDB和AOF的小总结</h3><p>RDB持久化方式能够在指定的时间间隔能对你的数据进行快照存储</p>
+<p>AOF持久化方式记录每次对服务器写的操作，当服务器重启的时候会重新执行这些命令来恢复原始的数据。AOF命令以redis协议追加保存每次写的操作到文件末尾。</p>
+<p>Redis还能对AOF文件进行后台重写,使得AOF文件的体积不至于过大</p>
+<h4 id="同时开启两种持久化方式"><a href="#同时开启两种持久化方式" class="headerlink" title="同时开启两种持久化方式"></a>同时开启两种持久化方式</h4><p>当redis重启的时候会优先载入AOF文件来恢复原始的数据，因为在通常情况下AOF文件保存的数据集要比RDB文件保存的数据集要完整。</p>
 <p>RDB的数据不实时，同时使用两者时服务器重启也只会找AOF文件。那要不要只使用AOF呢？<br>作者建议不要，因为RDB更适合用于备份数据库(AOF在不断变化不好备份)，快速重启，而且不会有AOF可能潜在的bug，留着作为一个万一的手段。</p>
-</blockquote>
-<h2 id="7-事务"><a href="#7-事务" class="headerlink" title="7. 事务"></a>7. 事务</h2><p>###7.0. 简单叙述  </p>
-<blockquote>
-<p>可以<strong>一次执行</strong>多个命令。<br>一个事务中的所有命令都会序列化，按顺序地串行化执行而不会被其它命令插入。</p>
-</blockquote>
+<h2 id="7-事务"><a href="#7-事务" class="headerlink" title="7. 事务"></a>7. 事务</h2><h3 id="7-0-简单叙述"><a href="#7-0-简单叙述" class="headerlink" title="7.0. 简单叙述"></a>7.0. 简单叙述</h3><p>可以<strong>一次执行</strong>多个命令。一个事务中的所有命令都会序列化，按顺序地串行化执行而不会被其它命令插入。</p>
 <h3 id="7-1-常用命令"><a href="#7-1-常用命令" class="headerlink" title="7.1. 常用命令"></a>7.1. 常用命令</h3><ul>
 <li><strong>MULTI</strong>：标记一个事务块的开始</li>
 <li><strong>DISCARD</strong>：取消事务，放弃执行事务块内的所有命令</li>
@@ -564,9 +476,7 @@ ZRANGEBYSCORE ZSet (60 (90 WITHSCORES LIMIT 0 2</code></pre>
 <li><strong>没有隔离级别的概念</strong>：<strong>队列</strong>中的命令没有提交之前都不会实际的被执行，因为事务提交前任何指令都不会被实际执行，也就不存在“事务内的查询要看到事务里的更新，在事务外查询不能看到”这个让人万分头痛的问题。</li>
 <li><strong>不保证原子性</strong>：redis同一个事务块中如果有一条命令执行失败，其后的命令仍然会被执行，没有回滚</li>
 </ul>
-<h2 id="8-Redis的发布订阅"><a href="#8-Redis的发布订阅" class="headerlink" title="8. Redis的发布订阅"></a>8. Redis的发布订阅</h2><blockquote>
-<p>进程间的一种消息通信模式：发送者(pub)发送消息，订阅者(sub)接收消息。</p>
-</blockquote>
+<h2 id="8-Redis的发布订阅"><a href="#8-Redis的发布订阅" class="headerlink" title="8. Redis的发布订阅"></a>8. Redis的发布订阅</h2><p>进程间的一种消息通信模式：发送者(pub)发送消息，订阅者(sub)接收消息。</p>
 <h3 id="8-0-发布订阅命令"><a href="#8-0-发布订阅命令" class="headerlink" title="8.0. 发布订阅命令"></a>8.0. 发布订阅命令</h3><ul>
 <li><strong>SUBSCRIBE channel1 [channel2…]</strong>：<strong>订阅</strong>一个或多个频道</li>
 <li><strong>PSUBSCRIBE pattern1 [pattern2…]</strong>：<strong>订阅</strong>一个或多个给定模式的频道</li>
@@ -575,10 +485,7 @@ ZRANGEBYSCORE ZSet (60 (90 WITHSCORES LIMIT 0 2</code></pre>
 <li><strong>PUBLISH channel message</strong>：将消息<strong>发送</strong>到指定的频道</li>
 <li><strong>PUBSUB subcommand [argument1 [argument2…]]</strong>：查看订阅与发布系统状态</li>
 </ul>
-<h2 id="9-主从复制"><a href="#9-主从复制" class="headerlink" title="9. 主从复制"></a>9. 主从复制</h2><p>###9.0. 简单叙述</p>
-<blockquote>
-<p>主机数据更新后根据配置和策略，自动同步到备机的<strong>master/slaver</strong>机制，Master以写为主，Slave以读为主</p>
-</blockquote>
+<h2 id="9-主从复制"><a href="#9-主从复制" class="headerlink" title="9. 主从复制"></a>9. 主从复制</h2><h3 id="9-0-简单叙述"><a href="#9-0-简单叙述" class="headerlink" title="9.0. 简单叙述"></a>9.0. 简单叙述</h3><p>主机数据更新后根据配置和策略，自动同步到备机的<strong>master/slaver</strong>机制，Master以写为主，Slave以读为主</p>
 <h3 id="9-1-特点"><a href="#9-1-特点" class="headerlink" title="9.1. 特点"></a>9.1. 特点</h3><ul>
 <li>读写分离</li>
 <li>容灾恢复</li>
@@ -595,20 +502,14 @@ ZRANGEBYSCORE ZSet (60 (90 WITHSCORES LIMIT 0 2</code></pre>
 <li><strong>增量复制</strong>：Master继续将新的所有收集到的修改命令依次传给slave,完成同步</li>
 <li>只要是重新连接master,一次完全同步（全量复制)将被自动执行</li>
 </ul>
-<h3 id="9-4-哨兵模式"><a href="#9-4-哨兵模式" class="headerlink" title="9.4. 哨兵模式"></a>9.4. 哨兵模式</h3><blockquote>
-<p>反客为主的自动版，能够后台监控主机是否故障，如果故障了根据投票数<strong>自动将从库转换为主库</strong></p>
-</blockquote>
-<blockquote>
+<h3 id="9-4-哨兵模式"><a href="#9-4-哨兵模式" class="headerlink" title="9.4. 哨兵模式"></a>9.4. 哨兵模式</h3><p>反客为主的自动版，能够后台监控主机是否故障，如果故障了根据投票数<strong>自动将从库转换为主库</strong></p>
 <p>如果之前的master重启回来，不会出现双master冲突，而是会成为从机slave<br>一组sentinel能同时监控多个Master</p>
-</blockquote>
 <h4 id="9-4-0-配置哨兵"><a href="#9-4-0-配置哨兵" class="headerlink" title="9.4.0. 配置哨兵"></a>9.4.0. 配置哨兵</h4><ol>
 <li>在自定义的/myredis目录下新建<strong>sentinel.conf</strong>文件，名字绝不能错</li>
 <li>使用命令配置哨兵模式： <code>sentinel monitor 被监控的主库的名字(自己起名字) 127.0.0.1 6379 1</code>，数字1表示主机挂掉后salve投票看让谁接替成为主机</li>
 <li>使用命令开启哨兵模式：<code>Redis-sentinel /myredis/sentinel.conf</code></li>
 </ol>
-<h3 id="9-5-主从复制的缺点"><a href="#9-5-主从复制的缺点" class="headerlink" title="9.5. 主从复制的缺点"></a>9.5. 主从复制的缺点</h3><blockquote>
-<p>复制延时。<br>由于所有的写操作都是先在Master上操作，然后同步更新到Slave上，所以从Master同步到Slave机器有一定的延迟，当系统很繁忙的时候，延迟问题会更加严重，Slave机器数量的增加也会使这个问题更加严重。</p>
-</blockquote>
+<h3 id="9-5-主从复制的缺点"><a href="#9-5-主从复制的缺点" class="headerlink" title="9.5. 主从复制的缺点"></a>9.5. 主从复制的缺点</h3><p>复制延时。<br>由于所有的写操作都是先在Master上操作，然后同步更新到Slave上，所以从Master同步到Slave机器有一定的延迟，当系统很繁忙的时候，延迟问题会更加严重，Slave机器数量的增加也会使这个问题更加严重。</p>
 
     </div>
 
@@ -694,7 +595,7 @@ ZRANGEBYSCORE ZSet (60 (90 WITHSCORES LIMIT 0 2</code></pre>
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#NoSQL"><span class="nav-text">NoSQL</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#0-NoSQL数据库的四大分类"><span class="nav-text">0. NoSQL数据库的四大分类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-CAP"><span class="nav-text">1. CAP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-BASE"><span class="nav-text">2. BASE</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-分布式与集群"><span class="nav-text">3. 分布式与集群</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis"><span class="nav-text">Redis</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-概述"><span class="nav-text">1. 概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-特点"><span class="nav-text">2. 特点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Redis的杂项基础知识"><span class="nav-text">3. Redis的杂项基础知识</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-Redis的数据类型"><span class="nav-text">4. Redis的数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-String-字符串"><span class="nav-text">4.2. String(字符串)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-List-列表"><span class="nav-text">4.3. List(列表)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-5-Hash-哈希"><span class="nav-text">4.5. Hash(哈希)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-配置文件redis-conf的简单介绍"><span class="nav-text">5. 配置文件redis.conf的简单介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-Redis的持久化"><span class="nav-text">6. Redis的持久化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#6-0-RDB-Redis-DataBase"><span class="nav-text">6.0. RDB(Redis DataBase)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#6-0-1-默认配置文件"><span class="nav-text">6.0.1. 默认配置文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-0-2-如何触发RDB快照"><span class="nav-text">6.0.2. 如何触发RDB快照</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#方式一"><span class="nav-text">方式一</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#方式二"><span class="nav-text">方式二</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#方式三"><span class="nav-text">方式三</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-0-3-如何恢复"><span class="nav-text">6.0.3. 如何恢复</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-0-4-RDB的优劣势"><span class="nav-text">6.0.4. RDB的优劣势</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#优势"><span class="nav-text">优势</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-0-5-动态停止RDB并保存的方法"><span class="nav-text">6.0.5. 动态停止RDB并保存的方法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-1-AOF-Append-only-File"><span class="nav-text">6.1. AOF(Append only File)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#6-1-0-简单叙述"><span class="nav-text">6.1.0. 简单叙述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-1-1-AOF配置文件"><span class="nav-text">6.1.1. AOF配置文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-1-2-AOF的正常恢复"><span class="nav-text">6.1.2. AOF的正常恢复</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-1-3-AOF的异常恢复"><span class="nav-text">6.1.3. AOF的异常恢复</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-1-4-Rewrite"><span class="nav-text">6.1.4. Rewrite</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#重写原理"><span class="nav-text">重写原理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#触发机制"><span class="nav-text">触发机制</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-1-5-AOF的优劣势"><span class="nav-text">6.1.5. AOF的优劣势</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#优势-1"><span class="nav-text">优势</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-3-RDB和AOF的小总结"><span class="nav-text">6.3. RDB和AOF的小总结</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#同时开启两种持久化方式"><span class="nav-text">同时开启两种持久化方式</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-事务"><span class="nav-text">7. 事务</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#7-1-常用命令"><span class="nav-text">7.1. 常用命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-2-Redis事务的几个特性"><span class="nav-text">7.2. Redis事务的几个特性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-Redis的发布订阅"><span class="nav-text">8. Redis的发布订阅</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#8-0-发布订阅命令"><span class="nav-text">8.0. 发布订阅命令</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-主从复制"><span class="nav-text">9. 主从复制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#9-1-特点"><span class="nav-text">9.1. 特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-2-配置命令"><span class="nav-text">9.2. 配置命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-3-复制原理"><span class="nav-text">9.3. 复制原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-4-哨兵模式"><span class="nav-text">9.4. 哨兵模式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#9-4-0-配置哨兵"><span class="nav-text">9.4.0. 配置哨兵</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-5-主从复制的缺点"><span class="nav-text">9.5. 主从复制的缺点</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#NoSQL"><span class="nav-text">NoSQL</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#0-NoSQL数据库的四大分类"><span class="nav-text">0. NoSQL数据库的四大分类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-CAP"><span class="nav-text">1. CAP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-BASE"><span class="nav-text">2. BASE</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-分布式与集群"><span class="nav-text">3. 分布式与集群</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis"><span class="nav-text">Redis</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-概述"><span class="nav-text">1. 概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-特点"><span class="nav-text">2. 特点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Redis的杂项基础知识"><span class="nav-text">3. Redis的杂项基础知识</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-Redis的数据类型"><span class="nav-text">4. Redis的数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-0-常用的key命令"><span class="nav-text">4.0. 常用的key命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-其他的key命令"><span class="nav-text">4.1. 其他的key命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-String-字符串"><span class="nav-text">4.2. String(字符串)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-List-列表"><span class="nav-text">4.3. List(列表)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-4-Set"><span class="nav-text">4.4. Set</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-5-Hash-哈希"><span class="nav-text">4.5. Hash(哈希)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-6-ZSet-Sorted-Set，有序集合"><span class="nav-text">4.6. ZSet(Sorted Set，有序集合)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-配置文件redis-conf的简单介绍"><span class="nav-text">5. 配置文件redis.conf的简单介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-Redis的持久化"><span class="nav-text">6. Redis的持久化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#6-0-RDB-Redis-DataBase"><span class="nav-text">6.0. RDB(Redis DataBase)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#6-0-0-简单介绍"><span class="nav-text">6.0.0. 简单介绍</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-0-1-默认配置文件"><span class="nav-text">6.0.1. 默认配置文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-0-2-如何触发RDB快照"><span class="nav-text">6.0.2. 如何触发RDB快照</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#方式一"><span class="nav-text">方式一</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#方式二"><span class="nav-text">方式二</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#方式三"><span class="nav-text">方式三</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-0-3-如何恢复"><span class="nav-text">6.0.3. 如何恢复</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-0-4-RDB的优劣势"><span class="nav-text">6.0.4. RDB的优劣势</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#优势"><span class="nav-text">优势</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#劣势"><span class="nav-text">劣势</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-0-5-动态停止RDB并保存的方法"><span class="nav-text">6.0.5. 动态停止RDB并保存的方法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-1-AOF-Append-only-File"><span class="nav-text">6.1. AOF(Append only File)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#6-1-0-简单叙述"><span class="nav-text">6.1.0. 简单叙述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-1-1-AOF配置文件"><span class="nav-text">6.1.1. AOF配置文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-1-2-AOF的正常恢复"><span class="nav-text">6.1.2. AOF的正常恢复</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-1-3-AOF的异常恢复"><span class="nav-text">6.1.3. AOF的异常恢复</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-1-4-Rewrite"><span class="nav-text">6.1.4. Rewrite</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#重写原理"><span class="nav-text">重写原理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#触发机制"><span class="nav-text">触发机制</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-1-5-AOF的优劣势"><span class="nav-text">6.1.5. AOF的优劣势</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#优势-1"><span class="nav-text">优势</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#劣势-1"><span class="nav-text">劣势</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-3-RDB和AOF的小总结"><span class="nav-text">6.3. RDB和AOF的小总结</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#同时开启两种持久化方式"><span class="nav-text">同时开启两种持久化方式</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-事务"><span class="nav-text">7. 事务</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#7-0-简单叙述"><span class="nav-text">7.0. 简单叙述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-1-常用命令"><span class="nav-text">7.1. 常用命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-2-Redis事务的几个特性"><span class="nav-text">7.2. Redis事务的几个特性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-Redis的发布订阅"><span class="nav-text">8. Redis的发布订阅</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#8-0-发布订阅命令"><span class="nav-text">8.0. 发布订阅命令</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-主从复制"><span class="nav-text">9. 主从复制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#9-0-简单叙述"><span class="nav-text">9.0. 简单叙述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-1-特点"><span class="nav-text">9.1. 特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-2-配置命令"><span class="nav-text">9.2. 配置命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-3-复制原理"><span class="nav-text">9.3. 复制原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-4-哨兵模式"><span class="nav-text">9.4. 哨兵模式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#9-4-0-配置哨兵"><span class="nav-text">9.4.0. 配置哨兵</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-5-主从复制的缺点"><span class="nav-text">9.5. 主从复制的缺点</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -768,7 +669,7 @@ ZRANGEBYSCORE ZSet (60 (90 WITHSCORES LIMIT 0 2</code></pre>
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共77.2k字</span>
+  <span class="post-count">博客全站共77.1k字</span>
 </div>
 
         
