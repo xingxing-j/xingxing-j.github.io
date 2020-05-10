@@ -30,7 +30,7 @@
 <meta property="og:description" content="标识符、变量、数据类型、算数运算符的基本介绍">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-03-15T11:02:22.000Z">
-<meta property="article:modified_time" content="2020-05-07T06:07:57.546Z">
+<meta property="article:modified_time" content="2020-05-10T13:05:32.287Z">
 <meta property="article:author" content="纸人">
 <meta property="article:tag" content="Java笔记">
 <meta property="article:tag" content="Java基础">
@@ -232,7 +232,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-05-07 14:07:57" itemprop="dateModified" datetime="2020-05-07T14:07:57+08:00">2020-05-07</time>
+                <time title="修改时间：2020-05-10 21:05:32" itemprop="dateModified" datetime="2020-05-10T21:05:32+08:00">2020-05-10</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -258,11 +258,8 @@
         <p>标识符、变量、数据类型、算数运算符的基本介绍</p>
 <a id="more"></a>
 
-<h1 id="Java基础语法"><a href="#Java基础语法" class="headerlink" title="Java基础语法"></a>Java基础语法</h1><h2 id="0-标识符"><a href="#0-标识符" class="headerlink" title="0. 标识符"></a>0. 标识符</h2><blockquote>
-<p>对变量、方法和类等命名时使用的字符序列即标识符。关键字是JDK定义的标识符</p>
-</blockquote>
-<h3 id="0-0-标识符的命名规则"><a href="#0-0-标识符的命名规则" class="headerlink" title="0.0. 标识符的命名规则"></a>0.0. 标识符的命名规则</h3><blockquote>
-<ul>
+<h1 id="Java基础语法"><a href="#Java基础语法" class="headerlink" title="Java基础语法"></a>Java基础语法</h1><h2 id="0-标识符"><a href="#0-标识符" class="headerlink" title="0. 标识符"></a>0. 标识符</h2><p>对变量、方法和类等命名时使用的字符序列即标识符。关键字是JDK定义的标识符</p>
+<h3 id="0-0-标识符的命名规则"><a href="#0-0-标识符的命名规则" class="headerlink" title="0.0. 标识符的命名规则"></a>0.0. 标识符的命名规则</h3><ul>
 <li>Java的标识符只能使用26个英文字母大小写，0-9的数字，下划线_和美元符号$</li>
 <li>标识符中不能包含空格</li>
 <li>数字不能开头</li>
@@ -270,56 +267,32 @@
 <li>Java严格区分大小写</li>
 <li>Java标识符没有长度限制，但不宜太长</li>
 </ul>
-</blockquote>
-<h3 id="0-1-标识符的命名规范"><a href="#0-1-标识符的命名规范" class="headerlink" title="0.1. 标识符的命名规范"></a>0.1. 标识符的命名规范</h3><blockquote>
-<p>总原则：见名知意</p>
-</blockquote>
-<h4 id="0-1-0-类名、接口名"><a href="#0-1-0-类名、接口名" class="headerlink" title="0.1.0. 类名、接口名"></a>0.1.0. 类名、接口名</h4><blockquote>
-<p>所有单词首字母大写。例：XxxYyyZzz</p>
-</blockquote>
-<h4 id="0-1-1-变量名"><a href="#0-1-1-变量名" class="headerlink" title="0.1.1. 变量名"></a>0.1.1. 变量名</h4><blockquote>
-<p>第一个单词首字母小写，其余单词首字母大写。例：xxxYyyZzz</p>
-</blockquote>
-<h4 id="0-1-2-包名"><a href="#0-1-2-包名" class="headerlink" title="0.1.2. 包名"></a>0.1.2. 包名</h4><blockquote>
-<p>所有字母都小写，单词之间使用  .  分割。例：xxx.yyy.zzz</p>
-</blockquote>
-<h4 id="0-1-3-常量名"><a href="#0-1-3-常量名" class="headerlink" title="0.1.3. 常量名"></a>0.1.3. 常量名</h4><blockquote>
-<p>所有字母都大写，单词之间使用下划线_。例：XXX_YYY_ZZZ    </p>
-</blockquote>
-<h4 id="0-1-4-关键字"><a href="#0-1-4-关键字" class="headerlink" title="0.1.4. 关键字"></a>0.1.4. 关键字</h4><blockquote>
-<p>所有关键字全部小写</p>
-</blockquote>
-<h2 id="1-变量"><a href="#1-变量" class="headerlink" title="1. 变量"></a>1. 变量</h2><blockquote>
-<p>变量，内存的一块存储区域</p>
-</blockquote>
-<h3 id="1-0-变量三要素"><a href="#1-0-变量三要素" class="headerlink" title="1.0. 变量三要素"></a>1.0. 变量三要素</h3><blockquote>
-<ul>
+<h3 id="0-1-标识符的命名规范"><a href="#0-1-标识符的命名规范" class="headerlink" title="0.1. 标识符的命名规范"></a>0.1. 标识符的命名规范</h3><p>总原则：见名知意</p>
+<h4 id="0-1-0-类名、接口名"><a href="#0-1-0-类名、接口名" class="headerlink" title="0.1.0. 类名、接口名"></a>0.1.0. 类名、接口名</h4><p>所有单词首字母大写。例：XxxYyyZzz</p>
+<h4 id="0-1-1-变量名"><a href="#0-1-1-变量名" class="headerlink" title="0.1.1. 变量名"></a>0.1.1. 变量名</h4><p>第一个单词首字母小写，其余单词首字母大写。例：xxxYyyZzz</p>
+<h4 id="0-1-2-包名"><a href="#0-1-2-包名" class="headerlink" title="0.1.2. 包名"></a>0.1.2. 包名</h4><p>所有字母都小写，单词之间使用  .  分割。例：xxx.yyy.zzz</p>
+<h4 id="0-1-3-常量名"><a href="#0-1-3-常量名" class="headerlink" title="0.1.3. 常量名"></a>0.1.3. 常量名</h4><p>所有字母都大写，单词之间使用下划线_。例：XXX_YYY_ZZZ    </p>
+<h4 id="0-1-4-关键字"><a href="#0-1-4-关键字" class="headerlink" title="0.1.4. 关键字"></a>0.1.4. 关键字</h4><p>所有关键字全部小写</p>
+<h2 id="1-变量"><a href="#1-变量" class="headerlink" title="1. 变量"></a>1. 变量</h2><p>变量，内存的一块存储区域</p>
+<h3 id="1-0-变量三要素"><a href="#1-0-变量三要素" class="headerlink" title="1.0. 变量三要素"></a>1.0. 变量三要素</h3><ul>
 <li>变量名：有名字的存储区域，不需要内存地址访问</li>
 <li>字面值：这块内存中存的数据</li>
 <li>数据类型：决定了这块内存的大小</li>
 </ul>
-</blockquote>
-<h3 id="1-1-变量类型"><a href="#1-1-变量类型" class="headerlink" title="1.1. 变量类型"></a>1.1. 变量类型</h3><blockquote>
-<ul>
+<h3 id="1-1-变量类型"><a href="#1-1-变量类型" class="headerlink" title="1.1. 变量类型"></a>1.1. 变量类型</h3><ul>
 <li>静态变量(类变量)：从属于类，独立于方法之外，用static修饰，存储在方法区内存中</li>
 <li>实例变量(成员变量)：从属于对象，独立于方法之外，无static修饰，存储在堆内存中</li>
 <li>局部变量：从属于方法，存储在方法区内存中</li>
 </ul>
-</blockquote>
-<h3 id="1-2-使用要求"><a href="#1-2-使用要求" class="headerlink" title="1.2. 使用要求"></a>1.2. 使用要求</h3><blockquote>
-<ul>
+<h3 id="1-2-使用要求"><a href="#1-2-使用要求" class="headerlink" title="1.2. 使用要求"></a>1.2. 使用要求</h3><ul>
 <li>先声明后使用，使用之前需赋值</li>
 <li>变量在一行上可声明多个</li>
 <li>变量的作用域：从声明处开始，到它所属的  <strong>}</strong>  结束；同意作用域不能声明同一变量</li>
 </ul>
-</blockquote>
-<h2 id="2-数据类型"><a href="#2-数据类型" class="headerlink" title="2. 数据类型"></a>2. 数据类型</h2><h3 id="2-0-基本数据类型"><a href="#2-0-基本数据类型" class="headerlink" title="2.0. 基本数据类型"></a>2.0. 基本数据类型</h3><h4 id="2-0-0-整型"><a href="#2-0-0-整型" class="headerlink" title="2.0.0. 整型"></a>2.0.0. 整型</h4><blockquote>
-<p>byte：占1字节；存储范围：-128~127</p>
+<h2 id="2-数据类型"><a href="#2-数据类型" class="headerlink" title="2. 数据类型"></a>2. 数据类型</h2><h3 id="2-0-基本数据类型"><a href="#2-0-基本数据类型" class="headerlink" title="2.0. 基本数据类型"></a>2.0. 基本数据类型</h3><h4 id="2-0-0-整型"><a href="#2-0-0-整型" class="headerlink" title="2.0.0. 整型"></a>2.0.0. 整型</h4><p>byte：占1字节；存储范围：-128~127</p>
 <p>short：占2字节；存储范围：-32768~32767</p>
 <p>int：占4字节；存储范围：-2147483648~2147483647(约21亿)；整型的默认类型</p>
 <p>long：占8 字节；需在数字后加L或小写的l</p>
-</blockquote>
-<blockquote>
 <p>Java中整型常量的四种表现形式：</p>
 <ul>
 <li>十进制整数：99，-500，0等</li>
@@ -327,14 +300,12 @@
 <li>十六进制整数：以0x或0X开头，如：0x15</li>
 <li>二进制整数：以0b或0B开头，如：0b0111011</li>
 </ul>
-</blockquote>
-<h4 id="2-0-1-浮点型"><a href="#2-0-1-浮点型" class="headerlink" title="2.0.1. 浮点型"></a>2.0.1. 浮点型</h4><blockquote>
-<p>float：占4 个字节；单精度，尾数精确到7位有效数字；需要在数字后面加F或f</p>
+<h4 id="2-0-1-浮点型"><a href="#2-0-1-浮点型" class="headerlink" title="2.0.1. 浮点型"></a>2.0.1. 浮点型</h4><p>float：占4 个字节；单精度，尾数精确到7位有效数字；需要在数字后面加F或f</p>
 <p>double：占8个字节；双精度，数值精度为float的两倍；浮点型的默认类型</p>
-<p><strong>不要使用浮点数进行比较，用BigDecimal类！！！</strong></p>
+<blockquote>
+<p><em>不要使用浮点数进行比较，用BigDecimal类！！！*</em></p>
 </blockquote>
 <h4 id="2-0-2-字符型"><a href="#2-0-2-字符型" class="headerlink" title="2.0.2. 字符型"></a>2.0.2. 字符型</h4><p>char：占2个字节；存储的是字符的Unicode编码值</p>
-<blockquote>
 <p>char的三种写法：</p>
 <ul>
 <li>写单字符。例：’A’</li>
@@ -349,123 +320,73 @@
 </ul>
 </li>
 </ul>
-</blockquote>
-<h4 id="2-0-3-布尔型"><a href="#2-0-3-布尔型" class="headerlink" title="2.0.3. 布尔型"></a>2.0.3. 布尔型</h4><blockquote>
-<p>bolean：只能赋值为true或false</p>
-</blockquote>
+<h4 id="2-0-3-布尔型"><a href="#2-0-3-布尔型" class="headerlink" title="2.0.3. 布尔型"></a>2.0.3. 布尔型</h4><p>bolean：只能赋值为true或false</p>
 <h4 id="2-0-4-基本类型的转换"><a href="#2-0-4-基本类型的转换" class="headerlink" title="2.0.4. 基本类型的转换"></a>2.0.4. 基本类型的转换</h4><ol>
 <li><p>自动类型转换</p>
-<blockquote>
 <p>byte,short,char –&gt;int -&gt;long –&gt;float –&gt;double</p>
-</blockquote>
-<blockquote>
 <ul>
-<li>byte,short,char只要算术运算都会升级为int或以上<ul>
+<li>byte,short,char只要算术运算都会升级为int或以上</li>
 <li>例：byte + byte升级为int；byte + double 升级为double；byte + short升级int</li>
-</ul>
-</li>
 <li><strong>int-&gt;float</strong>或<strong>long-&gt;float</strong>或<strong>long-&gt;double</strong>有精度损失</li>
 <li>可以将整数型常量直接赋给<strong>btye,short,char</strong>类型的变量(特例)</li>
 <li>boolean不参与</li>
 <li>和字符串拼接的结果都是String字符串</li>
 </ul>
-</blockquote>
 </li>
 <li><p>强制类型转换</p>
-<blockquote>
-<ul>
-<li><p>double–&gt;float–&gt;long–&gt;int–&gt;byte,short,char</p>
+<p>double–&gt;float–&gt;long–&gt;int–&gt;byte,short,char</p>
 <ul>
 <li>例：char c = (char)97;相当于把’a’字符赋值给 变量c</li>
+<li>需要强制类型转换符。<ul>
+<li>例：long n1 = 9; int n2 = (int) n1;</li>
+<li>long类型的<code>n1</code>想赋值给<code>n2</code>，就需通过<code>(int)</code>来强制转换有可能溢出或损失精度，转换需谨慎    </li>
 </ul>
 </li>
-<li><p>需要强制类型转换符。</p>
-<p>例：long n1 = 9; int n2 = (int) n1;</p>
-<p>​    long类型的<code>n1</code>想赋值给<code>n2</code>，就需通过<code>(int)</code>来强制转换</p>
-<p>   有可能溢出或损失精度，转换需谨慎    </p>
-</li>
 </ul>
-</blockquote>
 </li>
 </ol>
-<h3 id="2-1-引用数据类型"><a href="#2-1-引用数据类型" class="headerlink" title="2.1. 引用数据类型"></a>2.1. 引用数据类型</h3><blockquote>
-<p>类、接口、数组、枚举……</p>
-</blockquote>
-<h2 id="3-运算符"><a href="#3-运算符" class="headerlink" title="3. 运算符"></a>3. 运算符</h2><h3 id="3-0-算数运算符"><a href="#3-0-算数运算符" class="headerlink" title="3.0. 算数运算符"></a>3.0. 算数运算符</h3><blockquote>
-<p>+、-、*、/、%(取模)、++(自增)、–(自减)</p>
+<h3 id="2-1-引用数据类型"><a href="#2-1-引用数据类型" class="headerlink" title="2.1. 引用数据类型"></a>2.1. 引用数据类型</h3><p>类、接口、数组、枚举……</p>
+<h2 id="3-运算符"><a href="#3-运算符" class="headerlink" title="3. 运算符"></a>3. 运算符</h2><h3 id="3-0-算数运算符"><a href="#3-0-算数运算符" class="headerlink" title="3.0. 算数运算符"></a>3.0. 算数运算符</h3><p>+、-、*、/、%(取模)、++(自增)、–(自减)</p>
 <p>注：当整数与整数相除，结果只保留整数部分</p>
-<p>​    当整数与整数相除，被除数/除数 ，除数不能为0，否则报异常</p>
-<p>​    当浮点数相除，如果除数为0，结果是无穷大，非数字</p>
-</blockquote>
+<ul>
+<li>当整数与整数相除，被除数/除数 ，除数不能为0，否则报异常</li>
+<li>当浮点数相除，如果除数为0，结果是无穷大，非数字</li>
+</ul>
 <p>关于++和–，以++为例来说明。对于变量来说，最后一定会自增1或自减1；但对于表达式来说，运算过程要看自增/自减符号在前或在后。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">int</span> j = i ++;</span><br><span class="line">System.out.println(i);<span class="comment">// i的结果为1</span></span><br><span class="line">System.out.println(i);<span class="comment">// j的结果为0</span></span><br><span class="line"><span class="comment">// 运算的大概过程：因为 ++ 在后，所以i的值会先赋给j,此时i = j = 0。然后i再自增。所以最后结果i为1，j为0。</span></span><br></pre></td></tr></table></figure>
 
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">int</span> j = ++ i;</span><br><span class="line">System.out.println(i);<span class="comment">// i的结果为1</span></span><br><span class="line">System.out.println(i);<span class="comment">// j的结果为1</span></span><br><span class="line"><span class="comment">// 运算的大概过程：因为 ++ 在后，所以i会先自增。此时i = 0;j = 0(系统默认值)。然后i的值再赋给j,所以最后结果i为1，j为0。</span></span><br></pre></td></tr></table></figure>
 
-<h3 id="3-1-赋值运算符"><a href="#3-1-赋值运算符" class="headerlink" title="3.1. 赋值运算符"></a>3.1. 赋值运算符</h3><h4 id="3-1-0-基本赋值运算符"><a href="#3-1-0-基本赋值运算符" class="headerlink" title="3.1.0. 基本赋值运算符"></a>3.1.0. 基本赋值运算符</h4><blockquote>
-<p>= : 把右边的结果赋值给左边的变量</p>
-</blockquote>
-<h4 id="3-1-1-扩展赋值运算符"><a href="#3-1-1-扩展赋值运算符" class="headerlink" title="3.1.1. 扩展赋值运算符"></a>3.1.1. 扩展赋值运算符</h4><blockquote>
-<p>+=、-=</p>
+<h3 id="3-1-赋值运算符"><a href="#3-1-赋值运算符" class="headerlink" title="3.1. 赋值运算符"></a>3.1. 赋值运算符</h3><h4 id="3-1-0-基本赋值运算符"><a href="#3-1-0-基本赋值运算符" class="headerlink" title="3.1.0. 基本赋值运算符"></a>3.1.0. 基本赋值运算符</h4><p>= : 把右边的结果赋值给左边的变量</p>
+<h4 id="3-1-1-扩展赋值运算符"><a href="#3-1-1-扩展赋值运算符" class="headerlink" title="3.1.1. 扩展赋值运算符"></a>3.1.1. 扩展赋值运算符</h4><p>+=、-=</p>
 <p>隐含<strong>强制类型转换</strong>。例：short s = 1; s += 1;  等价于 s = (short) (s + 1);</p>
-</blockquote>
-<h3 id="3-2-比较运算符"><a href="#3-2-比较运算符" class="headerlink" title="3.2. 比较运算符"></a>3.2. 比较运算符</h3><blockquote>
-<p>&gt;、&lt;、&gt;=、&lt;=、==、!=</p>
+<h3 id="3-2-比较运算符"><a href="#3-2-比较运算符" class="headerlink" title="3.2. 比较运算符"></a>3.2. 比较运算符</h3><p>&gt;、&lt;、&gt;=、&lt;=、==、!=</p>
 <p>使用该运算符的结果一定为<strong>布尔值</strong>。常用于条件表达式</p>
-</blockquote>
-<h3 id="3-3-三目运算符"><a href="#3-3-三目运算符" class="headerlink" title="3.3. 三目运算符"></a>3.3. 三目运算符</h3><blockquote>
-<p>格式：条件表达式 ? 表达式1 : 表达式2</p>
+<h3 id="3-3-三目运算符"><a href="#3-3-三目运算符" class="headerlink" title="3.3. 三目运算符"></a>3.3. 三目运算符</h3><p>格式：条件表达式 ? 表达式1 : 表达式2</p>
 <p>如果条件表达式为true，取表达式1的结果，否则取表达式2的结果</p>
-</blockquote>
-<h3 id="3-4-逻辑运算符"><a href="#3-4-逻辑运算符" class="headerlink" title="3.4. 逻辑运算符"></a>3.4. 逻辑运算符</h3><h4 id="3-4-0-amp"><a href="#3-4-0-amp" class="headerlink" title="3.4.0. &amp;"></a>3.4.0. &amp;</h4><blockquote>
-<p>逻辑与。全真为真，一假为假</p>
-</blockquote>
+<h3 id="3-4-逻辑运算符"><a href="#3-4-逻辑运算符" class="headerlink" title="3.4. 逻辑运算符"></a>3.4. 逻辑运算符</h3><h4 id="3-4-0-amp"><a href="#3-4-0-amp" class="headerlink" title="3.4.0. &amp;"></a>3.4.0. &amp;</h4><p>逻辑与。全真为真，一假为假</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">true</span>  &amp; <span class="keyword">true</span> = <span class="keyword">true</span>; <span class="keyword">true</span> &amp; <span class="keyword">false</span> = <span class="keyword">false</span>; <span class="keyword">false</span> &amp; <span class="keyword">true</span> = <span class="keyword">false</span>; <span class="keyword">false</span> &amp; <span class="keyword">false</span> = <span class="keyword">false</span></span><br></pre></td></tr></table></figure>
 
-<h4 id="3-4-1"><a href="#3-4-1" class="headerlink" title="3.4.1. |"></a>3.4.1. |</h4><blockquote>
-<p>逻辑或。全假为假，一真为真</p>
-</blockquote>
+<h4 id="3-4-1"><a href="#3-4-1" class="headerlink" title="3.4.1. |"></a>3.4.1. |</h4><p>逻辑或。全假为假，一真为真</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">true</span>  | <span class="keyword">true</span> = <span class="keyword">true</span>; <span class="keyword">true</span> | <span class="keyword">false</span> = <span class="keyword">true</span>; <span class="keyword">false</span> | <span class="keyword">true</span> = <span class="keyword">true</span>; <span class="keyword">false</span> | <span class="keyword">false</span> = <span class="keyword">false</span></span><br></pre></td></tr></table></figure>
 
-<h4 id="3-4-2"><a href="#3-4-2" class="headerlink" title="3.4.2. ^"></a>3.4.2. ^</h4><blockquote>
-<p>逻辑异或。不同为真，相同为假</p>
-</blockquote>
+<h4 id="3-4-2"><a href="#3-4-2" class="headerlink" title="3.4.2. ^"></a>3.4.2. ^</h4><p>逻辑异或。不同为真，相同为假</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">true</span>  ^ <span class="keyword">true</span> = <span class="keyword">false</span>; <span class="keyword">true</span> ^ <span class="keyword">false</span> = <span class="keyword">true</span>; <span class="keyword">false</span> ^ <span class="keyword">true</span> = <span class="keyword">true</span>; <span class="keyword">false</span> ^ <span class="keyword">false</span> = <span class="keyword">false</span></span><br></pre></td></tr></table></figure>
 
-<h4 id="3-4-3-！"><a href="#3-4-3-！" class="headerlink" title="3.4.3. ！"></a>3.4.3. ！</h4><blockquote>
-<p>逻辑非。真即假来假似真</p>
-</blockquote>
+<h4 id="3-4-3-！"><a href="#3-4-3-！" class="headerlink" title="3.4.3. ！"></a>3.4.3. ！</h4><p>逻辑非。真即假来假似真</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">!<span class="keyword">false</span> = <span class="keyword">true</span>; !<span class="keyword">false</span> = <span class="keyword">true</span></span><br></pre></td></tr></table></figure>
 
-<h4 id="3-4-4-amp-amp"><a href="#3-4-4-amp-amp" class="headerlink" title="3.4.4. &amp;&amp;"></a>3.4.4. &amp;&amp;</h4><blockquote>
-<p>短路与。与<strong>&amp;</strong>一样，唯一不同的是，如果左边的表达式为false，右边的表达式就不计算了，出现短路现象</p>
-</blockquote>
-<h4 id="3-4-5"><a href="#3-4-5" class="headerlink" title="3.4.5. ||"></a>3.4.5. ||</h4><blockquote>
-<p>短路或。与<strong>|</strong>一样，唯一不同的是，如果左边的表达式为true，右边的表达式就不计算了，出现短路现象</p>
-</blockquote>
-<h3 id="3-5-位运算符"><a href="#3-5-位运算符" class="headerlink" title="3.5. 位运算符"></a>3.5. 位运算符</h3><h3 id="3-5-0-lt-lt"><a href="#3-5-0-lt-lt" class="headerlink" title="3.5.0. &lt;&lt;"></a>3.5.0. &lt;&lt;</h3><blockquote>
-<p>左移。相当于乘以 2 的几次方。例：1 &lt;&lt; 3  相当于1 乘以 2的3次方</p>
+<h4 id="3-4-4-amp-amp"><a href="#3-4-4-amp-amp" class="headerlink" title="3.4.4. &amp;&amp;"></a>3.4.4. &amp;&amp;</h4><p>短路与。与<strong>&amp;</strong>一样，唯一不同的是，如果左边的表达式为false，右边的表达式就不计算了，出现短路现象</p>
+<h4 id="3-4-5"><a href="#3-4-5" class="headerlink" title="3.4.5. ||"></a>3.4.5. ||</h4><p>短路或。与<strong>|</strong>一样，唯一不同的是，如果左边的表达式为true，右边的表达式就不计算了，出现短路现象</p>
+<h3 id="3-5-位运算符"><a href="#3-5-位运算符" class="headerlink" title="3.5. 位运算符"></a>3.5. 位运算符</h3><h3 id="3-5-0-lt-lt"><a href="#3-5-0-lt-lt" class="headerlink" title="3.5.0. &lt;&lt;"></a>3.5.0. &lt;&lt;</h3><p>左移。相当于乘以 2 的几次方。例：1 &lt;&lt; 3  相当于1 乘以 2的3次方</p>
 <p>右边补0(针对于二进制)</p>
-</blockquote>
-<h4 id="3-5-1-gt-gt"><a href="#3-5-1-gt-gt" class="headerlink" title="3.5.1. &gt;&gt;"></a>3.5.1. &gt;&gt;</h4><blockquote>
-<p>右移。相当于除以2的几次方。例：16 &gt;&gt; 3 相当于16除以 2的3次方</p>
+<h4 id="3-5-1-gt-gt"><a href="#3-5-1-gt-gt" class="headerlink" title="3.5.1. &gt;&gt;"></a>3.5.1. &gt;&gt;</h4><p>右移。相当于除以2的几次方。例：16 &gt;&gt; 3 相当于16除以 2的3次方</p>
 <p>左边补什么，要看最高位，最高位是1，就补1，是0就补0((针对于二进制))</p>
-</blockquote>
-<h4 id="3-5-2-gt-gt-gt"><a href="#3-5-2-gt-gt-gt" class="headerlink" title="3.5.2. &gt;&gt;&gt;"></a>3.5.2. &gt;&gt;&gt;</h4><blockquote>
-<p>无符号右移。不管最高位是什么，左边都补0。结果一定是正数</p>
-</blockquote>
-<h4 id="3-5-3-amp"><a href="#3-5-3-amp" class="headerlink" title="3.5.3. &amp;"></a>3.5.3. &amp;</h4><blockquote>
-<p>按位与。例子待定</p>
-</blockquote>
-<h4 id="3-5-4"><a href="#3-5-4" class="headerlink" title="3.5.4. |"></a>3.5.4. |</h4><blockquote>
-<p>按位或。例子待定</p>
-</blockquote>
-<h4 id="3-5-5"><a href="#3-5-5" class="headerlink" title="3.5.5. ^"></a>3.5.5. ^</h4><blockquote>
-<p>按位异或。例子待定</p>
-</blockquote>
-<h4 id="3-5-6"><a href="#3-5-6" class="headerlink" title="3.5.6. ~"></a>3.5.6. ~</h4><blockquote>
-<p>按位取反。例子待定</p>
-</blockquote>
+<h4 id="3-5-2-gt-gt-gt"><a href="#3-5-2-gt-gt-gt" class="headerlink" title="3.5.2. &gt;&gt;&gt;"></a>3.5.2. &gt;&gt;&gt;</h4><p>无符号右移。不管最高位是什么，左边都补0。结果一定是正数</p>
+<h4 id="3-5-3-amp"><a href="#3-5-3-amp" class="headerlink" title="3.5.3. &amp;"></a>3.5.3. &amp;</h4><p>按位与。例子待定</p>
+<h4 id="3-5-4"><a href="#3-5-4" class="headerlink" title="3.5.4. |"></a>3.5.4. |</h4><p>按位或。例子待定</p>
+<h4 id="3-5-5"><a href="#3-5-5" class="headerlink" title="3.5.5. ^"></a>3.5.5. ^</h4><p>按位异或。例子待定</p>
+<h4 id="3-5-6"><a href="#3-5-6" class="headerlink" title="3.5.6. ~"></a>3.5.6. ~</h4><p>按位取反。例子待定</p>
 
     </div>
 

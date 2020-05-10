@@ -31,7 +31,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://yoursite.com/2020/04/20/%E7%AC%94%E8%AE%B0-%E5%A4%9A%E7%BA%BF%E7%A8%8B/%E7%BA%BF%E7%A8%8B%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.png">
 <meta property="article:published_time" content="2020-04-20T06:17:07.000Z">
-<meta property="article:modified_time" content="2020-05-07T11:00:31.109Z">
+<meta property="article:modified_time" content="2020-05-10T12:42:42.999Z">
 <meta property="article:author" content="纸人">
 <meta property="article:tag" content="Java笔记">
 <meta property="article:tag" content="多线程">
@@ -234,7 +234,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-05-07 19:00:31" itemprop="dateModified" datetime="2020-05-07T19:00:31+08:00">2020-05-07</time>
+                <time title="修改时间：2020-05-10 20:42:42" itemprop="dateModified" datetime="2020-05-10T20:42:42+08:00">2020-05-10</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -260,21 +260,11 @@
         <p>多线程的学习</p>
 <a id="more"></a>
 
-<h1 id="多线程"><a href="#多线程" class="headerlink" title="多线程"></a>多线程</h1><h2 id="0-基本概念"><a href="#0-基本概念" class="headerlink" title="0. 基本概念"></a>0. 基本概念</h2><h3 id="0-0-程序-program"><a href="#0-0-程序-program" class="headerlink" title="0.0. 程序(program)"></a>0.0. 程序(program)</h3><blockquote>
-<p>是为完成特定任务、用某种语言编写的一组指令的集合。指一段<strong>静态的代码</strong>，静态对象。</p>
-</blockquote>
-<h3 id="0-1-进程-process"><a href="#0-1-进程-process" class="headerlink" title="0.1. 进程(process)"></a>0.1. 进程(process)</h3><blockquote>
-<p>是程序的一次执行过程，或是正在运行的一个程序。是一个<strong>动态的过程</strong>，有它自身的产生、存在和消亡的过程。是操作系统管理和调度的最小单位。每个进程之间的内存相互独立。</p>
-</blockquote>
-<h3 id="0-2-线程-thread"><a href="#0-2-线程-thread" class="headerlink" title="0.2. 线程(thread)"></a>0.2. 线程(thread)</h3><blockquote>
-<p>线程是程序内部的一条执行路径。是CPU调度任务的最小单位。线程共享同一个进程的内存。</p>
-</blockquote>
-<h3 id="0-3-并行"><a href="#0-3-并行" class="headerlink" title="0.3. 并行"></a>0.3. 并行</h3><blockquote>
-<p>并行：<strong>多个CPU同时执行多个任务</strong>。例：多个人同时做不同的事。</p>
-</blockquote>
-<h3 id="0-4-并发"><a href="#0-4-并发" class="headerlink" title="0.4. 并发"></a>0.4. 并发</h3><blockquote>
-<p>并发：一个CPU(采用时间片)同时执行多个任务。例：秒杀、多个人做同一件事。</p>
-</blockquote>
+<h1 id="多线程"><a href="#多线程" class="headerlink" title="多线程"></a>多线程</h1><h2 id="0-基本概念"><a href="#0-基本概念" class="headerlink" title="0. 基本概念"></a>0. 基本概念</h2><h3 id="0-0-程序-program"><a href="#0-0-程序-program" class="headerlink" title="0.0. 程序(program)"></a>0.0. 程序(program)</h3><p>是为完成特定任务、用某种语言编写的一组指令的集合。指一段<strong>静态的代码</strong>，静态对象。</p>
+<h3 id="0-1-进程-process"><a href="#0-1-进程-process" class="headerlink" title="0.1. 进程(process)"></a>0.1. 进程(process)</h3><p>是程序的一次执行过程，或是正在运行的一个程序。是一个<strong>动态的过程</strong>，有它自身的产生、存在和消亡的过程。是操作系统管理和调度的最小单位。每个进程之间的内存相互独立。</p>
+<h3 id="0-2-线程-thread"><a href="#0-2-线程-thread" class="headerlink" title="0.2. 线程(thread)"></a>0.2. 线程(thread)</h3><p>线程是程序内部的一条执行路径。是CPU调度任务的最小单位。线程共享同一个进程的内存。</p>
+<h3 id="0-3-并行"><a href="#0-3-并行" class="headerlink" title="0.3. 并行"></a>0.3. 并行</h3><p>并行：<strong>多个CPU同时执行多个任务</strong>。例：多个人同时做不同的事。</p>
+<h3 id="0-4-并发"><a href="#0-4-并发" class="headerlink" title="0.4. 并发"></a>0.4. 并发</h3><p>并发：一个CPU(采用时间片)同时执行多个任务。例：秒杀、多个人做同一件事。</p>
 <h3 id="0-5-何时需要多线程"><a href="#0-5-何时需要多线程" class="headerlink" title="0.5. 何时需要多线程"></a>0.5. 何时需要多线程</h3><ul>
 <li>程序需要执行<strong>两个或多个任务</strong></li>
 <li>程序需要<strong>实现一些需要等待的任务</strong>时，如用户输入、文件读写操作、网络操作、搜索等</li>
@@ -356,17 +346,13 @@
 <li>便于线程管理</li>
 </ul>
 <h5 id="线程池相关API"><a href="#线程池相关API" class="headerlink" title="线程池相关API"></a>线程池相关API</h5><p>JDK5.0起提供了线程相关的API：<strong>ExecutorService</strong> 和 <strong>Executors</strong> </p>
-<h6 id="ExecutorService"><a href="#ExecutorService" class="headerlink" title="ExecutorService"></a>ExecutorService</h6><blockquote>
-<p>ExecutorService，真正的线程池接口。常见子类<strong>ThreadPoolExecutor</strong></p>
-</blockquote>
+<h6 id="ExecutorService"><a href="#ExecutorService" class="headerlink" title="ExecutorService"></a>ExecutorService</h6><p>ExecutorService，真正的线程池接口。常见子类<strong>ThreadPoolExecutor</strong></p>
 <ul>
 <li><strong>void execute (Runnable command)</strong>：执行任务，没有返回值，一般用来执行Runnable</li>
 <li><strong><T> Future <T> submit (Callable <T> task)</T></T></T></strong>：执行任务，有返回值，一般用来执行Callable</li>
 <li><strong>void shutdown()</strong>：关闭连接池</li>
 </ul>
-<h6 id="Executors"><a href="#Executors" class="headerlink" title="Executors"></a>Executors</h6><blockquote>
-<p>Executors ，工具类、线程池的工厂类。用于创建并返回不同类型的线程池。</p>
-</blockquote>
+<h6 id="Executors"><a href="#Executors" class="headerlink" title="Executors"></a>Executors</h6><p>Executors ，工具类、线程池的工厂类。用于创建并返回不同类型的线程池。</p>
 <ul>
 <li><strong>Executors.newCachedThreadPool()</strong>：创建一个可根据需要创建新线程的线程池 </li>
 <li><strong>Executors.newFixedThreadPool(n)</strong>：创建一个可重用固定线程数的线程池 </li>
@@ -421,18 +407,18 @@
 <li><strong>死亡</strong>：线程完成了它的全部工作或线程被提前强制性地中止或出现异常导致结束</li>
 </ul>
 <h4 id="线程生命周期图"><a href="#线程生命周期图" class="headerlink" title="线程生命周期图"></a>线程生命周期图</h4><p><img src="/2020/04/20/%E7%AC%94%E8%AE%B0-%E5%A4%9A%E7%BA%BF%E7%A8%8B/%E7%BA%BF%E7%A8%8B%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.png" alt="线程生命周期"></p>
-<h2 id="6-线程的同步"><a href="#6-线程的同步" class="headerlink" title="6. 线程的同步"></a>6. 线程的同步</h2><p>​    多线程会出现安全问题。问题的原因是当多条语句在操作同一个线程共享数据时，一个线程对多条语句只执行了一部分，还没有执行完，另一个线程参与进来执行，导致共享数据的错误。 </p>
-<p>​    解决办法： 对多条操作共享数据的语句，只能让一个线程都执行完，在执行过程中，其他线程不可以参与执行。即Java的<strong>同步锁机制</strong>。</p>
-<p>​    使用<strong>锁</strong>时，必须<strong>确保使用同一个资源的多个线程共用一把锁</strong>，这个非常重要，否则就无法保证共享资源的安全。</p>
+<h2 id="6-线程的同步"><a href="#6-线程的同步" class="headerlink" title="6. 线程的同步"></a>6. 线程的同步</h2><p>多线程会出现安全问题。问题的原因是当多条语句在操作同一个线程共享数据时，一个线程对多条语句只执行了一部分，还没有执行完，另一个线程参与进来执行，导致共享数据的错误。 </p>
+<p>解决办法： 对多条操作共享数据的语句，只能让一个线程都执行完，在执行过程中，其他线程不可以参与执行。即Java的<strong>同步锁机制</strong>。</p>
+<p>使用<strong>锁</strong>时，必须<strong>确保使用同一个资源的多个线程共用一把锁</strong>，这个非常重要，否则就无法保证共享资源的安全。</p>
 <h3 id="6-0-Synchronized"><a href="#6-0-Synchronized" class="headerlink" title="6.0. Synchronized"></a>6.0. Synchronized</h3><p><strong>Synchronized</strong>既可以修饰代码块，又可以修饰方法。</p>
 <h4 id="6-0-0-Synchronized的锁"><a href="#6-0-0-Synchronized的锁" class="headerlink" title="6.0.0. Synchronized的锁"></a>6.0.0. Synchronized的锁</h4><ul>
 <li><strong>任意对象</strong>都可以作为同步锁。所有对象都自动含有单一的锁（监视器）。 </li>
 <li>同步方法的锁：静态方法（<strong>类名.class</strong>）、非静态方法（<strong>this</strong>）</li>
 <li>同步代码块：自己指定，很多时候也是指定为<strong>this</strong>或<strong>类名.class</strong> </li>
 </ul>
-<h3 id="6-1-Lock"><a href="#6-1-Lock" class="headerlink" title="6.1. Lock"></a>6.1. Lock</h3><p>​    JDK 5.0开始，Java提供了更强大的线程同步机制——通过显式定义同 步锁对象来实现同步。同步锁使用<strong>Lock对象</strong>充当。</p>
-<h4 id="6-1-0-接口Lock"><a href="#6-1-0-接口Lock" class="headerlink" title="6.1.0. 接口Lock"></a>6.1.0. 接口Lock</h4><p>​    java.util.concurrent.locks.Lock接口是控制多个线程对共享资源进行访问的工具。锁提供了对共享资源的独占访问，每次只能有一个线程对Lock对象 加锁，<strong>线程开始访问共享资源之前应先获得Lock对象</strong>。</p>
-<h4 id="6-1-1-ReentrantLock"><a href="#6-1-1-ReentrantLock" class="headerlink" title="6.1.1. ReentrantLock"></a>6.1.1. ReentrantLock</h4><p>​    ReentrantLock 类实现了 Lock ，它拥有与 synchronized 相同的并发性和 内存语义，在实现线程安全的控制中，比较常用的是ReentrantLock，可以 显式加锁、释放锁。</p>
+<h3 id="6-1-Lock"><a href="#6-1-Lock" class="headerlink" title="6.1. Lock"></a>6.1. Lock</h3><p>JDK 5.0开始，Java提供了更强大的线程同步机制——通过显式定义同 步锁对象来实现同步。同步锁使用<strong>Lock对象</strong>充当。</p>
+<h4 id="6-1-0-接口Lock"><a href="#6-1-0-接口Lock" class="headerlink" title="6.1.0. 接口Lock"></a>6.1.0. 接口Lock</h4><p>java.util.concurrent.locks.Lock接口是控制多个线程对共享资源进行访问的工具。锁提供了对共享资源的独占访问，每次只能有一个线程对Lock对象 加锁，<strong>线程开始访问共享资源之前应先获得Lock对象</strong>。</p>
+<h4 id="6-1-1-ReentrantLock"><a href="#6-1-1-ReentrantLock" class="headerlink" title="6.1.1. ReentrantLock"></a>6.1.1. ReentrantLock</h4><p>ReentrantLock 类实现了 Lock ，它拥有与 synchronized 相同的并发性和 内存语义，在实现线程安全的控制中，比较常用的是ReentrantLock，可以 显式加锁、释放锁。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> ReentrantLock lock = <span class="keyword">new</span> ReenTrantLock();</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">m</span><span class="params">()</span></span>&#123;</span><br><span class="line">        lock.lock(); </span><br><span class="line">        <span class="keyword">try</span>&#123; </span><br><span class="line">            <span class="comment">//保证线程安全的代码; </span></span><br><span class="line">        &#125; <span class="keyword">finally</span>&#123; </span><br><span class="line">            lock.unlock();  </span><br><span class="line">        &#125; </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h3 id="6-3-Synchronized和Lock的区别"><a href="#6-3-Synchronized和Lock的区别" class="headerlink" title="6.3. Synchronized和Lock的区别"></a>6.3. Synchronized和Lock的区别</h3><ul>
@@ -454,8 +440,8 @@
 </ul>
 </li>
 </ul>
-<h3 id="6-6-线程的死锁"><a href="#6-6-线程的死锁" class="headerlink" title="6.6. 线程的死锁"></a>6.6. 线程的死锁</h3><p>​    不同的线程分别占用对方需要的同步资源不放弃，都在等待对方放弃自己需要的同步资源，就形成了线程的死锁。</p>
-<p>​    出现死锁后，不会出现异常，不会出现提示，只是所有的线程都处于阻塞状态，无法继续。</p>
+<h3 id="6-6-线程的死锁"><a href="#6-6-线程的死锁" class="headerlink" title="6.6. 线程的死锁"></a>6.6. 线程的死锁</h3><p>不同的线程分别占用对方需要的同步资源不放弃，都在等待对方放弃自己需要的同步资源，就形成了线程的死锁。</p>
+<p>出现死锁后，不会出现异常，不会出现提示，只是所有的线程都处于阻塞状态，无法继续。</p>
 <h4 id="6-6-0-解决方法"><a href="#6-6-0-解决方法" class="headerlink" title="6.6.0. 解决方法"></a>6.6.0. 解决方法</h4><ul>
 <li>专门的算法、原则</li>
 <li>尽量减少同步资源的定义</li>
@@ -464,7 +450,7 @@
 <h4 id="6-6-1-死锁示例"><a href="#6-6-1-死锁示例" class="headerlink" title="6.6.1. 死锁示例"></a>6.6.1. 死锁示例</h4><p>施工中</p>
 <h3 id="6-7-线程安全的懒汉式"><a href="#6-7-线程安全的懒汉式" class="headerlink" title="6.7. 线程安全的懒汉式"></a>6.7. 线程安全的懒汉式</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Singleton</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Singleton instance = <span class="keyword">null</span>; </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span><span class="params">()</span></span>&#123;&#125; </span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getInstance</span><span class="params">()</span></span>&#123; </span><br><span class="line">        <span class="keyword">if</span>(instance==<span class="keyword">null</span>)&#123; </span><br><span class="line">            <span class="keyword">synchronized</span>(Singleton<span class="class">.<span class="keyword">class</span>)</span>&#123; </span><br><span class="line">                <span class="keyword">if</span>(instance == <span class="keyword">null</span>)&#123; </span><br><span class="line">                    instance=<span class="keyword">new</span> Singleton(); </span><br><span class="line">                &#125; </span><br><span class="line">            &#125; </span><br><span class="line">        &#125; </span><br><span class="line">        <span class="keyword">return</span> instance; </span><br><span class="line">    &#125; </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SingletonTest</span></span>&#123; </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123; </span><br><span class="line">        Singleton s1=Singleton.getInstance(); </span><br><span class="line">        Singleton s2=Singleton.getInstance();</span><br><span class="line">        System.out.println(s1==s2); </span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h2 id="7-线程的通信"><a href="#7-线程的通信" class="headerlink" title="7. 线程的通信"></a>7. 线程的通信</h2><h3 id="7-0-线程通信相关方法"><a href="#7-0-线程通信相关方法" class="headerlink" title="7.0. 线程通信相关方法"></a>7.0. 线程通信相关方法</h3><p>​    以下方法只有在<strong>synchronized方法</strong>或<strong>synchronized代码块</strong>中才能使用，否则会报 java.lang.IllegalMonitorStateException异常。调用者必须是同步代码块或同步方法中的<strong>同步监视器</strong>(锁对象)。</p>
+<h2 id="7-线程的通信"><a href="#7-线程的通信" class="headerlink" title="7. 线程的通信"></a>7. 线程的通信</h2><h3 id="7-0-线程通信相关方法"><a href="#7-0-线程通信相关方法" class="headerlink" title="7.0. 线程通信相关方法"></a>7.0. 线程通信相关方法</h3><p>以下方法只有在<strong>synchronized方法</strong>或<strong>synchronized代码块</strong>中才能使用，否则会报 java.lang.IllegalMonitorStateException异常。调用者必须是同步代码块或同步方法中的<strong>同步监视器</strong>(锁对象)。</p>
 <ul>
 <li><strong>wait()/wait(毫秒)</strong> : 使当前线程进入阻塞状态，并释放锁。</li>
 <li><strong>notify()</strong> :唤醒等待的一个线程</li>
@@ -473,7 +459,7 @@
 <h3 id="7-1-Sleep-和wait-的异同"><a href="#7-1-Sleep-和wait-的异同" class="headerlink" title="7.1. Sleep()和wait()的异同"></a>7.1. Sleep()和wait()的异同</h3><p>相同点：使线程进入阻塞状态 </p>
 <p>不同点：<strong>两方法声明位置不同</strong>，Thread类中声明sleep(),Object类中声明wait() </p>
 <p>     <strong>调用要求不同</strong>：sleep()可以在任何场景下使用，wait()必须在同步代码或同步方法中 </p>
-<h3 id="7-2-生产者，消费者例题"><a href="#7-2-生产者，消费者例题" class="headerlink" title="7.2. 生产者，消费者例题"></a>7.2. 生产者，消费者例题</h3><p>​    生产者(Productor)将产品交给店员(Clerk)，而消费者(Customer)从店员处取走产品，店员一次只能持有固定数量的产品(比如:20），如果生产者试图生产更多的产品，店员会叫生产者停一下，如果店中有空位放产品了再通知生产者继续生产；如果店中没有产品了，店员会告诉消费者等一下，如果店中有产品了再通知消费者来取走产品。</p>
+<h3 id="7-2-生产者，消费者例题"><a href="#7-2-生产者，消费者例题" class="headerlink" title="7.2. 生产者，消费者例题"></a>7.2. 生产者，消费者例题</h3><p>​生产者(Productor)将产品交给店员(Clerk)，而消费者(Customer)从店员处取走产品，店员一次只能持有固定数量的产品(比如:20），如果生产者试图生产更多的产品，店员会叫生产者停一下，如果店中有空位放产品了再通知生产者继续生产；如果店中没有产品了，店员会告诉消费者等一下，如果店中有产品了再通知消费者来取走产品。</p>
 <p>这里可能出现两个问题：</p>
 <p>  生产者比消费者快时，消费者会漏掉一些数据没有取到。   </p>
 <p>​    消费者比生产者快时，消费者会取相同的数据。</p>

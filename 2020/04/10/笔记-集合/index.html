@@ -30,7 +30,7 @@
 <meta property="og:description" content="Java集合概述">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-04-10T12:14:52.000Z">
-<meta property="article:modified_time" content="2020-05-07T06:10:06.172Z">
+<meta property="article:modified_time" content="2020-05-10T12:44:15.193Z">
 <meta property="article:author" content="纸人">
 <meta property="article:tag" content="Java笔记">
 <meta property="article:tag" content="集合">
@@ -236,7 +236,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-05-07 14:10:06" itemprop="dateModified" datetime="2020-05-07T14:10:06+08:00">2020-05-07</time>
+                <time title="修改时间：2020-05-10 20:44:15" itemprop="dateModified" datetime="2020-05-10T20:44:15+08:00">2020-05-10</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -268,9 +268,7 @@
 <li>Collection接口：存储单列数据，定义了一组对象的方法的集合</li>
 <li>Map接口：存储双列数据，保存具有映射关系“key-value对”的集合</li>
 </ul>
-<h2 id="1-Collection接口"><a href="#1-Collection接口" class="headerlink" title="1. Collection接口"></a>1. Collection接口</h2><blockquote>
-<p>Collection接口是<strong>List</strong>、<strong>Set</strong>和<strong>Queue</strong>接口的父接口。<br>Java5之前，Java集合会丢失容器中所有对象的数据类型，把所有对象都当成Object类型处理。<strong>Java5之后增加了泛型后</strong>，Java集合可以记住所有容器中对象的数据类型了。</p>
-</blockquote>
+<h2 id="1-Collection接口"><a href="#1-Collection接口" class="headerlink" title="1. Collection接口"></a>1. Collection接口</h2><p>Collection接口是<strong>List</strong>、<strong>Set</strong>和<strong>Queue</strong>接口的父接口。<br>Java5之前，Java集合会丢失容器中所有对象的数据类型，把所有对象都当成Object类型处理。<strong>Java5之后增加了泛型后</strong>，Java集合可以记住所有容器中对象的数据类型了。</p>
 <h3 id="1-0-Collection接口的方法"><a href="#1-0-Collection接口的方法" class="headerlink" title="1.0. Collection接口的方法"></a>1.0. Collection接口的方法</h3><h4 id="1-0-0-增"><a href="#1-0-0-增" class="headerlink" title="1.0.0. 增"></a>1.0.0. 增</h4><ul>
 <li><strong>boolean add (E e)</strong></li>
 <li><strong>boolean addAll (Collection&lt;? extends E&gt; c)</strong></li>
@@ -302,9 +300,7 @@
 <li>List集合中的元素有序、且可重复</li>
 <li>List集合中的元素都有其对应的顺序索引</li>
 </ul>
-<h3 id="2-0-List接口中的方法"><a href="#2-0-List接口中的方法" class="headerlink" title="2.0. List接口中的方法"></a>2.0. List接口中的方法</h3><blockquote>
-<p>List除了从Collection集合继承的放之四海而皆准，List集合里还添加了些根据索引来操作集合元素的方法</p>
-</blockquote>
+<h3 id="2-0-List接口中的方法"><a href="#2-0-List接口中的方法" class="headerlink" title="2.0. List接口中的方法"></a>2.0. List接口中的方法</h3><p>List除了从Collection集合继承的放之四海而皆准，List集合里还添加了些根据索引来操作集合元素的方法</p>
 <h4 id="2-0-0-增"><a href="#2-0-0-增" class="headerlink" title="2.0.0. 增"></a>2.0.0. 增</h4><ul>
 <li><strong>void add (int index, Object ele)</strong>：向指定索引处添加指定元素，集合长度改变</li>
 <li><strong>boolean addAll (int index, Collection eles)</strong>：向指定索引处添加指定集合eles</li>
@@ -367,18 +363,14 @@
 <li>Set集合不允许包含相同的元素</li>
 <li>Set判断两个对象是否相同不是使用<code>==</code>，而是根据<code>equals()</code>方法</li>
 </ul>
-<h3 id="3-0-Set的实现类之HashSet"><a href="#3-0-Set的实现类之HashSet" class="headerlink" title="3.0. Set的实现类之HashSet"></a>3.0. Set的实现类之HashSet</h3><blockquote>
-<p>HashSet是Set接口的典型实现，大多时候用Set集合时都用这个实现类。<br>底层也是数组，初始容量是16，当使用率超过0.75时，就会扩大为原来的2倍。</p>
-</blockquote>
+<h3 id="3-0-Set的实现类之HashSet"><a href="#3-0-Set的实现类之HashSet" class="headerlink" title="3.0. Set的实现类之HashSet"></a>3.0. Set的实现类之HashSet</h3><p>HashSet是Set接口的典型实现，大多时候用Set集合时都用这个实现类。<br>底层也是数组，初始容量是16，当使用率超过0.75时，就会扩大为原来的2倍。</p>
 <h4 id="3-0-1-HashSet的特点"><a href="#3-0-1-HashSet的特点" class="headerlink" title="3.0.1. HashSet的特点"></a>3.0.1. HashSet的特点</h4><ul>
 <li>不能保证元素的排列顺序</li>
 <li>没有<code>set()</code>和<code>get()</code>方法</li>
 <li>存储的元素不可重复</li>
 <li>线程不安全，可存储 null</li>
 </ul>
-<h4 id="3-0-2-HashSet集合判断两个元素相等的标准"><a href="#3-0-2-HashSet集合判断两个元素相等的标准" class="headerlink" title="3.0.2. HashSet集合判断两个元素相等的标准"></a>3.0.2. HashSet集合判断两个元素相等的标准</h4><blockquote>
-<p>两个对象通过hashCode()方法比较相等，并且两个对象的equals()方法返回值也相等</p>
-</blockquote>
+<h4 id="3-0-2-HashSet集合判断两个元素相等的标准"><a href="#3-0-2-HashSet集合判断两个元素相等的标准" class="headerlink" title="3.0.2. HashSet集合判断两个元素相等的标准"></a>3.0.2. HashSet集合判断两个元素相等的标准</h4><p>两个对象通过hashCode()方法比较相等，并且两个对象的equals()方法返回值也相等</p>
 <h4 id="3-0-3-不添加重复数据的简单叙述"><a href="#3-0-3-不添加重复数据的简单叙述" class="headerlink" title="3.0.3. 不添加重复数据的简单叙述"></a>3.0.3. 不添加重复数据的简单叙述</h4><p>向HashSet中添加元素a时,首先调用元素a所在类的<code>hashCode()</code>方法，计算出元素a的哈希值。 </p>
 <ol>
 <li>此哈希值接着通过某种算法计算出在HashSet底层数组中的存放位置（即为：索引位置）， 判断数组此位置上是否已经有元素：    <ul>
@@ -391,17 +383,13 @@
 </ul>
 </li>
 </ol>
-<h3 id="3-2-Set的实现类之LinkedHashSet"><a href="#3-2-Set的实现类之LinkedHashSet" class="headerlink" title="3.2. Set的实现类之LinkedHashSet"></a>3.2. Set的实现类之LinkedHashSet</h3><blockquote>
-<p>LinkedHashSet是HashSet的子类</p>
-</blockquote>
+<h3 id="3-2-Set的实现类之LinkedHashSet"><a href="#3-2-Set的实现类之LinkedHashSet" class="headerlink" title="3.2. Set的实现类之LinkedHashSet"></a>3.2. Set的实现类之LinkedHashSet</h3><p>LinkedHashSet是HashSet的子类</p>
 <h4 id="3-2-0-LinkedHashSet的特点"><a href="#3-2-0-LinkedHashSet的特点" class="headerlink" title="3.2.0. LinkedHashSet的特点"></a>3.2.0. LinkedHashSet的特点</h4><ul>
 <li>LinkedHashSet根据元素的hashCode值来决定元素的存储位置，但它同时使用双向链表维护元素的次序，似的元素看起来是以插入的顺序保存的</li>
 <li>不允许元素重复</li>
 <li>插入性能略低于HashSet，但在迭代访问Set时有很好的性能</li>
 </ul>
-<h3 id="3-3-Set的实现类之TreeSet"><a href="#3-3-Set的实现类之TreeSet" class="headerlink" title="3.3. Set的实现类之TreeSet"></a>3.3. Set的实现类之TreeSet</h3><blockquote>
-<p>TreeSet是SortedSet接口的实现类，SortedSet是Set的实现类。</p>
-</blockquote>
+<h3 id="3-3-Set的实现类之TreeSet"><a href="#3-3-Set的实现类之TreeSet" class="headerlink" title="3.3. Set的实现类之TreeSet"></a>3.3. Set的实现类之TreeSet</h3><p>TreeSet是SortedSet接口的实现类，SortedSet是Set的实现类。</p>
 <h4 id="3-3-0-TreeSet的特点"><a href="#3-3-0-TreeSet的特点" class="headerlink" title="3.3.0. TreeSet的特点"></a>3.3.0. TreeSet的特点</h4><ul>
 <li>TreeSet可以确保集合元素处于排序状态</li>
 <li>底层使用<strong>红黑树</strong>存储数据</li>
@@ -426,9 +414,7 @@
 <li>要想实现定制排序，需要将实现Comparator接口的实例作为形参传递给TreeSet的构造器</li>
 <li>仍然只能向TreeSet中添加类型相同的对象，否则会报ClassCastException异常</li>
 </ul>
-<h3 id="3-4-Collection相关实现类的遍历"><a href="#3-4-Collection相关实现类的遍历" class="headerlink" title="3.4. Collection相关实现类的遍历"></a>3.4. Collection相关实现类的遍历</h3><h3 id="3-4-0-foreach形式"><a href="#3-4-0-foreach形式" class="headerlink" title="3.4.0. foreach形式"></a>3.4.0. foreach形式</h3><blockquote>
-<p>底层调用Iterator完成操作</p>
-</blockquote>
+<h3 id="3-4-Collection相关实现类的遍历"><a href="#3-4-Collection相关实现类的遍历" class="headerlink" title="3.4. Collection相关实现类的遍历"></a>3.4. Collection相关实现类的遍历</h3><h3 id="3-4-0-foreach形式"><a href="#3-4-0-foreach形式" class="headerlink" title="3.4.0. foreach形式"></a>3.4.0. foreach形式</h3><p>底层调用Iterator完成操作</p>
 <h5 id="语法结构"><a href="#语法结构" class="headerlink" title="语法结构"></a>语法结构</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (集合的元素类型 element : 集合名) &#123;</span><br><span class="line">    <span class="comment">// 代码块 </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h5 id="特点-1"><a href="#特点-1" class="headerlink" title="特点"></a>特点</h5><p>遍历时效率高，但不适用于遍历的同时对集合进行修改，特别是影响集合元素个数的操作</p>
@@ -448,7 +434,8 @@
 
 <h5 id="错误示例2"><a href="#错误示例2" class="headerlink" title="错误示例2"></a>错误示例2</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span>(list.iterator().hasNext()) &#123;             </span><br><span class="line">    <span class="comment">// 死循环，集合对象每次调iterator()时都会得到一个全新的迭代 器对象  </span></span><br><span class="line">    System.err.println(list.iterator().next());         </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>​</p>
+
+
 </li>
 </ul>
 <h2 id="4-Map接口"><a href="#4-Map接口" class="headerlink" title="4. Map接口"></a>4. Map接口</h2><h3 id="4-0-Map接口的特点"><a href="#4-0-Map接口的特点" class="headerlink" title="4.0. Map接口的特点"></a>4.0. Map接口的特点</h3><ul>
@@ -475,9 +462,7 @@
 <li><strong>Collection values ()</strong>：返回所有value构成的Collection集合</li>
 <li><strong>Set entrySet ()</strong>：返回所有<code>key-value</code>构成的Set集合</li>
 </ul>
-<h3 id="4-2-Map实现类之HashMap"><a href="#4-2-Map实现类之HashMap" class="headerlink" title="4.2. Map实现类之HashMap"></a>4.2. Map实现类之HashMap</h3><h4 id="4-2-0-HashMap概述及特点"><a href="#4-2-0-HashMap概述及特点" class="headerlink" title="4.2.0. HashMap概述及特点"></a>4.2.0. HashMap概述及特点</h4><blockquote>
-<p>HashMap是Map接口使用频率最高的实现类</p>
-</blockquote>
+<h3 id="4-2-Map实现类之HashMap"><a href="#4-2-Map实现类之HashMap" class="headerlink" title="4.2. Map实现类之HashMap"></a>4.2. Map实现类之HashMap</h3><h4 id="4-2-0-HashMap概述及特点"><a href="#4-2-0-HashMap概述及特点" class="headerlink" title="4.2.0. HashMap概述及特点"></a>4.2.0. HashMap概述及特点</h4><p>HashMap是Map接口使用频率最高的实现类</p>
 <ul>
 <li>HashMap里存的<code>key-value</code>允许存null</li>
 <li><code>key</code>里存的类要重写<code>equals()</code>和<code>hashCode()</code></li>
@@ -495,24 +480,18 @@
 <li>TreeMap可以保证所有的<code>key-value</code> 处于有序状态</li>
 <li>按照key的“大小”顺序进行排列,依据<code>key</code>的<strong>自然排序</strong>Comparable（<code>compareTo()</code>)或<strong>定制排序</strong>Comparator(<code>compare()</code>)规则进行排序</li>
 </ul>
-<h3 id="4-5-Map实现类之Hashtable"><a href="#4-5-Map实现类之Hashtable" class="headerlink" title="4.5. Map实现类之Hashtable"></a>4.5. Map实现类之Hashtable</h3><h3 id="4-5-0-HashTable概述及特点"><a href="#4-5-0-HashTable概述及特点" class="headerlink" title="4.5.0. HashTable概述及特点"></a>4.5.0. HashTable概述及特点</h3><blockquote>
-<p>HashTable是个古老的Map实现类，JDK1.0就提供了。</p>
-</blockquote>
+<h3 id="4-5-Map实现类之Hashtable"><a href="#4-5-Map实现类之Hashtable" class="headerlink" title="4.5. Map实现类之Hashtable"></a>4.5. Map实现类之Hashtable</h3><h3 id="4-5-0-HashTable概述及特点"><a href="#4-5-0-HashTable概述及特点" class="headerlink" title="4.5.0. HashTable概述及特点"></a>4.5.0. HashTable概述及特点</h3><p>HashTable是个古老的Map实现类，JDK1.0就提供了。</p>
 <ul>
 <li>HashTable是线程安全的</li>
 <li>HashTable不允许使用null作为<code>key</code>和<code>value</code></li>
 <li>HashTable不能保证<code>key-value</code>的顺序</li>
 </ul>
-<h4 id="4-5-1-HashTable的实现类之Properties"><a href="#4-5-1-HashTable的实现类之Properties" class="headerlink" title="4.5.1. HashTable的实现类之Properties"></a>4.5.1. HashTable的实现类之Properties</h4><blockquote>
-<p>Properties是HashTable的子类，该类的对象用于处理属性文件</p>
-</blockquote>
+<h4 id="4-5-1-HashTable的实现类之Properties"><a href="#4-5-1-HashTable的实现类之Properties" class="headerlink" title="4.5.1. HashTable的实现类之Properties"></a>4.5.1. HashTable的实现类之Properties</h4><p>Properties是HashTable的子类，该类的对象用于处理属性文件</p>
 <ul>
 <li>Properties里的<code>key</code>和<code>value</code>都是字符串类型</li>
 <li>存取数据时，建议使用<code>setProperty (String key, String value)</code>方法和<code>getProperty (String key)</code>方法</li>
 </ul>
-<h2 id="5-Collections工具类"><a href="#5-Collections工具类" class="headerlink" title="5. Collections工具类"></a>5. Collections工具类</h2><blockquote>
-<p>Collections是操作Set、List和Map等集合的工具类。<br>它提供了一系列静态方法对集合元素进行排序、查询和修改等操作，还提供了对集合对象设置不可变、对集合对象实现同步控制等方法。</p>
-</blockquote>
+<h2 id="5-Collections工具类"><a href="#5-Collections工具类" class="headerlink" title="5. Collections工具类"></a>5. Collections工具类</h2><p>Collections是操作Set、List和Map等集合的工具类。<br>它提供了一系列静态方法对集合元素进行排序、查询和修改等操作，还提供了对集合对象设置不可变、对集合对象实现同步控制等方法。</p>
 <h3 id="5-0-Collections工具类的方法"><a href="#5-0-Collections工具类的方法" class="headerlink" title="5.0. Collections工具类的方法"></a>5.0. Collections工具类的方法</h3><h4 id="5-0-0-排序操作"><a href="#5-0-0-排序操作" class="headerlink" title="5.0.0. 排序操作"></a>5.0.0. 排序操作</h4><ul>
 <li><strong>public static void reverse (List&lt;?&gt; list)</strong>：反转List中元素的顺序</li>
 <li><strong>public static void shuffle (List&lt;?&gt; list)</strong>：对List集合元素进行随机排序</li>

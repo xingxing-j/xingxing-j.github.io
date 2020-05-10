@@ -30,7 +30,7 @@
 <meta property="og:description" content="施工中">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-04-20T11:45:55.000Z">
-<meta property="article:modified_time" content="2020-05-07T06:08:25.059Z">
+<meta property="article:modified_time" content="2020-05-10T12:36:03.868Z">
 <meta property="article:author" content="纸人">
 <meta property="article:tag" content="MyBatis">
 <meta property="article:tag" content="框架">
@@ -232,7 +232,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-05-07 14:08:25" itemprop="dateModified" datetime="2020-05-07T14:08:25+08:00">2020-05-07</time>
+                <time title="修改时间：2020-05-10 20:36:03" itemprop="dateModified" datetime="2020-05-10T20:36:03+08:00">2020-05-10</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -258,69 +258,51 @@
         <p>施工中</p>
 <a id="more"></a>
 
-<h1 id="MyBatis"><a href="#MyBatis" class="headerlink" title="MyBatis"></a>MyBatis</h1><h2 id="0-简介"><a href="#0-简介" class="headerlink" title="0. 简介"></a>0. 简介</h2><blockquote>
-<ul>
-<li>MyBatis是一个支持定制化SQL，存储过程及高级映射的持久层框架</li>
-<li>可使用简单的XML或注解用于配置或原始映射，将接口和POJO(Plain Old Java Object,普通Java对象)映射成数据库中的记录</li>
-<li>它封装了很多JDBC的细节，使开发者只需关注SQL本身。它使用ORM(Object  Relational  Mapping)思想实现了结果集的封装</li>
-</ul>
-</blockquote>
-<h2 id="1-MyBatis主配置文件"><a href="#1-MyBatis主配置文件" class="headerlink" title="1. MyBatis主配置文件"></a>1. MyBatis主配置文件</h2><blockquote>
-<p>SqlMapConfig.xml里有一堆标签。这些标签都在<code>&lt;configuration&gt;</code>标签里，有严格的顺序</p>
+<h1 id="MyBatis"><a href="#MyBatis" class="headerlink" title="MyBatis"></a>MyBatis</h1><h2 id="0-简介"><a href="#0-简介" class="headerlink" title="0. 简介"></a>0. 简介</h2><p>MyBatis是一个支持定制化SQL，存储过程及高级映射的持久层框架。可使用简单的XML或注解用于配置或原始映射，将接口和POJO(Plain Old Java Object,普通Java对象)映射成数据库中的记录。它封装了很多JDBC的细节，使开发者只需关注SQL本身。它使用ORM(Object  Relational  Mapping)思想实现了结果集的封装</p>
+<h2 id="1-MyBatis主配置文件"><a href="#1-MyBatis主配置文件" class="headerlink" title="1. MyBatis主配置文件"></a>1. MyBatis主配置文件</h2><p>SqlMapConfig.xml里有一堆标签。这些标签都在<code>&lt;configuration&gt;</code>标签里，<strong>有严格的顺序</strong></p>
 <p>标签顺序：properties，settings，typeAliases，typeHandlers，objectFactory，objectWrapperFactory，reflectFactory，plugins，enviroments，databaseIdProvider，mappers</p>
-</blockquote>
 <h3 id="1-0-properties"><a href="#1-0-properties" class="headerlink" title="1.0. properties"></a>1.0. properties</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">properties</span> <span class="attr">resource</span>=<span class="string">"jdbcConfig.properties"</span> <span class="attr">url</span>=<span class="string">""</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">""</span> <span class="attr">value</span>=<span class="string">""</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">""</span> <span class="attr">value</span>=<span class="string">""</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-<blockquote>
 <ul>
 <li>resource属性配置：按照类路径的写法来写,且该配置文件需在类路径下</li>
 <li>URL属性配置：按照URL的写法写地址</li>
 <li>可在标签内部配置连接数据库的信息，也可通过${}去引用外部配置文件信息</li>
 </ul>
-</blockquote>
 <h3 id="2-0-settings"><a href="#2-0-settings" class="headerlink" title="2.0. settings"></a>2.0. settings</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">settings</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">setting</span> <span class="attr">name</span>=<span class="string">"lazyLoadingEnable"</span> <span class="attr">value</span>=<span class="string">"true"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">setting</span> <span class="attr">name</span>=<span class="string">"aggressiveLazyLoading"</span> <span class="attr">value</span>=<span class="string">"false"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">setting</span> <span class="attr">name</span>=<span class="string">"mapUnderscoreToCamelCase"</span> <span class="attr">value</span>=<span class="string">"true"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">settings</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-<blockquote>
 <ul>
 <li>lazyLoadingEnable：延迟加载的全局开关，默认值为：false</li>
 <li>aggressiveLazyLoading：侵入延迟加载，默认值为：true。禁用属性则按需加载</li>
 <li>mapUnderscoreToCamelCase：是否开启自动驼峰命名规则（camel case）映射，默认值：false。数据库字段A_COLUMN 对应 实体类属性aColumn</li>
 </ul>
-</blockquote>
-<h3 id="3-0-typeAliases"><a href="#3-0-typeAliases" class="headerlink" title="3.0. typeAliases"></a>3.0. typeAliases</h3><blockquote>
-<p>别名处理器，为实体类配置别名</p>
-</blockquote>
+<h3 id="3-0-typeAliases"><a href="#3-0-typeAliases" class="headerlink" title="3.0. typeAliases"></a>3.0. typeAliases</h3><p>别名处理器，为实体类配置别名。</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">typeAliases</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- type为要配置的全限定类名，光配这一个属性的话默认别名为类名的小写  --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">typeAlias</span> <span class="attr">type</span>=<span class="string">"xxx.xx.User"</span> <span class="attr">alias</span>=<span class="string">"user"</span>/&gt;</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">&lt;!-- 用于指定要配置别名的包，指定后该包下的实体类都会注册别名，且别名就是类名，不区分大小写--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">package</span> <span class="attr">name</span>=<span class="string">"xxx.xx.entity"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">typeAliases</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <h3 id="4-0-envrionments"><a href="#4-0-envrionments" class="headerlink" title="4.0. envrionments"></a>4.0. envrionments</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- default：指定使用某种环境，达到快速切换的目的，填的是envrioment标签的id属性 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">environments</span> <span class="attr">default</span>=<span class="string">"mysql"</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!--MySQL配置环境--&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">environment</span> <span class="attr">id</span>=<span class="string">"mysql"</span>&gt;</span></span><br><span class="line">        </span><br><span class="line">	<span class="comment">&lt;!-- 配置事务管理器 </span></span><br><span class="line"><span class="comment">		 type属性：事务管理器类型 </span></span><br><span class="line"><span class="comment">			JDBC（JdbcTransactionFactory）；MANAGED（ManagedTransactionFactory）；自定义事务管理				器，需实现TransactionFactory接口，type为全限定类名</span></span><br><span class="line"><span class="comment">		--&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">transactionManager</span> <span class="attr">type</span>=<span class="string">"JDBC"</span>/&gt;</span></span><br><span class="line">		<span class="comment">&lt;!-- 配置数据源连接池</span></span><br><span class="line"><span class="comment">			 type属性：</span></span><br><span class="line"><span class="comment">				POOLED：采用传统的javax.sql.DataSource规范中的连接池，MyBatis中有针对其规范的实现</span></span><br><span class="line"><span class="comment">				UNPOOLED：采用传统的获取连接的方式，虽然也实现了javax.sql.DataSource接口，但没有使用						  池的思想</span></span><br><span class="line"><span class="comment">				JNDI：采用服务器提供的JNDI技术实现，来获取DataSource对象。注：如果不是Web或Maven的war					   工程，则不能使用</span></span><br><span class="line"><span class="comment">		--&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">dataSource</span> <span class="attr">type</span>=<span class="string">"POOLED"</span>&gt;</span></span><br><span class="line">			<span class="comment">&lt;!--配置连接数据库的4个基本信息--&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"driver"</span> <span class="attr">value</span>=<span class="string">"$&#123;&#125;"</span>/&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"url"</span> <span class="attr">value</span>=<span class="string">"$&#123;&#125;"</span>/&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"username"</span> <span class="attr">value</span>=<span class="string">"$&#123;&#125;"</span>/&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"password"</span> <span class="attr">value</span>=<span class="string">"$&#123;&#125;"</span>/&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">dataSource</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">environment</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">environments</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-<h3 id="5-0-databaseIdProvider"><a href="#5-0-databaseIdProvider" class="headerlink" title="5.0. databaseIdProvider"></a>5.0. databaseIdProvider</h3><blockquote>
-<p>用来支持多数据库厂商的标签</p>
-</blockquote>
+<h3 id="5-0-databaseIdProvider"><a href="#5-0-databaseIdProvider" class="headerlink" title="5.0. databaseIdProvider"></a>5.0. databaseIdProvider</h3><p>用来支持多数据库厂商的标签</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">databaseIdProvider</span> <span class="attr">type</span>=<span class="string">"DB_VENDOR"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"SQL Server"</span> <span class="attr">value</span>=<span class="string">"sqlserver"</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"DB2"</span> <span class="attr">value</span>=<span class="string">"db2"</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"Oracle"</span> <span class="attr">value</span>=<span class="string">"oracle"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">databaseIdProvider</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-<h3 id="6-0-mappers"><a href="#6-0-mappers" class="headerlink" title="6.0. mappers"></a>6.0. mappers</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mappers</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- 使用相对于类路径的资源引用 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">mapper</span> <span class="attr">resource</span>=<span class="string">"org/mybatis/builder/AuthorMapper.xml"</span>/&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- 使用完全限定资源定位符（URL） --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">mapper</span> <span class="attr">url</span>=<span class="string">"file:///var/mappers/AuthorMapper.xml"</span>/&gt;</span></span><br><span class="line">  	<span class="comment">&lt;!-- 使用映射器接口实现类的完全限定类名 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">mapper</span> <span class="attr">class</span>=<span class="string">"org.mybatis.builder.AuthorMapper"</span>/&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 将包内的映射器接口实现全部注册为映射器 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">package</span> <span class="attr">name</span>=<span class="string">"org.mybatis.builder"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mappers</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="6-0-mappers"><a href="#6-0-mappers" class="headerlink" title="6.0. mappers"></a>6.0. mappers</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mappers</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 使用相对于类路径的资源引用 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">mapper</span> <span class="attr">resource</span>=<span class="string">"org/mybatis/builder/AuthorMapper.xml"</span>/&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 使用完全限定资源定位符（URL） --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">mapper</span> <span class="attr">url</span>=<span class="string">"file:///var/mappers/AuthorMapper.xml"</span>/&gt;</span></span><br><span class="line">  	<span class="comment">&lt;!-- 使用映射器接口实现类的完全限定类名 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">mapper</span> <span class="attr">class</span>=<span class="string">"org.mybatis.builder.AuthorMapper"</span>/&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 将包内的映射器接口实现全部注册为映射器 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">package</span> <span class="attr">name</span>=<span class="string">"org.mybatis.builder"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mappers</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-<h2 id="2-xml映射文件"><a href="#2-xml映射文件" class="headerlink" title="2. xml映射文件"></a>2. xml映射文件</h2><h3 id="2-0-mapper标签"><a href="#2-0-mapper标签" class="headerlink" title="2.0. mapper标签"></a>2.0. mapper标签</h3><blockquote>
-<p>顶级标签，有个属性namespace，对应<strong>接口</strong>的全类名</p>
-</blockquote>
-<h3 id="2-1-resultMap标签"><a href="#2-1-resultMap标签" class="headerlink" title="2.1. resultMap标签"></a>2.1. resultMap标签</h3><blockquote>
-<p>配置<strong>列名</strong>和实体类的<strong>属性名</strong>的对应关系</p>
-</blockquote>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">resultMap</span> <span class="attr">id</span>=<span class="string">"userMap"</span> <span class="attr">type</span>=<span class="string">"实体类的全限定类名"</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- -主键字段的对应 -&gt;</span></span><br><span class="line"><span class="comment">    &lt;id property="userId" column="id"&gt;&lt;/id&gt;</span></span><br><span class="line"><span class="comment">    &lt;!-- 非主键字段的对应&gt;</span></span><br><span class="line"><span class="comment">    &lt;result property="userName" column="username"&gt;&lt;/result&gt;    </span></span><br><span class="line"><span class="comment">&lt;/resultMap&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="2-xml映射文件"><a href="#2-xml映射文件" class="headerlink" title="2. xml映射文件"></a>2. xml映射文件</h2><h3 id="2-0-mapper标签"><a href="#2-0-mapper标签" class="headerlink" title="2.0. mapper标签"></a>2.0. mapper标签</h3><p>顶级标签，有个属性namespace，对应<strong>接口</strong>的全类名</p>
+<h3 id="2-1-resultMap标签"><a href="#2-1-resultMap标签" class="headerlink" title="2.1. resultMap标签"></a>2.1. resultMap标签</h3><p>配置<strong>列名</strong>和实体类的<strong>属性名</strong>的对应关系</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">resultMap</span> <span class="attr">id</span>=<span class="string">"userMap"</span> <span class="attr">type</span>=<span class="string">"实体类的全限定类名"</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- -主键字段的对应 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">id</span> <span class="attr">property</span>=<span class="string">"userId"</span> <span class="attr">column</span>=<span class="string">"id"</span>&gt;</span><span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 非主键字段的对应 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">result</span> <span class="attr">property</span>=<span class="string">"userName"</span> <span class="attr">column</span>=<span class="string">"username"</span>&gt;</span><span class="tag">&lt;/<span class="name">result</span>&gt;</span>    </span><br><span class="line"><span class="tag">&lt;/<span class="name">resultMap</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-
-
-<h3 id="2-2-select标签"><a href="#2-2-select标签" class="headerlink" title="2.2. select标签"></a>2.2. select标签</h3><blockquote>
-<ul>
+<h3 id="2-2-select标签"><a href="#2-2-select标签" class="headerlink" title="2.2. select标签"></a>2.2. select标签</h3><ul>
 <li><strong>id</strong>：唯一标识符，对应相关接口的<strong>方法名</strong></li>
-<li><strong>parameterType</strong>：传入参数的全类名或别名，可以不写，MyBatis会根据类型推断器(TypeHandler)自动推断。</li>
-<li><strong>resultType</strong>：返回结果的全限定类名或别名。如果返回的是集合，那应该设置为集合包含的类型，而不是集合本身的类型。 resultType 和 resultMap 之间只能同时使用一个。</li>
-<li><strong>resultMap</strong>：对外部resultMap的引用，resultType 和 resultMap 之间只能同时使用一个。</li>
-<li><strong>flushCache</strong>：默认值为false。true时，一级缓存、二级缓存都会被清除</li>
 </ul>
+<ul>
+<li><p><strong>parameterType</strong>：传入参数的全类名或别名，可以不写，MyBatis会根据类型推断器(TypeHandler)自动推断。</p>
+</li>
+<li><p><strong>resultType</strong>：返回结果的全限定类名或别名。如果返回的是集合，那应该设置为集合包含的类型，而不是集合本身的类型。 resultType 和 resultMap 之间只能同时使用一个。</p>
+</li>
+<li><p><strong>resultMap</strong>：对外部resultMap的引用，resultType 和 resultMap 之间只能同时使用一个。</p>
+</li>
+<li><p><strong>flushCache</strong>：默认值为false。true时，一级缓存、二级缓存都会被清除</p>
 <p>……</p>
-</blockquote>
+</li>
+</ul>
 
     </div>
 
