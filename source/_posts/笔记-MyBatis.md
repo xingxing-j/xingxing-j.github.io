@@ -15,15 +15,13 @@ tags:
 
 ## 0. 简介
 
-> - MyBatis是一个支持定制化SQL，存储过程及高级映射的持久层框架
-> - 可使用简单的XML或注解用于配置或原始映射，将接口和POJO(Plain Old Java Object,普通Java对象)映射成数据库中的记录
-> - 它封装了很多JDBC的细节，使开发者只需关注SQL本身。它使用ORM(Object  Relational  Mapping)思想实现了结果集的封装
+MyBatis是一个支持定制化SQL，存储过程及高级映射的持久层框架。可使用简单的XML或注解用于配置或原始映射，将接口和POJO(Plain Old Java Object,普通Java对象)映射成数据库中的记录。它封装了很多JDBC的细节，使开发者只需关注SQL本身。它使用ORM(Object  Relational  Mapping)思想实现了结果集的封装
 
 ## 1. MyBatis主配置文件
 
-> SqlMapConfig.xml里有一堆标签。这些标签都在`<configuration>`标签里，有严格的顺序
->
-> 标签顺序：properties，settings，typeAliases，typeHandlers，objectFactory，objectWrapperFactory，reflectFactory，plugins，enviroments，databaseIdProvider，mappers
+SqlMapConfig.xml里有一堆标签。这些标签都在`<configuration>`标签里，**有严格的顺序**
+
+标签顺序：properties，settings，typeAliases，typeHandlers，objectFactory，objectWrapperFactory，reflectFactory，plugins，enviroments，databaseIdProvider，mappers
 
 ### 1.0. properties
 
@@ -34,9 +32,9 @@ tags:
 </properties>
 ```
 
-> - resource属性配置：按照类路径的写法来写,且该配置文件需在类路径下
-> - URL属性配置：按照URL的写法写地址
-> - 可在标签内部配置连接数据库的信息，也可通过${}去引用外部配置文件信息
+- resource属性配置：按照类路径的写法来写,且该配置文件需在类路径下
+- URL属性配置：按照URL的写法写地址
+- 可在标签内部配置连接数据库的信息，也可通过${}去引用外部配置文件信息
 
 ### 2.0. settings
 
@@ -48,13 +46,13 @@ tags:
 </settings>
 ```
 
-> - lazyLoadingEnable：延迟加载的全局开关，默认值为：false
-> - aggressiveLazyLoading：侵入延迟加载，默认值为：true。禁用属性则按需加载
-> - mapUnderscoreToCamelCase：是否开启自动驼峰命名规则（camel case）映射，默认值：false。数据库字段A_COLUMN 对应 实体类属性aColumn
+- lazyLoadingEnable：延迟加载的全局开关，默认值为：false
+- aggressiveLazyLoading：侵入延迟加载，默认值为：true。禁用属性则按需加载
+- mapUnderscoreToCamelCase：是否开启自动驼峰命名规则（camel case）映射，默认值：false。数据库字段A_COLUMN 对应 实体类属性aColumn
 
 ### 3.0. typeAliases
 
-> 别名处理器，为实体类配置别名
+别名处理器，为实体类配置别名。
 
 ```xml
 <typeAliases>
@@ -98,7 +96,7 @@ tags:
 
 ### 5.0. databaseIdProvider
 
-> 用来支持多数据库厂商的标签
+用来支持多数据库厂商的标签
 
 ```xml
 <databaseIdProvider type="DB_VENDOR">
@@ -112,10 +110,10 @@ tags:
 
 ```xml
 <mappers>
-	<!-- 使用相对于类路径的资源引用 -->
-	<mapper resource="org/mybatis/builder/AuthorMapper.xml"/>
-	<!-- 使用完全限定资源定位符（URL） -->
-	<mapper url="file:///var/mappers/AuthorMapper.xml"/>
+    <!-- 使用相对于类路径的资源引用 -->
+    <mapper resource="org/mybatis/builder/AuthorMapper.xml"/>
+    <!-- 使用完全限定资源定位符（URL） -->
+    <mapper url="file:///var/mappers/AuthorMapper.xml"/>
   	<!-- 使用映射器接口实现类的完全限定类名 -->
     <mapper class="org.mybatis.builder.AuthorMapper"/>
     <!-- 将包内的映射器接口实现全部注册为映射器 -->
@@ -127,30 +125,33 @@ tags:
 
 ### 2.0. mapper标签
 
-> 顶级标签，有个属性namespace，对应**接口**的全类名
+顶级标签，有个属性namespace，对应**接口**的全类名
 
 ### 2.1. resultMap标签
 
-> 配置**列名**和实体类的**属性名**的对应关系
+配置**列名**和实体类的**属性名**的对应关系
 
 ```xml
 <resultMap id="userMap" type="实体类的全限定类名">
-	<!-- -主键字段的对应 ->
+    <!-- -主键字段的对应 -->
     <id property="userId" column="id"></id>
-    <!-- 非主键字段的对应>
+    <!-- 非主键字段的对应 -->
     <result property="userName" column="username"></result>    
 </resultMap>
 ```
 
-
-
 ### 2.2. select标签
 
-> - **id**：唯一标识符，对应相关接口的**方法名**
-> - **parameterType**：传入参数的全类名或别名，可以不写，MyBatis会根据类型推断器(TypeHandler)自动推断。
-> - **resultType**：返回结果的全限定类名或别名。如果返回的是集合，那应该设置为集合包含的类型，而不是集合本身的类型。 resultType 和 resultMap 之间只能同时使用一个。
-> - **resultMap**：对外部resultMap的引用，resultType 和 resultMap 之间只能同时使用一个。
-> - **flushCache**：默认值为false。true时，一级缓存、二级缓存都会被清除
->
-> ……
+- **id**：唯一标识符，对应相关接口的**方法名**
+
+
+- **parameterType**：传入参数的全类名或别名，可以不写，MyBatis会根据类型推断器(TypeHandler)自动推断。
+
+- **resultType**：返回结果的全限定类名或别名。如果返回的是集合，那应该设置为集合包含的类型，而不是集合本身的类型。 resultType 和 resultMap 之间只能同时使用一个。
+
+- **resultMap**：对外部resultMap的引用，resultType 和 resultMap 之间只能同时使用一个。
+
+- **flushCache**：默认值为false。true时，一级缓存、二级缓存都会被清除
+
+  ……
 

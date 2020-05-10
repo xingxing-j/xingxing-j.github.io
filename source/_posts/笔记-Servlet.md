@@ -15,8 +15,8 @@ Servlet的简单学习
 
 ## 0. 简述
 
-> Servlet是两单词，Server、applet的合并，即**服务器上的Java小程序**。它是JavaEE的规范之一，JavaWeb三大组件之一。
-> 简单理解，就是服务器端的Java小程序不能随意编写，必须要实现Servlet接口(其实我也不是很懂(●—●)),然后就可以接收客户端发送过来的请求，并响应数据给客户端了。
+Servlet是两单词，Server、applet的合并，即**服务器上的Java小程序**。它是JavaEE的规范之一，JavaWeb三大组件之一。
+简单理解，就是服务器端的Java小程序不能随意编写，必须要实现Servlet接口(其实我也不是很懂(●—●)),然后就可以接收客户端发送过来的请求，并响应数据给客户端了。
 
 ## 1. Servlet程序的Web.xml文件配置示例
 
@@ -49,8 +49,8 @@ version="4.0">
 
 ## 2. Servlet的生命周期
 
-> Servlet对象从最初的创建，方法的调用，到最后的销毁，都是由**Web容器管理**的。
-> 默认情况下，Servlet对象在Web容器启动时不会实例化，可通过设置来改变其初始化的顺序(在web.xml文件中的servlet标签中配置load-on-startup标签)。
+Servlet对象从最初的创建，方法的调用，到最后的销毁，都是由**Web容器管理**的。
+默认情况下，Servlet对象在Web容器启动时不会实例化，可通过设置来改变其初始化的顺序(在web.xml文件中的servlet标签中配置load-on-startup标签)。
 
 ### 2.0. 简述Servlet生命周期
 
@@ -76,7 +76,7 @@ version="4.0">
 
 ### 3.0. 简述
 
-> ServletConfig是一个接口，封装了对应Servlet对象的配置信息，Web容器中有它的实现类。它和Servlet对象一一对应，且在Servlet对象创建时由Web容器自动创建。
+ServletConfig是一个接口，封装了对应Servlet对象的配置信息，Web容器中有它的实现类。它和Servlet对象一一对应，且在Servlet对象创建时由Web容器自动创建。
 
 ### 3.1. ServletConfig的作用
 

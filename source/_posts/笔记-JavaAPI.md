@@ -15,8 +15,6 @@ tags:
 - [BigDecimal]
 ---
 
-
-
 简述几种常用JavaAPI的用法
 
 <!-- more -->
@@ -29,7 +27,7 @@ tags:
 
 ### 0.0. 简单叙述
 
-> 它是所有类型的根父类。一个类如果没有显式声明它的父类，那这个类的直接父类就是Object
+它是所有类型的根父类。一个类如果没有显式声明它的父类，那这个类的直接父类就是Object
 
 ### 0.1. 特点
 
@@ -42,13 +40,13 @@ tags:
 
 #### 0.2.0. protected Object clone()
 
-> 要想使用该方法，Objectd的子类需要实现**Cloneable接口**，否则会报CloneNotSupportedException
+要想使用该方法，Objectd的子类需要实现**Cloneable接口**，否则会报CloneNotSupportedException
 
 #### 0.2.1. public boolean equals (Object obj)
 
-> 用来指示某个对象obj是否与此对象的this相等。
-> Object类中的equals方法，等价于“==”，比较的是对象的地址
-> 如果Object的子类要比较的是属性的内容，需要**重写equals方法**
+用来指示某个对象obj是否与此对象的this相等。
+Object类中的equals方法，等价于“==”，比较的是对象的地址
+如果Object的子类要比较的是属性的内容，需要**重写equals方法**
 
 ##### 重写equals的示例
 
@@ -93,8 +91,8 @@ public class JavaDemo {
 
 #### 0.2.2. public int hashCode()
 
-> Object类中的这个方法返回的是和“地址”相关的值
-> **如果重写了equals方法，那么必须重写hashCode方法，而且参与equals比较的属性，一定要参与hahCode的计算**
+Object类中的这个方法返回的是和“地址”相关的值
+**如果重写了equals方法，那么必须重写hashCode方法，而且参与equals比较的属性，一定要参与hahCode的计算**
 
 ##### 与equals的关系
 
@@ -104,7 +102,7 @@ public class JavaDemo {
 
 #### 0.2.3. public final Class<?> getClass()
 
-> 返回某个对象的运行时类，而不是编译时类型
+返回某个对象的运行时类，而不是编译时类型
 
 ```java
 package com.xxx.object;
@@ -125,12 +123,12 @@ public class GetClass {
 
 #### 0.2.4. public String toString()
 
-> 在Object中默认返回的是这个对象的**运行时类型@这个对象的hash值的十六进制表现形式**
-> **子类完全可以重写toString方法**
+在Object中默认返回的是这个对象的**运行时类型@这个对象的hash值的十六进制表现形式**
+**子类完全可以重写toString方法**
 
 #### 0.2.5. protected void finalize()
 
-> 当这个对象被垃圾回收机制回收之前调用，而且**只会调用一次**。
+当这个对象被垃圾回收机制回收之前调用，而且**只会调用一次**。
 
 ## 1. 包装类
 
@@ -183,9 +181,9 @@ public class JavaDemo {
 
 ### 1.1. 包装类的缓存问题
 
-> Byte、Short、Integer、Long内有缓存结构，缓存范围：-128~127
-> Float、Double没有缓存
-> Character有缓存，缓存范围：0~127
+Byte、Short、Integer、Long内有缓存结构，缓存范围：-128\~127
+Float、Double没有缓存
+Character有缓存，缓存范围：0\~127
 
 #### 示例
 
@@ -209,7 +207,7 @@ public class JavaDemo {
 
 ### 2.0. String转为基本数据类型
 
-> 可以用以下几种方法进行转换
+可以用以下几种方法进行转换
 
 - 调用**public static int parseInt(String s)**：如果入参包含非数字字符，会报错
 - 调用**public static parseInt(String s, int radix)**：可以包含字母，但要在基数范围内。例如基数radix是20，可以包含的范围是0~9，a,b,c,d,e,f,g,h,i,j
@@ -224,7 +222,7 @@ public class JavaDemo {
 
 - 其他方法：
 
-  > 以Integer为例，可以调用其中的静态方法转换为各种进制
+  以Integer为例，可以调用其中的静态方法转换为各种进制
 
   - **public static String toBinaryString(int i)**：转为二进制的形式
   - **public static String toOctalString(int i)**：转为八进制的形式
@@ -318,27 +316,25 @@ public class ConstructorTest02 {
 
 **public int length()**
 
-> 返回此字符串的长度，即字符的个数
-
-
+返回此字符串的长度，即字符的个数
 
 ##### 字符串的比较
 
 **public boolean equals (Object anObject)**
 
-> 将此字符串与指定对象进行比较
-> String的equals方法进行了重写
-> 该方法**严格区分大小写**
+将此字符串与指定对象进行比较
+String的equals方法进行了重写
+该方法**严格区分大小写**
 
 **public boolean equalsIgnoreCase (String anotherString)**
 
-> 将此字符串与其他字符串进行比较
-> **忽略大小写**
+将此字符串与其他字符串进行比较
+**忽略大小写**
 
 **public int compareTo (String anotherString)**
 
-> 自然排序
-> 按字典顺序比较两个字符串。根据字符串中每个字符的Unicode值进行比较
+自然排序
+按字典顺序比较两个字符串。根据字符串中每个字符的Unicode值进行比较
 
 ```java
 public class StringDemo_2 {
@@ -366,7 +362,7 @@ public class StringDemo_3 {
 
 **public String trim()**
 
-> 去掉此字符串的前后空格，不包括中间的空格，并将修改后的字符串返回
+去掉此字符串的前后空格，不包括中间的空格，并将修改后的字符串返回
 
 ```java
 public class String_Demo {
@@ -413,7 +409,7 @@ public class String_Demo {
 
 方式一
 
-> "".equals(字符串)
+"".equals(字符串)
 
 方式二
 
@@ -679,7 +675,7 @@ public class String_Demo {
 
 **public String replaceFirst (String regex, String replacement)**
 
-> 替换并不会改变原字符串
+替换并不会改变原字符串
 
 ```java
 public class String_Demo {
@@ -698,13 +694,13 @@ public class String_Demo {
 
 ###### 方式一
 
-> 用“+”拼接
+用“+”拼接
 
 ###### 方式二
 
 **public String concat (String str)**
 
-> 将指定字符拼接到字符串后面，**返回新的String对象**
+将指定字符拼接到字符串后面，**返回新的String对象**
 
 ```java
 public class String_Demo {
@@ -731,7 +727,7 @@ public class String_Demo {
 
 #### 5.1.0. 增
 
-> 以StringBuffer为例，**public StringBuffer append (Xxx xxx)**
+以StringBuffer为例，**public StringBuffer append (Xxx xxx)**
 
 ```java
 public class StringBufferTest {
@@ -746,8 +742,6 @@ public class StringBufferTest {
 #### 5.1.1. 删
 
 **public StringBuffer delete (int start, int end)**：**删除区间是前开后闭的**
-
-
 
 ##### 5.1.2. 改
 
@@ -801,7 +795,7 @@ public class StringBufferTest {
 
 #### 6.0.0. public static round (double d)
 
-> 返回参数中最接近的long，其中long四舍五入为正无穷大。
+返回参数中最接近的long，其中long四舍五入为正无穷大。
 
 ```java
 public class Math_Test {
@@ -814,11 +808,11 @@ public class Math_Test {
 
 #### 6.0.1. public static Xxx abs (Xxx d)
 
-> 返回double的绝对值。如果参数不为负，则返回参数。如果参数为负数，则返回该参数的相反数
+返回double的绝对值。如果参数不为负，则返回参数。如果参数为负数，则返回该参数的相反数
 
 #### 6.0.2. public static double ceil (double d)
 
-> 返回大于或等于参数的最小(最接近负无穷大)double值
+返回大于或等于参数的最小(最接近负无穷大)double值
 
 ```java
 public class Math_Test {
@@ -831,7 +825,7 @@ public class Math_Test {
 
 #### 6.0.3. public static double floor (double d )
 
-> 返回小于或等于参数的最小(最接近负无穷大)double值
+返回小于或等于参数的最小(最接近负无穷大)double值
 
 ```java
 public class Math_Test {
@@ -844,7 +838,7 @@ public class Math_Test {
 
 #### 6.0.4. public static double random ()
 
-> 返回一个(0, 1)之间的伪随机数
+返回一个(0, 1)之间的伪随机数
 
 ## 7. 日期和时间
 
@@ -872,7 +866,7 @@ public class Math_Test {
 
 ##### 构造器
 
-> 以DateFormat为例
+以DateFormat为例
 
 **public SimpleDateFormat (String pattern)**
 
@@ -888,11 +882,11 @@ public class Math_Test {
 
 #### 7.1.0. 本地时期和时间
 
-> java.time.LocalDate和LocalTime和LocalDateTime
+java.time.LocalDate和LocalTime和LocalDateTime
 
 ##### 常用方法
 
-> 以LocalDate为例
+以LocalDate为例
 
 ```java
 package java8;
@@ -987,7 +981,7 @@ public class LocalDateDemo02 {
 
 #### 7.1.1. 日期时间格式化
 
-> DateTimeFormatter无构造方法,通过静态常量获得各种格式的日期
+DateTimeFormatter无构造方法,通过静态常量获得各种格式的日期
 
 ```java
 package java8;
@@ -1054,7 +1048,7 @@ public class InstantDemo {
 
 ### 7.3. 日期的间隔
 
-> 计算两个日期之间的距离的，所用方法 between()
+计算两个日期之间的距离的，所用方法 between()
 
 ```java
 package java8;
