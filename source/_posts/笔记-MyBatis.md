@@ -321,11 +321,9 @@ SqlMapConfig.xml里有一堆标签。这些标签都在`<configuration>`标签�
 
 #### 2.3. insert标签
 
-此处需视频回忆
-
 ```xml
 <insert id="addUser" parameterType="参数类型的全限定类名">
-      <!-- 配置插入操作后，获取插入数据的id
+      <!-- 配置插入操作后，获取插入数据的主键id
           keyProperty：查出主键值封装给JavaBean的哪个属性值
           order="BEFORE"：当前sql在插入sql之前运行，“AFTER”：当前sql在插入sql之后运行
           resultType：查出的数据的返回值类型
@@ -338,13 +336,16 @@ SqlMapConfig.xml里有一堆标签。这些标签都在`<configuration>`标签�
 ```
 
 ```xml
+<!-- 此处使用useGeneratedKeys属性开启了MySQL的自增主键获取策略；
+		keyProperty表示将获取到自增主键封装给JavaBean的哪个属性；
+		这里的JavaBean指的是parameterType指定的对象 -->
 <insert id="addUser" parameterType="参数类型的全限定类名" useGeneratedKeys="true" keyProperty="id">
     insert into user(username,address,sex,birhtday) values(#{},#{},#{},#{});
 </insert>
 ```
 
 - 采用第一种方式，selectKey标签将获取的id属性封装到int里
-- 采用第二种方式，selectKey标签将获取的id属性封装到ParameterType的实体类类型里
+- 采用第二种方式，selectKey标签将获取的id属性封装到ParameterType对应的实体类类型里
 
 #### 2.4. update标签
 
@@ -398,7 +399,88 @@ SqlMapConfig.xml里有一堆标签。这些标签都在`<configuration>`标签�
 
 ## 3. 入门案例配置
 
-有待补充实例
+### 3.0. 入门配置案例一
+
+#### 1、导两个关键的包
+
+mybatis-3.5.3.jar和mysql-connector-java-5.1.47.jar
+
+#### 2、编写MyBatis的主配置文件
+
+```xml
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<!--配置的意思-->
+<configuration>
+    <environments default="development">
+        <environment id="development">
+            <!--事务管理的配置 -->
+            <transactionManager type="JDBC"/>
+
+            <!--数据源的配置 -->
+            <dataSource type="POOLED">
+                <!--连接信息-->
+                <property name="driver" value="com.mysql.jdbc.Driver"/>
+                <!--  此处需注意url的写法，"jdbc:mysql:///mybatistest"
+                    也可写 jdbc:mysql://ip:port/mybatistest -->
+                <!-- <property name="url" value="jdbc:mysql://localhost:3306/mybatistest"/> -->
+                <property name="url" value="jdbc:mysql:///mybatistest"/>
+                <property name="username" value="root"/>
+                <property name="password" value="rootrr"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <mappers>
+        <!--<mapper resource="org/mybatis/example/BlogMapper.xml"/>-->
+
+        <!--不能写.  以文件夹的形式展示映射文件 -->
+        <mapper resource="com/javasm/cn/mapper/user.xml"/>
+    </mappers>
+</configuration>
+```
+
+#### 3、编写mapper映射文件
+
+```xml
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--namespace命名空间   该案例可随意写
+select * from 表名 where条件
+-->
+<mapper namespace="test">
+    <select id="findAll"  resultType="com.javasm.cn.entity.User">
+        select * from user
+    </select>
+</mapper>
+```
+
+#### 4、编写测试类
+
+```java
+public class MyBatisTest {
+    @Test
+    public void selectAll() throws IOException {
+        String resource = "mybatis-config.xml";
+        // 加载配置文件
+        InputStream inputStream = Resources.getResourceAsStream(resource);
+
+        // 从配置文件的信息中 获取到sqlSessionFactory
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+
+        // 获得SqlSession 对象  该对象可以调用映射文件中定义的 各种标签
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        List<Object> objects = sqlSession.selectList("test.findAll");
+
+        // 关闭资源
+        sqlSession.close();
+    }
+}
+```
 
 若想不写DAO的实现类，需遵循以下三点：
 
