@@ -32,8 +32,10 @@ SqlMapConfig.xml里有一堆标签。这些标签都在`<configuration>`标签�
 </properties>
 ```
 
-- resource属性配置：按照类路径的写法来写,且该配置文件需在类路径下
-- URL属性配置：按照URL的写法写地址
+该标签内有两个属性：
+
+- resource属性：按照类路径的写法来写,且该配置文件需在**类路径**下。例：`resource="com/mybatis/cn/db/db.properties"`
+- URL属性配置：按照URL的写法写地址。例：`url="file:///E:\xxx\mybatis\src\com\mybatis\cn\db\db.properties"`
 - 可在标签内部配置连接数据库的信息，也可通过${}去引用外部配置文件信息
 
 ### 2.0. settings
@@ -107,6 +109,8 @@ SqlMapConfig.xml里有一堆标签。这些标签都在`<configuration>`标签�
 ```
 
 ### 6.0. mappers
+
+注意：class属性和package属性，对mapper接口和mapper映射文件的位置有要求，**二者需在同一目录结构下**。
 
 ```xml
 <mappers>
@@ -211,7 +215,7 @@ SqlMapConfig.xml里有一堆标签。这些标签都在`<configuration>`标签�
         <result column="gender" property="gender"/>
 		
         <!--  association可以指定联合的javaBean对象
-              property="dept"：指定哪个属性是联合的对象
+              property="dept"：指定JavaBean中哪个属性是联合的对象，填的是javaBean中的属性名
               javaType:指定这个属性对象的类型[不能省略]
          -->
         <association property="dept" javaType="com.atguigu.mybatis.bean.Department">
@@ -270,9 +274,9 @@ SqlMapConfig.xml里有一堆标签。这些标签都在`<configuration>`标签�
 
 	 	<!-- association定义关联对象的封装规则
 	 		select:表明当前属性是调用select指定的方法查出的结果
-	 		column:指定将哪一列的值传给这个方法
+	 		column:指定将哪一列的值传给select指定的方法
 	 		
-	 		流程：使用select指定的方法（传入column指定的这列参数的值）查出对象，
+	 		流程说明：使用select指定的方法（传入column指定的这列参数的值）查出对象，
 			并封装给property指定的属性
 	 	 -->
  		<association property="dept" 
@@ -292,8 +296,6 @@ SqlMapConfig.xml里有一堆标签。这些标签都在`<configuration>`标签�
 
 ##### 使用collection标签进行分步查询
 
-此处待验证
-
 ```xml
 <!-- collection：分段查询 -->
 	<!-- 扩展：多列的值传递过去：
@@ -307,9 +309,15 @@ SqlMapConfig.xml里有一堆标签。这些标签都在`<configuration>`标签�
 <resultMap type="com.atguigu.mybatis.bean.Department" id="MyDeptStep">
     <id column="id" property="id"/>
     <id column="dept_name" property="departmentName"/>
+    <!-- collection标签分步查询说明：
+ 		 从<select>标签查询出的结果中获取指定的列(由column指定)，
+		 再将该列的属性传给select属性指向的另一个select查询语句，
+		 之后查询出来的结果封装给property指定的属性	
+	-->
     <collection property="emps"
                 select="com.atguigu.mybatis.dao.EmployeeMapperPlus.getEmpsByDeptId"
-                column="{deptId=id}" fetchType="lazy">
+                column="{deptId=id}" 
+                fetchType="lazy">
     </collection>
 </resultMap>
 
@@ -358,6 +366,8 @@ SqlMapConfig.xml里有一堆标签。这些标签都在`<configuration>`标签�
 
 #### 2.5. 鉴别器标签
 
+**待视频回忆**
+
 ```xml
 <!-- =======================鉴别器============================ -->
 	<!-- <discriminator javaType=""></discriminator>
@@ -397,96 +407,17 @@ SqlMapConfig.xml里有一堆标签。这些标签都在`<configuration>`标签�
 </resultMap>
 ```
 
-## 3. 入门案例配置
+## 3. 入门示例配置
 
-### 3.0. 入门配置案例一
+见MyBatis入门配置示例
 
-#### 1、导两个关键的包
+使用mapper代理方式的规范要求：
 
-mybatis-3.5.3.jar和mysql-connector-java-5.1.47.jar
-
-#### 2、编写MyBatis的主配置文件
-
-```xml
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE configuration
-        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-config.dtd">
-<!--配置的意思-->
-<configuration>
-    <environments default="development">
-        <environment id="development">
-            <!--事务管理的配置 -->
-            <transactionManager type="JDBC"/>
-
-            <!--数据源的配置 -->
-            <dataSource type="POOLED">
-                <!--连接信息-->
-                <property name="driver" value="com.mysql.jdbc.Driver"/>
-                <!--  此处需注意url的写法，"jdbc:mysql:///mybatistest"
-                    也可写 jdbc:mysql://ip:port/mybatistest -->
-                <!-- <property name="url" value="jdbc:mysql://localhost:3306/mybatistest"/> -->
-                <property name="url" value="jdbc:mysql:///mybatistest"/>
-                <property name="username" value="root"/>
-                <property name="password" value="rootrr"/>
-            </dataSource>
-        </environment>
-    </environments>
-    <mappers>
-        <!--<mapper resource="org/mybatis/example/BlogMapper.xml"/>-->
-
-        <!--不能写.  以文件夹的形式展示映射文件 -->
-        <mapper resource="com/javasm/cn/mapper/user.xml"/>
-    </mappers>
-</configuration>
-```
-
-#### 3、编写mapper映射文件
-
-```xml
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
-<!--namespace命名空间   该案例可随意写
-select * from 表名 where条件
--->
-<mapper namespace="test">
-    <select id="findAll"  resultType="com.javasm.cn.entity.User">
-        select * from user
-    </select>
-</mapper>
-```
-
-#### 4、编写测试类
-
-```java
-public class MyBatisTest {
-    @Test
-    public void selectAll() throws IOException {
-        String resource = "mybatis-config.xml";
-        // 加载配置文件
-        InputStream inputStream = Resources.getResourceAsStream(resource);
-
-        // 从配置文件的信息中 获取到sqlSessionFactory
-        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
-
-        // 获得SqlSession 对象  该对象可以调用映射文件中定义的 各种标签
-        SqlSession sqlSession = sqlSessionFactory.openSession();
-        List<Object> objects = sqlSession.selectList("test.findAll");
-
-        // 关闭资源
-        sqlSession.close();
-    }
-}
-```
-
-若想不写DAO的实现类，需遵循以下三点：
-
-- MyBatis中的映射配置文件位置必须和DAO接口的**包结构相同**
-- 映射配置文件的mapper标签中的**namespace属性**必须是dao接口的全限定类名
-- 映射文件的增删改查的标签中的**id属性取值**必须是dao接口的方法名
+- 映射文件的**namespace要和接口的完整路径相同**
+- 映射文件中的**各种功能标签的id要和接口中定义的方法名相同**
+- 映射文件中的功能性标签的参数类型 **parameterType 要和接口中的方法的参数类型一致**
+- 映射文件中的功能性标签的返回值类型 **resultType 要和接口中定义的方法的返回值类型一致**
+  - 如果接口中返回值类型是个集合，则映射文件中的返回值类型只需要写泛型就行了
 
 ## 4. MyBatis的参数处理
 

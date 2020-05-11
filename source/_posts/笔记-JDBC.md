@@ -207,7 +207,33 @@ public class Test_Query {
 - PreparedStatement 对象所代表的SQL 语句中的参数用问号`?`来表示，调用PreparedStatement 对象的 **setXXX() 方法来设置这些参数**. setXXX() 方法有两个参数，第一个参数是要设置的SQL 语句中的参数的索引(**从 1 开始**)，第二个是设置的SQL 语句中的参数的值
 
 
+## Apache—DBUtils
 
+commons-dbutils是 Apache组织提供的一个**开源JDBC工具类库**，它是对**JDBC的简单封装**。
+
+### QueryRunner类 
+
+该类简单化了SQL查询，它与**ResultSetHandler**组合在一起使用可以完成大部分的数据库操作，能够大大减少编码量。
+
+QueryRunner类提供了两个构造方法：
+
+- 默认的无参构造方法
+- 需要一个 javax.sql.DataSource来作参数的构造方法。
+
+### ResultSetHandler接口 
+
+该接口用于处理java.sql.ResultSet，将数据按要求转换为另一种形式。ResultSetHandler接口提供了一个单独的方法：Object handle (java.sql.ResultSet .rs)。
+
+#### ResultSetHandler 接口的实现类
+
+- **ArrayHandler**：把结果集中的第一行数据转成对象数组
+- **ArrayListHandler**：把结果集中的每一行数据都转成一个数组，再存放到List中。
+- **BeanHandler**：将结果集中的第一行数据封装到一个对应的JavaBean实例中。
+- **BeanListHandler**：将结果集中的每一行数据都封装到一个对应的JavaBean实例中，存放到List里。
+- **ColumnListHandler**：将结果集中某一列的数据存放到List中
+- **KeyedHandler(name)**：将结果集中的每一行数据都封装到一个Map里，再把这些map再存到一个map里，其key为指定的key。
+- **MapHandler**：将结果集中的第一行数据封装到一个Map里，key是列名，value就是对应的值。
+- **MapListHandler**：将结果集中的每一行数据都封装到一个Map里，然后再存放到List。
 
 
 
