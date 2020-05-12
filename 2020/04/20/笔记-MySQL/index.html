@@ -29,13 +29,15 @@
 <meta property="og:site_name" content="纸人">
 <meta property="og:description" content="施工中">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2020/04/20/%E7%AC%94%E8%AE%B0-MySQL/%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5%E8%A7%A3%E9%87%8A.png">
 <meta property="article:published_time" content="2020-04-20T11:27:49.000Z">
-<meta property="article:modified_time" content="2020-05-07T06:08:30.593Z">
+<meta property="article:modified_time" content="2020-05-12T13:51:10.021Z">
 <meta property="article:author" content="纸人">
 <meta property="article:tag" content="数据库">
 <meta property="article:tag" content="关系型数据库">
 <meta property="article:tag" content="MySQL">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2020/04/20/%E7%AC%94%E8%AE%B0-MySQL/%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5%E8%A7%A3%E9%87%8A.png">
 
 <link rel="canonical" href="http://yoursite.com/2020/04/20/%E7%AC%94%E8%AE%B0-MySQL/">
 
@@ -233,7 +235,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-05-07 14:08:30" itemprop="dateModified" datetime="2020-05-07T14:08:30+08:00">2020-05-07</time>
+                <time title="修改时间：2020-05-12 21:51:10" itemprop="dateModified" datetime="2020-05-12T21:51:10+08:00">2020-05-12</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -258,6 +260,358 @@
       
         <p>施工中</p>
 <a id="more"></a>
+
+<h1 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h1><h2 id="数据库概念及特点"><a href="#数据库概念及特点" class="headerlink" title="数据库概念及特点"></a>数据库概念及特点</h2><p>数据库，DataBase，简称DB，用于存储和管理数据的仓库</p>
+<ul>
+<li>持久化存储数据</li>
+<li>方便存储和管理数据</li>
+<li>使用统一方式操作数据库(SQL)</li>
+</ul>
+<h2 id="SQL简介"><a href="#SQL简介" class="headerlink" title="SQL简介"></a>SQL简介</h2><p><strong>SQL，Structured Query Language，结构化查询语言。</strong>它定义了操作关系型数据库的规则。每一种DBMS操作方式都有不一样的地方，称为方言。SQL语句可以单行或多行书写，以分号结尾。MySQL的SQL语句不区分大小写，但<strong>关键字建议使用大写</strong>。</p>
+<h3 id="SQL的注释"><a href="#SQL的注释" class="headerlink" title="SQL的注释"></a>SQL的注释</h3><h4 id="单行注释"><a href="#单行注释" class="headerlink" title="单行注释"></a>单行注释</h4><ul>
+<li><strong># 注释文字</strong>(MySQL特有的)</li>
+<li><strong>--注释文字</strong></li>
+</ul>
+<h4 id="多行注释"><a href="#多行注释" class="headerlink" title="多行注释"></a>多行注释</h4><p><strong>/*注释文字*/</strong></p>
+<h2 id="SQL分类"><a href="#SQL分类" class="headerlink" title="SQL分类"></a>SQL分类</h2><h3 id="DQL-Data-Query-Language"><a href="#DQL-Data-Query-Language" class="headerlink" title="DQL(Data Query Language)"></a>DQL(Data Query Language)</h3><p>数据查询语句</p>
+<h4 id="简单查询"><a href="#简单查询" class="headerlink" title="简单查询"></a>简单查询</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 查表的指定字段</span></span><br><span class="line"><span class="keyword">select</span> 字段<span class="number">1</span>，字段<span class="number">2.</span>.. <span class="keyword">from</span> 表名;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 指定列的别名查询，显示的时候显示新名，不修改表的结构。[]括起来的表示可写可不写</span></span><br><span class="line"><span class="keyword">select</span> 字段<span class="number">1</span>，字段<span class="number">2</span> [<span class="keyword">as</span>] 别名<span class="number">2</span> <span class="keyword">from</span> 表名;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 查询所有字段,不建议使用*，因为效率低</span></span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> 表名;</span><br></pre></td></tr></table></figure>
+
+<h4 id="条件查询"><a href="#条件查询" class="headerlink" title="条件查询"></a>条件查询</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> 字段名 <span class="keyword">from</span> 表名 <span class="keyword">where</span> 条件;</span><br></pre></td></tr></table></figure>
+
+<h5 id="where条件中的比较运算符"><a href="#where条件中的比较运算符" class="headerlink" title="where条件中的比较运算符"></a>where条件中的比较运算符</h5><ul>
+<li><strong>&gt;</strong>、<strong>&lt;</strong>、<strong>&lt;=</strong>、<strong>&gt;=</strong>、<strong>=</strong>、<strong>&lt;&gt;</strong>、<strong>!=</strong>。&lt;&gt;在sql中是不等于，MySQL中可用 !=，没有==</li>
+<li><strong>between…and…</strong>  用在<strong>数字方面，闭区间</strong>；用在<strong>字符方面，左闭右开</strong></li>
+<li><strong>in(集合)</strong>；<strong>not in(集合)</strong>。等同于or。多个值用逗号隔开</li>
+<li><strong>is null</strong>和<strong>not is nul</strong>l的前面跟字段名</li>
+<li><strong>like ‘xxx%’</strong><ul>
+<li>模糊查询符号，<strong>%</strong>表示占任意字符</li>
+<li>模糊查询符号，<strong>_</strong>表示占一个字符</li>
+</ul>
+</li>
+</ul>
+<h5 id="where条件中的逻辑运算符"><a href="#where条件中的逻辑运算符" class="headerlink" title="where条件中的逻辑运算符"></a>where条件中的逻辑运算符</h5><ul>
+<li><strong>and</strong> 或 <strong>&amp;&amp;</strong>。与的意思，在SQL中建议用and，&amp;&amp;并不通用</li>
+<li><strong>or</strong> 或 <strong>||</strong>。或的意思</li>
+<li><strong>not</strong> 或 <strong>!</strong>。非的意思</li>
+</ul>
+<h4 id="排序查询"><a href="#排序查询" class="headerlink" title="排序查询"></a>排序查询</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 默认升序，多个字段同时排序，越靠前主导作用越大</span></span><br><span class="line"><span class="keyword">select</span>  要查询的东西</span><br><span class="line"><span class="keyword">from</span>  表</span><br><span class="line"><span class="keyword">where</span>  条件</span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span>  排序的字段 | 表达式 | 函数 | 别名</span><br><span class="line">[ <span class="keyword">asc</span>(升序) | <span class="keyword">desc</span>(降序)];</span><br></pre></td></tr></table></figure>
+
+<h4 id="分组查询"><a href="#分组查询" class="headerlink" title="分组查询"></a>分组查询</h4><ul>
+<li><strong>group by</strong>，按照某些字段进行分组。通常和分组函数联合使用，且分组函数在group by后执行。严谨的语句环境中，SQL语句中有group by时，select后面只能有分组字段和分组函数</li>
+<li>having，对分组之后的某些数据进行再次过滤</li>
+<li>执行顺序</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span>       <span class="number">5</span></span><br><span class="line"><span class="keyword">from</span>         <span class="number">1</span></span><br><span class="line"><span class="keyword">where</span>        <span class="number">2</span></span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span>     <span class="number">3</span></span><br><span class="line"><span class="keyword">having</span>       <span class="number">4</span></span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span>     <span class="number">6</span></span><br><span class="line"><span class="keyword">limit</span>        <span class="number">7</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="连接查询"><a href="#连接查询" class="headerlink" title="连接查询"></a>连接查询</h4><h5 id="相关语法"><a href="#相关语法" class="headerlink" title="相关语法"></a>相关语法</h5><p>SQL92，较老的语法。</p>
+<p>SQL99</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> 字段，...</span><br><span class="line"><span class="keyword">from</span> 表<span class="number">1</span></span><br><span class="line">【<span class="keyword">inner</span>|<span class="keyword">left</span> <span class="keyword">outer</span>|<span class="keyword">right</span> <span class="keyword">outer</span>|<span class="keyword">cross</span>】<span class="keyword">join</span> 表<span class="number">2</span> <span class="keyword">on</span>  连接条件</span><br><span class="line">【<span class="keyword">inner</span>|<span class="keyword">left</span> <span class="keyword">outer</span>|<span class="keyword">right</span> <span class="keyword">outer</span>|<span class="keyword">cross</span>】<span class="keyword">join</span> 表<span class="number">3</span> <span class="keyword">on</span>  连接条件</span><br><span class="line">【<span class="keyword">where</span> 筛选条件】</span><br><span class="line">【<span class="keyword">group</span> <span class="keyword">by</span> 分组字段】</span><br><span class="line">【<span class="keyword">having</span> 分组后的筛选条件】</span><br><span class="line">【<span class="keyword">order</span> <span class="keyword">by</span> 排序的字段或表达式】</span><br></pre></td></tr></table></figure>
+
+<h5 id="内连接"><a href="#内连接" class="headerlink" title="内连接"></a>内连接</h5><h6 id="等值连接"><a href="#等值连接" class="headerlink" title="等值连接"></a>等值连接</h6><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> e.ename,d.dname </span><br><span class="line"><span class="keyword">from</span> emp e,dept d;</span><br></pre></td></tr></table></figure>
+
+<h6 id="非等值连接"><a href="#非等值连接" class="headerlink" title="非等值连接"></a>非等值连接</h6><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> e.ename,d.dname </span><br><span class="line"><span class="keyword">from</span> emp e </span><br><span class="line"><span class="keyword">join</span> dept d</span><br><span class="line"><span class="keyword">on</span> e.deptno = d.deptno;(99语法)</span><br></pre></td></tr></table></figure>
+
+<h6 id="自连接"><a href="#自连接" class="headerlink" title="自连接"></a>自连接</h6><p>即一张表拆成多张，自己跟自己连</p>
+<h5 id="外连接"><a href="#外连接" class="headerlink" title="外连接"></a>外连接</h5><p>特点：主表的数据必须全部查询</p>
+<h6 id="左外连接"><a href="#左外连接" class="headerlink" title="左外连接"></a>左外连接</h6><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> a.ename,b.ename </span><br><span class="line"><span class="keyword">from</span> emp a </span><br><span class="line"><span class="keyword">left</span> <span class="keyword">join</span> emp b</span><br><span class="line"><span class="keyword">on</span> a.mgr = b.empno;</span><br></pre></td></tr></table></figure>
+
+<h6 id="右外连接"><a href="#右外连接" class="headerlink" title="右外连接"></a>右外连接</h6><p>还没写呢</p>
+<h5 id="全连接"><a href="#全连接" class="headerlink" title="全连接"></a>全连接</h5><p>还没写呢</p>
+<h4 id="子查询"><a href="#子查询" class="headerlink" title="子查询"></a>子查询</h4><h5 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h5><p>一条查询语句中又嵌套了另一条完整的select语句，其中<strong>被嵌套的select语句，称为子查询或内查询</strong>。在外面的查询语句，称为主查询或外查询</p>
+<h5 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h5><ul>
+<li>子查询都放在小括号里</li>
+<li>子查询可放在from、select、where、having后，但一般放在条件右侧</li>
+<li>子查询优于主查询执行</li>
+<li>单行子查询。结果集只有一行，搭配单行操作符使用(&gt;、&lt;、=、&lt;&gt;、&gt;=、&lt;=)</li>
+<li>多行子查询，结果集有多行，搭配多行操作符使用(any、all、in、not in)</li>
+</ul>
+<h4 id="分页查询"><a href="#分页查询" class="headerlink" title="分页查询"></a>分页查询</h4><h5 id="特点-1"><a href="#特点-1" class="headerlink" title="特点"></a>特点</h5><ul>
+<li>起始条目索引从0开始</li>
+<li>limit子句放在查询语句的后面 </li>
+</ul>
+<p>标准分页SQL：(pageNo-1) * pageSize，pageSize; 第pageNo页，每页显示pageSize条记录</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> 字段|表达式,...</span><br><span class="line"><span class="keyword">from</span> 表</span><br><span class="line">【<span class="keyword">where</span> 条件】</span><br><span class="line">【<span class="keyword">group</span> <span class="keyword">by</span> 分组字段】</span><br><span class="line">【<span class="keyword">having</span> 条件】</span><br><span class="line">【<span class="keyword">order</span> <span class="keyword">by</span> 排序的字段】</span><br><span class="line"><span class="keyword">limit</span> startIndex, <span class="keyword">length</span>;</span><br><span class="line"><span class="comment">-- startIndex, 起始条目索引，为0时可忽略</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="联合查询"><a href="#联合查询" class="headerlink" title="联合查询"></a>联合查询</h4><h5 id="特点-2"><a href="#特点-2" class="headerlink" title="特点"></a>特点</h5><ul>
+<li>多条查询语句查询的列数必须一致</li>
+<li>多条查询语句查询的列的类型必须相同</li>
+<li>union代表去重，union all代表不去重</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> 字段|常量|表达式|函数 </span><br><span class="line">【<span class="keyword">from</span> 表】 </span><br><span class="line">【<span class="keyword">where</span> 条件】 <span class="keyword">union</span> 【<span class="keyword">all</span>】</span><br><span class="line"><span class="keyword">select</span> 字段|常量|表达式|函数 </span><br><span class="line">【<span class="keyword">from</span> 表】 </span><br><span class="line">【<span class="keyword">where</span> 条件】 <span class="keyword">union</span> 【<span class="keyword">all</span>】</span><br><span class="line">  .....</span><br><span class="line"><span class="keyword">select</span> 字段|常量|表达式|函数 </span><br><span class="line">【<span class="keyword">from</span> 表】 </span><br><span class="line">【<span class="keyword">where</span> 条件】</span><br></pre></td></tr></table></figure>
+
+<h4 id="常见函数"><a href="#常见函数" class="headerlink" title="常见函数"></a>常见函数</h4><h5 id="单行函数"><a href="#单行函数" class="headerlink" title="单行函数"></a>单行函数</h5><h6 id="字符函数"><a href="#字符函数" class="headerlink" title="字符函数"></a>字符函数</h6><ul>
+<li><strong>concat()</strong>，拼接</li>
+<li><strong>substr()</strong>，截取子串</li>
+<li><strong>upper()</strong>，转成大写</li>
+<li><strong>lower()</strong>，转成小写</li>
+<li><strong>trim()</strong>，去前后指定空格和字符</li>
+<li><strong>ltrim()</strong>，去左边空格</li>
+<li><strong>rtrim()</strong>，去右边空格</li>
+<li><strong>replace()</strong>，替换</li>
+<li><strong>lpad()</strong>，左填充</li>
+<li><strong>rpad()</strong>，右填充</li>
+<li><strong>instr()</strong>，返回子串第一次出现的索引</li>
+<li><strong>length()</strong>，获取字节个数</li>
+</ul>
+<h6 id="数学函数"><a href="#数学函数" class="headerlink" title="数学函数"></a>数学函数</h6><ul>
+<li><strong>round()</strong> ，四舍五入</li>
+<li><strong>rand()</strong>，随机数</li>
+<li><strong>floor()</strong>，向下取整</li>
+<li><strong>ceil()</strong>，向上取整</li>
+<li><strong>mod()</strong>，取余</li>
+<li><strong>truncate()</strong>，截断</li>
+</ul>
+<h6 id="日期函数"><a href="#日期函数" class="headerlink" title="日期函数"></a>日期函数</h6><ul>
+<li><strong>now()</strong>，当前系统日期+时间</li>
+<li><strong>curdate()</strong>，当前系统日期</li>
+<li><strong>curtime()</strong>，当前系统时间</li>
+<li><strong>str_to_date()</strong>，将字符转为日期</li>
+<li><strong>date_format()</strong>，将日期转为字符</li>
+</ul>
+<h6 id="流程控制函数"><a href="#流程控制函数" class="headerlink" title="流程控制函数"></a>流程控制函数</h6><ul>
+<li><strong>if()</strong>，处理双分支</li>
+<li><strong>case语句</strong>  处理多分支，处理等值判断或处理条件判断</li>
+</ul>
+<h6 id="其他函数"><a href="#其他函数" class="headerlink" title="其他函数"></a>其他函数</h6><ul>
+<li><strong>version()</strong>, 版本</li>
+<li><strong>database()</strong>，当前库</li>
+<li><strong>user()</strong>，当前连接用户</li>
+<li><strong>ifnull</strong>(可能为null的数据，被当作什么处理)</li>
+</ul>
+<h5 id="分组函数"><a href="#分组函数" class="headerlink" title="分组函数"></a>分组函数</h5><ul>
+<li><strong>sum()</strong>，求和</li>
+<li><strong>max()</strong>，最大值</li>
+<li><strong>min()</strong>，最小值</li>
+<li><strong>avg()</strong>，平均值</li>
+<li><strong>count()</strong>，计数</li>
+</ul>
+<h6 id="特点-3"><a href="#特点-3" class="headerlink" title="特点"></a>特点</h6><ul>
+<li><strong>sum()</strong>和<strong>avg()</strong>一般用于处理数值型；<strong>max()</strong>、<strong>min()</strong>、<strong>count()</strong>可处理任何数据类型</li>
+<li>可搭配 distinct使用。distinct只能出现在所有字段最前面</li>
+<li><strong>count()</strong>的参数可支持<strong>字段</strong>、*、<strong>常量值</strong>(一般放1)。建议用count(*)</li>
+<li><strong>分组函数不可直接用在where子句中</strong></li>
+<li>以上5个函数忽略Null值，除了count(*)</li>
+</ul>
+<h3 id="DML-Data-Manipulation-Language"><a href="#DML-Data-Manipulation-Language" class="headerlink" title="DML(Data Manipulation Language)"></a>DML(Data Manipulation Language)</h3><p>数据操作语句</p>
+<h4 id="增"><a href="#增" class="headerlink" title="增"></a>增</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> 表名(列名<span class="number">1</span>，列名<span class="number">2.</span>..) <span class="keyword">values</span>(值<span class="number">1</span>，值<span class="number">2.</span>..);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>列与值的类型、数量需一一对应</li>
+<li>字符和日期型数据要在单引号里，MySQL允许用双引号</li>
+<li>省略写法(插入所有的值)，省略了所有的列名</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> 表名 <span class="keyword">values</span>(所有的值);</span><br></pre></td></tr></table></figure>
+
+<h6 id="蠕虫复制"><a href="#蠕虫复制" class="headerlink" title="蠕虫复制"></a>蠕虫复制</h6><p>复制全部的表</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> 表名<span class="number">1</span> [<span class="keyword">as</span>] <span class="keyword">select</span> * <span class="keyword">from</span> 表名<span class="number">2</span>;</span><br></pre></td></tr></table></figure>
+
+<h6 id="只复制部分的列"><a href="#只复制部分的列" class="headerlink" title="只复制部分的列"></a>只复制部分的列</h6><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> 表名<span class="number">1</span>(列<span class="number">1</span>，列<span class="number">2.</span>..) [<span class="keyword">as</span>] <span class="keyword">select</span> 列<span class="number">1</span>，列<span class="number">2.</span>.. <span class="keyword">from</span> 表<span class="number">2</span>;</span><br></pre></td></tr></table></figure>
+
+<h5 id="改"><a href="#改" class="headerlink" title="改"></a>改</h5><h6 id="单表修改"><a href="#单表修改" class="headerlink" title="单表修改"></a>单表修改</h6><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">update</span> 表名 <span class="keyword">set</span> 字段=新值，字段=新值 [<span class="keyword">where</span> 筛选条件];</span><br></pre></td></tr></table></figure>
+
+<h6 id="多表修改"><a href="#多表修改" class="headerlink" title="多表修改"></a>多表修改</h6><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">update</span> 表<span class="number">1</span> 别名<span class="number">1</span>，表<span class="number">2</span> 别名<span class="number">2</span></span><br><span class="line"><span class="keyword">set</span> 字段=新值，字段=新值</span><br><span class="line"><span class="keyword">where</span> 连接条件</span><br><span class="line"><span class="keyword">and</span> 筛选条件;</span><br></pre></td></tr></table></figure>
+
+<h5 id="删"><a href="#删" class="headerlink" title="删"></a>删</h5><h6 id="单表删除"><a href="#单表删除" class="headerlink" title="单表删除"></a>单表删除</h6><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">delete</span> <span class="keyword">from</span> 表名 [<span class="keyword">where</span> 筛选条件];</span><br></pre></td></tr></table></figure>
+
+<h6 id="多表删除"><a href="#多表删除" class="headerlink" title="多表删除"></a>多表删除</h6><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">delete</span> 别名<span class="number">1</span>，别名<span class="number">2</span></span><br><span class="line"><span class="keyword">from</span> 表<span class="number">1</span> 别名<span class="number">1</span>，表<span class="number">2</span> 别名<span class="number">2</span></span><br><span class="line"><span class="keyword">where</span> 连接条件</span><br><span class="line"><span class="keyword">and</span> 筛选条件;</span><br></pre></td></tr></table></figure>
+
+<h6 id="truncate删除"><a href="#truncate删除" class="headerlink" title="truncate删除"></a>truncate删除</h6><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">truncate</span> <span class="keyword">table</span> 表名;</span><br></pre></td></tr></table></figure>
+
+<h6 id="delete-和-truncate-的区别"><a href="#delete-和-truncate-的区别" class="headerlink" title="delete 和 truncate 的区别"></a>delete 和 truncate 的区别</h6><ul>
+<li><strong>truncate不能加where条件</strong>，而delete可以加</li>
+<li>truncate效率高一丢丢</li>
+<li>truncate 删除带自增的列的表后，再插入数据，数据从1开始；delete 删除带自增的列的表后，再插入数据，数据从上次的断点处开始</li>
+<li><strong>truncate 删除不能回滚</strong>，delete删除能回滚；<strong>truncate相当于删除表的结构</strong>，再创建一张表</li>
+</ul>
+<h3 id="DCL-Data-Control-Language"><a href="#DCL-Data-Control-Language" class="headerlink" title="DCL(Data Control Language)"></a>DCL(Data Control Language)</h3><p>数据控制语句</p>
+<h4 id="MySQL开启权限"><a href="#MySQL开启权限" class="headerlink" title="MySQL开启权限"></a>MySQL开启权限</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1. <span class="keyword">use</span> mysql;</span><br><span class="line">2. <span class="keyword">grant</span> <span class="keyword">all</span> <span class="keyword">privileges</span> <span class="keyword">on</span> *.*  <span class="keyword">to</span>  <span class="string">'用户名'</span>  @<span class="string">'%'</span> <span class="keyword">identified</span> <span class="keyword">by</span> <span class="string">'密码'</span>;</span><br><span class="line">3. <span class="keyword">flush</span> <span class="keyword">privileges</span>;</span><br></pre></td></tr></table></figure>
+
+<h4 id="初始化数据"><a href="#初始化数据" class="headerlink" title="初始化数据"></a>初始化数据</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source  表的路径</span><br></pre></td></tr></table></figure>
+
+<h4 id="终止一条语句"><a href="#终止一条语句" class="headerlink" title="终止一条语句"></a>终止一条语句</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\c;</span><br></pre></td></tr></table></figure>
+
+<h4 id="导出数据库"><a href="#导出数据库" class="headerlink" title="导出数据库"></a>导出数据库</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql 数据库名字&gt;导出路径 -u用户名 -p密码</span><br></pre></td></tr></table></figure>
+
+<h5 id="导出数据库中指定的表"><a href="#导出数据库中指定的表" class="headerlink" title="导出数据库中指定的表"></a>导出数据库中指定的表</h5><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql 数据库名字 表名&gt;导出路径 -u用户名 -p密码</span><br></pre></td></tr></table></figure>
+
+<h3 id="DDL-Data-Definition-Language"><a href="#DDL-Data-Definition-Language" class="headerlink" title="DDL(Data Definition Language)"></a>DDL(Data Definition Language)</h3><p>数据定义语句</p>
+<h4 id="操作库结构"><a href="#操作库结构" class="headerlink" title="操作库结构"></a>操作库结构</h4><ul>
+<li><p>创建数据库</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">database</span> 数据库名;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>判断数据库是否以存在，不存在创建</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">database</span> <span class="keyword">if</span> <span class="keyword">not</span> <span class="keyword">exists</span> 数据库名;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建数据库，并指定字符集</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">database</span> 数据库名 <span class="built_in">character</span> <span class="keyword">set</span> 字符集;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看所有数据库</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">show</span> <span class="keyword">databases</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看某个数据库定义信息</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">show</span> <span class="keyword">create</span> <span class="keyword">database</span> db2;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看数据库状态</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">status;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改数据库默认字符集</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">database</span> 数据库名 <span class="keyword">default</span> <span class="built_in">character</span> <span class="keyword">set</span> 字符集;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>删除数据库</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">drop</span> <span class="keyword">database</span> 数据库名;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看正在使用的数据库</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">database</span>();</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用/切换数据库</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> 数据库名;</span><br></pre></td></tr></table></figure>
+
+
+</li>
+</ul>
+<h4 id="操作表结构"><a href="#操作表结构" class="headerlink" title="操作表结构"></a>操作表结构</h4><ul>
+<li><p>建表格式</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> 表名 (</span><br><span class="line">字段名<span class="number">1</span>  字段类型<span class="number">1</span>，</span><br><span class="line">字段名<span class="number">2</span>  字段类型<span class="number">2</span> </span><br><span class="line">);</span><br></pre></td></tr></table></figure></li>
+<li><p>查看某个数据库中的所有表</p>
+  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">show</span> <span class="keyword">tables</span>;</span><br></pre></td></tr></table></figure></li>
+<li><p>查看建表SQL语句</p>
+  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">show</span> <span class="keyword">create</span> <span class="keyword">table</span> 表名;</span><br></pre></td></tr></table></figure></li>
+<li><p>查看表结构</p>
+  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">desc 表名;</span><br></pre></td></tr></table></figure></li>
+<li><p>快速创建相同表结构的新表</p>
+  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> 新表名 <span class="keyword">like</span> 旧表名;</span><br></pre></td></tr></table></figure></li>
+<li><p>直接删除表</p>
+  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">drop</span> <span class="keyword">table</span> 表名;</span><br></pre></td></tr></table></figure></li>
+<li><p>判断表是否存在 ，存在删除表</p>
+  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">drop</span> <span class="keyword">table</span> <span class="keyword">if</span> <span class="keyword">exists</span> 表名;</span><br></pre></td></tr></table></figure></li>
+<li><p>添加表列ADD</p>
+  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> 表名 <span class="keyword">add</span> 列名 类型;</span><br></pre></td></tr></table></figure></li>
+<li><p>修改列类型modify</p>
+  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> 表名 <span class="keyword">modify</span> 列名 新类型;</span><br></pre></td></tr></table></figure></li>
+<li><p>修改列名 change</p>
+  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> 表名 <span class="keyword">change</span> 旧列名 新列名 类型;</span><br></pre></td></tr></table></figure></li>
+<li><p>修改表名</p>
+  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> 原表名 <span class="keyword">rename</span> <span class="keyword">to</span> 新表名;</span><br><span class="line"><span class="keyword">rename</span> <span class="keyword">table</span> 表名 <span class="keyword">to</span> 新表名;</span><br></pre></td></tr></table></figure></li>
+<li><p>修改字符集</p>
+  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> 表名 <span class="built_in">character</span>  <span class="keyword">set</span> 字符集;</span><br></pre></td></tr></table></figure></li>
+<li><p>删除列</p>
+  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> 表名 <span class="keyword">drop</span> 列名;</span><br></pre></td></tr></table></figure>
+
+
+</li>
+</ul>
+<h3 id="TCL-Transaction-Control-Language"><a href="#TCL-Transaction-Control-Language" class="headerlink" title="TCL(Transaction Control Language)"></a>TCL(Transaction Control Language)</h3><p>事务控制语句。见MySQL事务部分</p>
+<h2 id="MySQL数据类型"><a href="#MySQL数据类型" class="headerlink" title="MySQL数据类型"></a>MySQL数据类型</h2><h3 id="整型"><a href="#整型" class="headerlink" title="整型"></a>整型</h3><ul>
+<li><strong>tinyInt</strong>：微整型，很小的整数(占 8 位二进制)  </li>
+<li><strong>smallInt</strong>：小整型，小的整数(占 16 位二进制) </li>
+<li><strong>mediumInt</strong>：中整型：中等长度的整数(占 24 位二进制) </li>
+<li><strong>Int(Integer)</strong>：整型：整数类型(占 32 位二进制) </li>
+</ul>
+<h3 id="浮点型"><a href="#浮点型" class="headerlink" title="浮点型"></a>浮点型</h3><ul>
+<li><p>float：单精度浮点数，占 4 个字节<br>float有很多潜在因素，能不用就不用，默认存6位？？？，float(m,d)，m最大24整数位为m-d，小数位为d</p>
+<p>详情可见<a href="https://www.cnblogs.com/zhoujinyi/archive/2013/04/26/3043160.html" target="_blank" rel="noopener">MySQL 数据类型（float）的注意事项</a></p>
+</li>
+</ul>
+<ul>
+<li>double：双精度浮点数，占 8 个字节。double(5,2)表示最多存5位，其中必须为2位小数，即最大值为999.99</li>
+</ul>
+<h3 id="日期类型"><a href="#日期类型" class="headerlink" title="日期类型"></a>日期类型</h3><ul>
+<li>time(时间类型)</li>
+<li>date(日期类型)</li>
+<li>datetime(同时可以表示日期和时间类型)</li>
+</ul>
+<h3 id="字符串类型"><a href="#字符串类型" class="headerlink" title="字符串类型"></a>字符串类型</h3><ul>
+<li>char(M)，固定长度的字符串，无论使用几个字符都占满全部，M 为 0~255 之间的整数</li>
+<li>varchar(M)：可变长度的字符串，使用几个字符就占用几个，M 为 0~65535 之间的整数</li>
+</ul>
+<h3 id="大二进制"><a href="#大二进制" class="headerlink" title="大二进制"></a>大二进制</h3><ul>
+<li>tinyblob(Big Large Object)，允许长度0~255字节</li>
+<li>blob：允许长度0~65535字节</li>
+<li>mediumblob：允许长度0~167772150字节</li>
+<li>longblob：允许长度0~4294967295字节<h3 id="大文本"><a href="#大文本" class="headerlink" title="大文本"></a>大文本</h3></li>
+<li>tinytext：允许长度0~255字节</li>
+<li>text：允许长度0~65535字节</li>
+<li>mediumtext：允许长度0~167772150字节</li>
+<li>longtext：允许长度0~4294967295字节</li>
+</ul>
+<h2 id="MySQL约束"><a href="#MySQL约束" class="headerlink" title="MySQL约束"></a>MySQL约束</h2><h3 id="非空约束"><a href="#非空约束" class="headerlink" title="非空约束"></a>非空约束</h3><p>not null(只有列级约束)</p>
+<h3 id="唯一约束"><a href="#唯一约束" class="headerlink" title="唯一约束"></a>唯一约束</h3><p>unique</p>
+<h4 id="特点-4"><a href="#特点-4" class="headerlink" title="特点"></a>特点</h4><ul>
+<li>可多字段联合添加unique约束(表级约束)</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">unique(字段1，字段2)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>可单字段添加unique约束(列级约束)，unique修饰的字段不能重复，但可以为null</li>
+</ul>
+<h3 id="主键约束"><a href="#主键约束" class="headerlink" title="主键约束"></a>主键约束</h3><p>primary key</p>
+<h4 id="特点-5"><a href="#特点-5" class="headerlink" title="特点"></a>特点</h4><ul>
+<li>主键约束的字段不能为null？？？，不能重复</li>
+<li>主键约束有列级约束和表级约束</li>
+<li>一张表只能有一个主键</li>
+<li><strong>primary key</strong> 通常和 <strong>auto_increment</strong>(自增)搭配</li>
+</ul>
+<h4 id="外键约束"><a href="#外键约束" class="headerlink" title="外键约束"></a>外键约束</h4><p>foreign key</p>
+<h4 id="语法格式"><a href="#语法格式" class="headerlink" title="语法格式"></a>语法格式</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">foreign key(列名1) references 列名2(值2)</span><br></pre></td></tr></table></figure>
+<h4 id="特点-6"><a href="#特点-6" class="headerlink" title="特点"></a>特点</h4><ul>
+<li>添数据时/建表时，先父表，后子表</li>
+<li>删数据时/删表时，先子表，后父表</li>
+<li>外键约束的字段可以不是主键，但需要有unique约束</li>
+</ul>
+<h3 id="检查约束"><a href="#检查约束" class="headerlink" title="检查约束"></a>检查约束</h3><p>check</p>
+<h2 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h2><h3 id="概念-1"><a href="#概念-1" class="headerlink" title="概念"></a>概念</h3><p>一个包含多个步骤的业务操作，被事务管理，这些操作要么同时成功，要么同时失败</p>
+<h3 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h3><p>开启事务</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">start</span>  <span class="keyword">transaction</span>;</span><br><span class="line"><span class="keyword">begin</span>;</span><br></pre></td></tr></table></figure>
+<p>回滚</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">rollback</span>;</span><br></pre></td></tr></table></figure>
+<p>提交</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">commit</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="事务提交方式"><a href="#事务提交方式" class="headerlink" title="事务提交方式"></a>事务提交方式</h3><h4 id="自动提交"><a href="#自动提交" class="headerlink" title="自动提交"></a>自动提交</h4><p><strong>MySQL中事务是自动提交的</strong>；一条DML（增删改）语句会自动提交一次事务</p>
+<h4 id="手动提交"><a href="#手动提交" class="headerlink" title="手动提交"></a>手动提交</h4><p>先开启事务，再提交事务；<strong>Oracle是默认手动提交事务的</strong></p>
+<h4 id="查询事务提交方式"><a href="#查询事务提交方式" class="headerlink" title="查询事务提交方式"></a>查询事务提交方式</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 1 代表自动提交；0  代表手动提交</span></span><br><span class="line"><span class="keyword">select</span> @@autocommit;</span><br></pre></td></tr></table></figure>
+<h4 id="修改事务提交方式"><a href="#修改事务提交方式" class="headerlink" title="修改事务提交方式"></a>修改事务提交方式</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span> @@autocommit = <span class="number">0</span>或<span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+
+<h4 id="四大特征"><a href="#四大特征" class="headerlink" title="四大特征"></a>四大特征</h4><ul>
+<li>原子性：是不可分割的最小操作单元，要么同时成功，要么同时失败</li>
+<li>持久性：当事务提交或回滚后，数据库会持久化的保存数据</li>
+<li>隔离性：多个事务之间，相互独立</li>
+<li>一致性：事务操作前后，数据总量不变</li>
+</ul>
+<h4 id="隔离级别"><a href="#隔离级别" class="headerlink" title="隔离级别"></a>隔离级别</h4><h5 id="概念-2"><a href="#概念-2" class="headerlink" title="概念"></a>概念</h5><p>多个事务之间隔离，相互独立。如果多个事务操作同一批数据，则会引发问题，可通过设置隔离级别解决。</p>
+<h5 id="存在的问题"><a href="#存在的问题" class="headerlink" title="存在的问题"></a>存在的问题</h5><ul>
+<li>脏读：一个事务读取到另一个事务中没有提交的数据</li>
+<li>不是重复读（虚读）：在同一个事务中，两次读取到的数据不一样</li>
+<li>幻读：一个事务操作(DML)数据表中所有记录，另一个事务添加了一条数据，第一个事务查询不到自己的修改</li>
+</ul>
+<h5 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h5><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 隔离级别从小到大安全性越来越高，效率越来越低</span></span><br><span class="line"><span class="comment">-- 会产生脏读、幻读、不可重复读</span></span><br><span class="line">read uncommited（读未提交）</span><br><span class="line"><span class="comment">-- 会产生不可重复读、幻读</span></span><br><span class="line">read commited（读已提交）（Oracle）</span><br><span class="line"><span class="comment">-- 	会产生幻读</span></span><br><span class="line">repeatable read（可重复读）（MySQL默认）</span><br><span class="line"><span class="comment">-- 可解决所有问题</span></span><br><span class="line">serializable（串行化）</span><br></pre></td></tr></table></figure>
+<h5 id="数据库查询隔离语句"><a href="#数据库查询隔离语句" class="headerlink" title="数据库查询隔离语句"></a>数据库查询隔离语句</h5><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> @@tx_isolation;</span><br></pre></td></tr></table></figure>
+<h5 id="数据库设置隔离级别语句"><a href="#数据库设置隔离级别语句" class="headerlink" title="数据库设置隔离级别语句"></a>数据库设置隔离级别语句</h5><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span> <span class="keyword">global</span> <span class="keyword">transaction</span> <span class="keyword">isolation</span> <span class="keyword">level</span>  级别字符串;</span><br></pre></td></tr></table></figure>
+
+<h2 id="MySQL的登录与退出"><a href="#MySQL的登录与退出" class="headerlink" title="MySQL的登录与退出"></a>MySQL的登录与退出</h2><h3 id="登录"><a href="#登录" class="headerlink" title="登录"></a>登录</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql -uroot -p密码</span><br><span class="line">mysq [-h主机名 -p端口号] -u用户名 -p密码</span><br></pre></td></tr></table></figure>
+
+<h3 id="退出"><a href="#退出" class="headerlink" title="退出"></a>退出</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">exit;</span><br><span class="line">quit;</span><br></pre></td></tr></table></figure>
+
+<h2 id="数据库三范式"><a href="#数据库三范式" class="headerlink" title="数据库三范式"></a>数据库三范式</h2><ul>
+<li>任何一张表都应有主键，且每一个字段原子性不可再分</li>
+<li>所有非主键字段完全依赖主键，不能产生部分依赖</li>
+<li>所有非主键字段完全依赖主键，不能产生传递依赖</li>
+</ul>
+<h3 id="口诀"><a href="#口诀" class="headerlink" title="口诀"></a>口诀</h3><ul>
+<li>多对多，三张表，关系表两个外键</li>
+<li>一对多，两张表，多的表加外键</li>
+</ul>
+<h3 id="相关概念解释"><a href="#相关概念解释" class="headerlink" title="相关概念解释"></a>相关概念解释</h3><p><img src="/2020/04/20/%E7%AC%94%E8%AE%B0-MySQL/%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5%E8%A7%A3%E9%87%8A.png" alt="相关概念解释"></p>
+<h4 id="函数依赖"><a href="#函数依赖" class="headerlink" title="函数依赖"></a>函数依赖</h4><p>A- - &gt;B，通过A属性的值，可以确定唯一B属性的值，则称B依赖于A。<br>例如：学号- - &gt;姓名</p>
+<h4 id="完全函数依赖"><a href="#完全函数依赖" class="headerlink" title="完全函数依赖"></a>完全函数依赖</h4><p>A- - &gt;B，A是一个属性组，B属性值的确定必须依赖A属性组中所有的属性值<br>例如：（学号，课程名称）- - &gt;分数</p>
+<h4 id="部分函数依赖"><a href="#部分函数依赖" class="headerlink" title="部分函数依赖"></a>部分函数依赖</h4><p>A- - &gt;B，A是一个属性组，B属性值的确定只需要依赖A属性组中某些属性值即可</p>
+<h4 id="传递函数依赖"><a href="#传递函数依赖" class="headerlink" title="传递函数依赖"></a>传递函数依赖</h4><p>A- - &gt;B，B- -&gt;C，通过A属性（属性组）的值，可以确定唯一B属性的值，再通过B属性的值，可以确定唯一C属性的值，则称C传递依赖于A</p>
+<h4 id="码"><a href="#码" class="headerlink" title="码"></a>码</h4><p>在一张表中，一个属性或属性组，被其他所有属性完全依赖，则称这个属性（属性组）为该表的码<br>例如：该表中码为（学号，课程名称）</p>
+
     </div>
 
     
@@ -343,6 +697,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#MySQL"><span class="nav-text">MySQL</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#数据库概念及特点"><span class="nav-text">数据库概念及特点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SQL简介"><span class="nav-text">SQL简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SQL的注释"><span class="nav-text">SQL的注释</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#单行注释"><span class="nav-text">单行注释</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#多行注释"><span class="nav-text">多行注释</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SQL分类"><span class="nav-text">SQL分类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#DQL-Data-Query-Language"><span class="nav-text">DQL(Data Query Language)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#简单查询"><span class="nav-text">简单查询</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#条件查询"><span class="nav-text">条件查询</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#where条件中的比较运算符"><span class="nav-text">where条件中的比较运算符</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#where条件中的逻辑运算符"><span class="nav-text">where条件中的逻辑运算符</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#排序查询"><span class="nav-text">排序查询</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分组查询"><span class="nav-text">分组查询</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#连接查询"><span class="nav-text">连接查询</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#相关语法"><span class="nav-text">相关语法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#内连接"><span class="nav-text">内连接</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#等值连接"><span class="nav-text">等值连接</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#非等值连接"><span class="nav-text">非等值连接</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#自连接"><span class="nav-text">自连接</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#外连接"><span class="nav-text">外连接</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#左外连接"><span class="nav-text">左外连接</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#右外连接"><span class="nav-text">右外连接</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#全连接"><span class="nav-text">全连接</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#子查询"><span class="nav-text">子查询</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#概念"><span class="nav-text">概念</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#特点"><span class="nav-text">特点</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分页查询"><span class="nav-text">分页查询</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#特点-1"><span class="nav-text">特点</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#联合查询"><span class="nav-text">联合查询</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#特点-2"><span class="nav-text">特点</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#常见函数"><span class="nav-text">常见函数</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#单行函数"><span class="nav-text">单行函数</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#字符函数"><span class="nav-text">字符函数</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#数学函数"><span class="nav-text">数学函数</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#日期函数"><span class="nav-text">日期函数</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#流程控制函数"><span class="nav-text">流程控制函数</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#其他函数"><span class="nav-text">其他函数</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#分组函数"><span class="nav-text">分组函数</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#特点-3"><span class="nav-text">特点</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DML-Data-Manipulation-Language"><span class="nav-text">DML(Data Manipulation Language)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#增"><span class="nav-text">增</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#蠕虫复制"><span class="nav-text">蠕虫复制</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#只复制部分的列"><span class="nav-text">只复制部分的列</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#改"><span class="nav-text">改</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#单表修改"><span class="nav-text">单表修改</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#多表修改"><span class="nav-text">多表修改</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#删"><span class="nav-text">删</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#单表删除"><span class="nav-text">单表删除</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#多表删除"><span class="nav-text">多表删除</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#truncate删除"><span class="nav-text">truncate删除</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#delete-和-truncate-的区别"><span class="nav-text">delete 和 truncate 的区别</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DCL-Data-Control-Language"><span class="nav-text">DCL(Data Control Language)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#MySQL开启权限"><span class="nav-text">MySQL开启权限</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#初始化数据"><span class="nav-text">初始化数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#终止一条语句"><span class="nav-text">终止一条语句</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#导出数据库"><span class="nav-text">导出数据库</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#导出数据库中指定的表"><span class="nav-text">导出数据库中指定的表</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DDL-Data-Definition-Language"><span class="nav-text">DDL(Data Definition Language)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#操作库结构"><span class="nav-text">操作库结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#操作表结构"><span class="nav-text">操作表结构</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCL-Transaction-Control-Language"><span class="nav-text">TCL(Transaction Control Language)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL数据类型"><span class="nav-text">MySQL数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#整型"><span class="nav-text">整型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#浮点型"><span class="nav-text">浮点型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#日期类型"><span class="nav-text">日期类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字符串类型"><span class="nav-text">字符串类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#大二进制"><span class="nav-text">大二进制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#大文本"><span class="nav-text">大文本</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL约束"><span class="nav-text">MySQL约束</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#非空约束"><span class="nav-text">非空约束</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#唯一约束"><span class="nav-text">唯一约束</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#特点-4"><span class="nav-text">特点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#主键约束"><span class="nav-text">主键约束</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#特点-5"><span class="nav-text">特点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#外键约束"><span class="nav-text">外键约束</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#语法格式"><span class="nav-text">语法格式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#特点-6"><span class="nav-text">特点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#检查约束"><span class="nav-text">检查约束</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#事务"><span class="nav-text">事务</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#概念-1"><span class="nav-text">概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#操作"><span class="nav-text">操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#事务提交方式"><span class="nav-text">事务提交方式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#自动提交"><span class="nav-text">自动提交</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#手动提交"><span class="nav-text">手动提交</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查询事务提交方式"><span class="nav-text">查询事务提交方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#修改事务提交方式"><span class="nav-text">修改事务提交方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#四大特征"><span class="nav-text">四大特征</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#隔离级别"><span class="nav-text">隔离级别</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#概念-2"><span class="nav-text">概念</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#存在的问题"><span class="nav-text">存在的问题</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#分类"><span class="nav-text">分类</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#数据库查询隔离语句"><span class="nav-text">数据库查询隔离语句</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#数据库设置隔离级别语句"><span class="nav-text">数据库设置隔离级别语句</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL的登录与退出"><span class="nav-text">MySQL的登录与退出</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#登录"><span class="nav-text">登录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#退出"><span class="nav-text">退出</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据库三范式"><span class="nav-text">数据库三范式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#口诀"><span class="nav-text">口诀</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#相关概念解释"><span class="nav-text">相关概念解释</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#函数依赖"><span class="nav-text">函数依赖</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#完全函数依赖"><span class="nav-text">完全函数依赖</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#部分函数依赖"><span class="nav-text">部分函数依赖</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#传递函数依赖"><span class="nav-text">传递函数依赖</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#码"><span class="nav-text">码</span></a></li></ol></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -416,7 +771,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共87.3k字</span>
+  <span class="post-count">博客全站共91.8k字</span>
 </div>
 
         
