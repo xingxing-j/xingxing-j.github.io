@@ -133,7 +133,9 @@ SqlMapConfig.xml里有一堆标签。这些标签都在`<configuration>`标签�
 
 #### 2.1. resultMap标签
 
-配置**列名**和实体类的**属性名**的对应关系
+配置**列名**和实体类的**属性名**的对应关系。
+
+该标签一旦配置就尽量让JavaBean的所有属性和数据库的列名一一对应，否则封装数据时，很有可能出现null的情况。
 
 ```xml
 <resultMap id="userMap" type="实体类的全限定类名">
@@ -543,7 +545,7 @@ choose (when, otherwise):分支选择；相当于带了break的swtich-case
 ### 5.3. foreach标签
 
 ```xml
-<select id="getEmpsByConditionForeach" resultType="com.atguigu.mybatis.bean.Employee">
+<select id="getEmpsByConditionForeach" resultType="com.xxx.mybatis.bean.Employee">
 	 	select * from tbl_employee
 
 	 	<!--#{变量名}就能取出变量的值也就是当前遍历出的元素-->
@@ -556,6 +558,8 @@ choose (when, otherwise):分支选择；相当于带了break的swtich-case
 	 	</foreach>
 </select>
 ```
+
+使用foreach标签时，**传入的参数要为包装类**(包装类里有个属性的类型为List类型)
 
 foreach标签里的各项属性解释：
 
