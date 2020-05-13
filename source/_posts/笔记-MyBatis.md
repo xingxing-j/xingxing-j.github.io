@@ -15,7 +15,7 @@ tags:
 
 ## 0. 简介
 
-MyBatis是一个支持定制化SQL，存储过程及高级映射的持久层框架。可使用简单的XML或注解用于配置或原始映射，将接口和POJO(Plain Old Java Object,普通Java对象)映射成数据库中的记录。它封装了很多JDBC的细节，使开发者只需关注SQL本身。它使用ORM(Object  Relational  Mapping)思想实现了结果集的封装
+MyBatis是一个支持定制化SQL，存储过程及高级映射的持久层框架。可使用简单的XML或注解用于配置或原始映射，将接口和POJO(Plain Ordinary Java Object,普通Java对象)映射成数据库中的记录。它封装了很多JDBC的细节，使开发者只需关注SQL本身。它使用ORM(Object  Relational  Mapping)思想实现了结果集的封装
 
 ## 1. MyBatis主配置文件
 
@@ -48,7 +48,7 @@ SqlMapConfig.xml里有一堆标签。这些标签都在`<configuration>`标签�
 </settings>
 ```
 
-- lazyLoadingEnable：延迟加载的全局开关，默认值为：false
+- **lazyLoadingEnable**：延迟加载(**懒加载**)的全局开关，默认值为：false
 - aggressiveLazyLoading：侵入延迟加载，默认值为：true。禁用属性则按需加载
 - mapUnderscoreToCamelCase：是否开启自动驼峰命名规则（camel case）映射，默认值：false。数据库字段A_COLUMN 对应 实体类属性aColumn
 
@@ -76,7 +76,8 @@ SqlMapConfig.xml里有一堆标签。这些标签都在`<configuration>`标签�
         
 	<!-- 配置事务管理器 
 		 type属性：事务管理器类型 
-			JDBC（JdbcTransactionFactory）；MANAGED（ManagedTransactionFactory）；自定义事务管理				器，需实现TransactionFactory接口，type为全限定类名
+			JDBC（JdbcTransactionFactory）；
+			MANAGED（ManagedTransactionFactory）；自定义事务管理器，需实现TransactionFactory接口，type为全限定类名
 		-->
 		<transactionManager type="JDBC"/>
 		<!-- 配置数据源连接池
@@ -125,7 +126,7 @@ SqlMapConfig.xml里有一堆标签。这些标签都在`<configuration>`标签�
 </mappers>
 ```
 
-## 2. xml映射文件
+## 2. 接口映射文件
 
 ### 2.0. mapper标签
 
@@ -135,7 +136,7 @@ SqlMapConfig.xml里有一堆标签。这些标签都在`<configuration>`标签�
 
 配置**列名**和实体类的**属性名**的对应关系。
 
-该标签一旦配置就尽量让JavaBean的所有属性和数据库的列名一一对应，否则封装数据时，很有可能出现null的情况。
+该标签一旦配置就尽量让JavaBean的**所有**属性和数据库的列名一一对应，否则封装数据时，很有可能出现null的情况。
 
 ```xml
 <resultMap id="userMap" type="实体类的全限定类名">
@@ -153,7 +154,7 @@ SqlMapConfig.xml里有一堆标签。这些标签都在`<configuration>`标签�
 
 - **parameterType**：传入参数的全类名或别名，可以不写，MyBatis会根据类型推断器(TypeHandler)**自动推断**。
 
-- **resultType**：返回结果的全限定类名或别名。如果返回的是集合，那应该设置为集合包含的类型，而不是集合本身的类型。 resultType 和 resultMap 之间只能同时使用一个。
+- **resultType**：返回结果的全限定类名或别名。如果返回的是集合，那应该设置为集合的泛型，而不是集合本身的类型。 **resultType 和 resultMap 之间只能同时使用一个**。
 
 - **resultMap**：对外部resultMap的引用，resultType 和 resultMap 之间只能同时使用一个。
 
@@ -174,7 +175,7 @@ SqlMapConfig.xml里有一堆标签。这些标签都在`<configuration>`标签�
 
 ```xml
 <select id="queryOne" parameterType="INT或Integer或java.lang.Integer" resultType="实体类的全限定类名">
-    select * from user;
+    select * from user where uId=#{uId}
 </select>
 ```
 
@@ -192,7 +193,7 @@ SqlMapConfig.xml里有一堆标签。这些标签都在`<configuration>`标签�
 ###### 联合查询之级联属性封装结果集
 
 ```xml
-<resultMap type="com.atguigu.mybatis.bean.Employee" id="MyDifEmp">
+<resultMap type="com.xxx.mybatis.bean.Employee" id="MyDifEmp">
     <id column="id" property="id"/>
     <result column="last_name" property="lastName"/>
     <result column="gender" property="gender"/>
@@ -334,7 +335,7 @@ SqlMapConfig.xml里有一堆标签。这些标签都在`<configuration>`标签�
 ```xml
 <insert id="addUser" parameterType="参数类型的全限定类名">
       <!-- 配置插入操作后，获取插入数据的主键id
-          keyProperty：查出主键值封装给JavaBean的哪个属性值
+          keyProperty：查出主键值封装给JavaBean的哪个属性
           order="BEFORE"：当前sql在插入sql之前运行，“AFTER”：当前sql在插入sql之后运行
           resultType：查出的数据的返回值类型
       >
@@ -429,23 +430,50 @@ MyBatis不会做特殊处理。即`#{参数值}`的形式，`{}`里的参数值�
 
 ### 4.1. 多个参数
 
-MyBatis会做特殊处理。多个参数会被封装成一个Map，Map的key为param1到paramN的形式，value就是传入的参数值。可用`#{}`的方式从Map中获取指定的key对应的value值
+MyBatis会做特殊处理。多个参数会被封装成一个Map
 
-例：`#{param1}`，`#{param2}`
+- Map的key为param1到paramN的形式，或者参数的索引也行
+- value就是传入的参数值。
+- 可用`#{}`的方式从Map中获取指定的key对应的value值
 
-也可以用**@Param**给方法参数明确命名来指定Map对应的key。**此处待补充示例**
+
+- 也可以在接口的方法的参数上用**@Param**给方法参数明确命名来指定Map对应的key。
+
+```java
+public Employee getEmp(@Param("id")Integer id,String lastName);
+// 取值：id==>#{id/param1}    lastName==>#{param2}
+```
+
+```java
+public Employee getEmp(Integer id,@Param("e")Employee emp);
+// 取值：id==>#{param1}    lastName==>#{param2.lastName/e.lastName}
+```
 
 ### 4.2. POJO
 
-多个参数正好是业务逻辑的数据模型，可直接传POJO。然后就可以用`#{属性名}`的方式取出传入的POJO对应的属性值。**此处待补充示例**
+多个参数正好是业务逻辑的数据模型，可直接传POJO。然后就可以用`#{属性名}`的方式取出传入的POJO对应的属性值。
 
 ### 4.3. Map
 
 多个参数不是业务逻辑中的数据模型，没有对应的POJO，不经常使用，为了方便，也可传Map。
+直接用`#{key}`的形式取出Map中对应的值。
 
 ### 4.4. TO
 
-多个参数不是业务逻辑中的数据模型，但经常使用，推荐使用TO（Transfer Object）数据传输对象。**不懂啥意思**
+多个参数不是业务逻辑中的数据模型，但经常使用，推荐编写一个**TO**（Transfer Object）数据传输对象。
+
+### 4.5. #{}和${}的区别
+
+**#{}**， 是以**预编译**的形式，将参数设置到sql语句中。PreparedStatement，防止SQL注入
+
+**${}**，取出的值**直接拼装**到SQL语句中，会有安全问题
+
+大多数情况，都应该使用**#{}**。但分表拆分、排序等操作，由于原生JDBC不支持占位符，这时可以使用**${}**。
+
+```sql
+SELECT * FROM ${year}_salary WHERE xxx;
+SELCT * FROM tbl_employee order by ${f_name} ${order};
+```
 
 ## 5. 动态SQL
 
@@ -593,7 +621,9 @@ foreach标签里的各项属性解释：
 
 ##### 方式二
 
-**存疑，待验证**
+这种方式是执行了多条SQL，但需要数据库连接属性**allowMultiQueries=true**。
+
+例：**jdbc.url=jdbc:mysql://localhost:3306/mybatis?allowMultiQueries=true**
 
 ```xml
 <!-- 这种方式需要数据库连接属性allowMultiQueries=true；
@@ -667,12 +697,12 @@ foreach标签里的各项属性解释：
 
 ```xml
 <sql id="insertColumn">
-	  		<if test="_databaseId=='oracle'">
-	  			employee_id,last_name,email
-	  		</if>
-	  		<if test="_databaseId=='mysql'">
-	  			last_name,email,gender,d_id
-	  		</if>
+    <if test="_databaseId=='oracle'">
+        employee_id,last_name,email
+    </if>
+    <if test="_databaseId=='mysql'">
+        last_name,email,gender,d_id
+    </if>
 </sql>
 ```
 
@@ -690,14 +720,14 @@ bind标签可以将OGNL表达式的值绑定到一个变量中，方便后来引
     <if test="_databaseId=='mysql'">
         select * from tbl_employee
         <if test="_parameter!=null">
-              where last_name like #{lastName}
+              where last_name like #{_lastName}
         </if>
     </if>
     
     <if test="_databaseId=='oracle'">
           select * from employees
           <if test="_parameter!=null">
-                where last_name like #{_parameter.lastName}
+                where last_name like #{_lastName}
           </if>
      </if>
 
@@ -739,7 +769,7 @@ SqlSession级别的缓存，也称为**本地缓存**。默认开启。
 
 #### 一级缓存失效的情况
 
-- SSM整合后，一级缓存就失效了。大概，待验证
+- SSM整合后，一级缓存就失效了。**大概，待验证**
 - sqlSession不同
 - sqlSession相同，查询条件不同
 - sqlSession相同，两次查询之间执行了增删改操作（第二次查询可能对当前数据有影响）
@@ -753,19 +783,13 @@ SqlSession级别的缓存，也称为**本地缓存**。默认开启。
 
 1、一个会话，查询一条数据，这个数据就会被放在当前会话的一级缓存中
 
-2、如果会话关闭，一级缓存中的数据会被保存到二级缓存中。新的会话查询信息，就可以参照二级缓存中的内容
+2、**会话关闭后，一级缓存中的数据才会被保存到二级缓存中**。新的会话查询信息，就可以参照二级缓存中的内容
 
-3、sqlSession===EmployeeMapper==>Employee DepartmentMapper===>Department
+#### 效果说明
 
-#### 效果
-
-**待补充验证**
-
-不同namespace查出的数据会放在自己对应的缓存中（map）
-
-数据会从二级缓存中获取。查出的数据都会被默认先放在一级缓存中。
-
-只有会话提交或者关闭以后，一级缓存中的数据才会转移到二级缓存中。
+- 不同namespace查出的数据会放在自己对应的缓存中（map），即查出的数据都**会被默认先放在一级缓存中**。
+- **只有会话提交或者关闭以后，一级缓存中的数据才会转移到二级缓存中**
+- 新会话开启后会先从二级缓存中查找。
 
 #### 如何开启二级缓存
 
@@ -796,11 +820,11 @@ cache相关属性解释：
 
 ### 6.2. 缓存的相关配置和属性
 
-- cacheEnabled=true/false。false时关闭缓存（一级缓存一直可用的，二级缓存关闭)
+- **settings标签**里cacheEnabled=true/false。false时关闭缓存（一级缓存一直可用的，二级缓存关闭)
 - select标签的useCache="true/false"。false时不使用缓存（一级缓存依然使用，二级缓存不使用）
 - 增删改标签的**flushCache="true"**（增删改执行完成后就会清除一级和二级缓存）
 - **sqlSession.clearCache()**只是清除当前session的一级缓存
-	 **待验证**？？localCacheScope：本地缓存作用域（一级缓存SESSION）当前会话的所有数据保存在会话缓存中                                                                                      STATEMENT：可以禁用一级缓存；		
+- **settings标签**里localCacheScope(本地缓存作用域)属性，代表一级缓存SESSION。默认配置为SESSION，                                                                           使用STATEMENT可以禁用一级缓存		
 
 ### 6.3. 第三方缓存配置
 
