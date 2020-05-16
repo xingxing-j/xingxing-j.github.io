@@ -467,17 +467,43 @@ public class InstatnceFactory {
 
 #### 实现FactoryBean
 
-```java
+实现了FactoryBean的类，不管返回的是单例还是多实例，**都是在获取Bean的时候创建对象**。
 
+```java
+public class MyFactory implements FactoryBean<User> {
+    /**
+     * 工厂方法，返回创建的实例
+     */
+    @Override
+    public User getObject() throws Exception {
+        User user = new User();
+        user.setuName("王四");
+        return user;
+    }
+
+    /**
+     * 返回创建对象的类型，Spring会自动调用这个方法来确认创建的对象是什么类型
+     */
+    @Override
+    public Class<?> getObjectType() {
+        return User.class;
+    }
+
+    /**
+     * 返回false是单例，返回true表示不是单例
+     */
+    @Override
+    public boolean isSingleton() {
+        return false;
+    }
+}
 ```
 
 #### 配置工厂Bean
 
 ```xml
-
+<bean id="myFactory" class="com.xxx.cn.factory.MyFactory"/>
 ```
-
-
 
 ## Bean的高级配置
 
@@ -562,7 +588,27 @@ Spring有个接口BeanPostProcessor，该接口可以在Bean的初始化前后�
 ##### 自定义后置处理器
 
 ```java
+public class MyBeanPostProcessor implements BeanPostProcessor {
 
+    /**
+     * 初始化之前调用
+     */
+    @Override
+    public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
+        System.out.println(beanName + "将要调用初始化方法了。该Bean为--->" + bean);
+        return bean;
+    }
+
+    /**
+     * 初始化之后调用，该方法返回null的时候，经测试，仍会将传入的bean方法到IOC容器中，
+     * 假如不返回null，返回别的对象，就会将该对象作为替换，放到IOC容器中
+     */
+    @Override
+    public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
+        System.out.println(beanName + "的初始化方法调用完了。该Bean为--->" + bean);
+        return 12;
+    }
+}
 ```
 
 ##### 将后置处理器注册在Spring配置文件中
@@ -828,14 +874,22 @@ Controller组件中往往需要用到Service组件的实例，Service组件中�
 使用Spring的单元测试，不用ioc.getBean()获取组件了，直接在组件上添加@Autowired注解，让Spring为我们自动装配
 
 ```java
-@ContextConfiguration(locations="classpath:applicationContext.xml")
+@ContextConfiguration(locations = {"classpath:applicationcontext.xml"})
 @RunWith(SpringRunner.class)
-public class IOCTest {
-    
+public class DemoTest {
+
+    @Autowired
+    private User user;
+    @Test
+    public void testDemo () {
+        /*
+            省略了ApplicationContext ioc =
+                new ClassPathXmlApplicationContext("applicationcontext.xml");
+         */
+        System.out.println(user);
+    }
 }
 ```
-
-
 
 ## Spring其他注解
 
