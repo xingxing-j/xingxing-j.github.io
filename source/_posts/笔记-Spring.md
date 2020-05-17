@@ -326,7 +326,7 @@ Set的赋值方式跟Llist差不多。
 
 这个就不举例了，自己想象吧
 
-###Map
+### Map
 
 \<map>标签里可以使用多个\<entry>作为子标签。一个\<entry>标签代表一个键值对 。
 
@@ -510,9 +510,7 @@ public class MyFactory implements FactoryBean<User> {
 ### 配置信息的继承
 
 Spring允许继承bean的配置，被继承的bean称为父bean，继承这个父bean的bean称为子bean。
-子bean从父bean中继承配置，包括
-
-bean的属性配置。子bean也可以覆盖从父bean继承过来的配置。
+子bean从父bean中继承配置，包括bean的属性配置。子bean也可以覆盖从父bean继承过来的配置。
 
 ```xml
 <bean id="dept" class="com.xxx.parent.bean.Department">
@@ -1290,3 +1288,138 @@ public class MyAspect implements MethodInterceptor {
 
 ## Spring事务
 
+### 编程式事务管理
+
+使用原生的JDBC API进行事务管理
+
+- 获取数据库连接Connection对象
+- 取消事务的自动提交
+- 执行操作
+- 正常完成操作时手动提交事务
+- 执行失败时回滚事务
+- 关闭相关资源
+
+编程式事务管理需要将事务管理代码**嵌入到业务方法中**来控制事务的提交和回滚，会造成较大程度的**代码冗余**。        
+
+### 声明式事务管理
+
+声明式事务将事务管理代码从业务方法中分离出来，以声明的方式来实现事务管理。
+
+### 事务管理器
+
+Spring从不同的事务管理API中抽象出了一整套事务管理机制，让事务管理代码从特定的事务技术中独立出来。开发人员通过配置的方式进行事务管理，而不必了解其底层是如何实现的。
+
+Spring的核心事务管理抽象是PlatformTransactionManager。它为事务管理封装了一组独立于技术的方法。无论使用Spring的哪种事务管理策略(编程式或声明式)，事务管理器都是必须的。
+
+事务管理器可以以普通的bean的形式声明在Spring IOC容器中。
+
+### 事务管理器的主要实现
+
+- **DataSourceTransactionManager**：在应用程序中只需要处理一个数据源，而且通过JDBC存取。
+- **JtaTransactionManager**：在JavaEE应用服务器上用JTA(JavaTransaction API)进行事务管理
+- **HibernateTransactionManager**：用Hibernate框架存取数据库
+
+### 基于XML的声明式事务
+
+#### 1、Spring配置文件的相关配置
+
+```xml
+<!-- 配置事务管理器 -->
+<bean id="transactionManager"
+      class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+    <property name="dataSource" ref="dataSource"/>	  
+</bean>
+
+<!-- 配置事务切面 -->
+<aop:config>
+    <aop:pointcut 
+                  expression="execution(* com.atguigu.tx.component.service.BookShopServiceImpl.purchase(..))" 
+                  id="txPointCut"/>
+    <!-- 将切入点表达式和事务属性配置关联到一起 -->
+    <aop:advisor advice-ref="myTx" pointcut-ref="txPointCut"/>
+</aop:config>
+
+<!-- 配置基于XML的声明式事务  -->
+<tx:advice id="myTx" transaction-manager="transactionManager">
+    <tx:attributes>
+        <!-- 设置具体方法的事务属性 -->
+        <tx:method name="find*" read-only="true"/>
+        <tx:method name="get*" read-only="true"/>
+        <tx:method name="purchase" 
+                   isolation="READ_COMMITTED" 
+                   no-rollback-for="java.lang.ArithmeticException,java.lang.NullPointerException"
+                   propagation="REQUIRES_NEW"
+                   read-only="false"
+                   timeout="10"/>
+    </tx:attributes>
+</tx:advice>
+```
+
+
+
+
+
+### 基于注解的声明式事务
+
+#### 1、Spring配置文件的相关配置
+
+```xml
+<!-- 配置事务管理器 -->
+<bean id="transactionManager"
+      class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+    <property name="dataSource" ref="dataSource"/>	  
+</bean>
+<!-- 启用事务注解 transaction-manager属性的值为transactionManager时可忽略 -->
+<tx:annotation-driven transaction-manager="transactionManager"/>
+```
+
+#### 2、在需要进行事务控制的类或方法上加注解
+
+加@Transactional注解
+
+### @Transactional
+
+在需要进行事务控制的方法和类上加注解。默认**发生运行时异常回滚**，发生编译时异常不回滚。
+
+#### 相关属性
+
+##### isolation-Isolation
+
+事务的隔离级别
+
+- 读未提交：READ UNCOMMITTED。  允许事务1 读取 事务2 未提交的修改
+- 读已提交：READ COMMITTED。 要求事务1  只能读取 事务2 已提交的修改
+- 可重复读：REPEATABLE READ。确保事务1  可以多次从一个字段读取到相同的值，即事务1 执行期间禁止其他事务对这个字段进行更新
+- 串行化：SERIALIZABLE。  确保事务1 可以多次从一个表中读取相同的行。即在事务1执行期间，禁止其他事务对这个表进行增删改查操作。可避免任何并发问题，但性能十分低下。
+
+##### noRollbackFor
+
+哪些异常事务可以不回滚。示例：noRollbackFor={a.class,b.class}，指定a,b异常  不回滚
+
+##### noRollbackForClassName
+
+哪些异常事务可以不回滚
+
+##### rollbackFor
+
+哪些异常事务可以回滚。示例：rollbackFor={a.class,b.class}，指定a,b异常  都回滚
+
+##### rollbackForClassName
+
+哪些异常事务可以回滚
+
+##### readOnly-boolean
+
+设置事务为只读事务,默认为false
+
+##### timeout-int
+
+超时。事务超出指定时长后自动终止并回滚。以秒为单位
+
+##### propagation-Propagation
+
+事务的传播行为。默认值REQUIRED，事务的属性继承于外部的大事务
+
+![事务的传播行为](笔记-Spring/事务的传播行为.png)
+
+ 
