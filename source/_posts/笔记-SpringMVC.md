@@ -73,7 +73,7 @@ spring-webmvc-4.0.0.RELEASE.jar
  <!-- mvc:annotation-driven标签会默认会帮我们注册默认处理请求，参数和返回值的类 -->
 <mvc:annotation-driven/>
 
-<!-- 配置映射解析器：如何将控制器返回的结果字符串，转换为一个物理的视图文件-->
+<!-- 配置视图解析器：如何将控制器返回的结果字符串，转换为一个物理的视图文件-->
 <bean id="internalResourceViewResolver" 
   class="org.springframework.web.servlet.view.InternalResourceViewResolver">
     <property name="prefix" value="/WEB-INF/views/"/>
@@ -86,6 +86,19 @@ spring-webmvc-4.0.0.RELEASE.jar
 ## 3. SpringMVC内部流程图
 
 ![springmvc流程图](笔记-SpringMVC/springmvc流程图.png)
+
+![笔记-SpringMVC](笔记-SpringMVC/第二种SpringMVC流程图.jpg)
+
+### 流程说明(重要)
+
+1. 客户端（浏览器）发送请求，直接请求到 `DispatcherServlet`。
+2. `DispatcherServlet` 根据请求信息调用 `HandlerMapping`，解析请求对应的 `Handler`。
+3. 解析到对应的 `Handler`（也就是我们平常说的 `Controller` 控制器）后，开始由 `HandlerAdapter` 适配器处理。
+4. `HandlerAdapter` 会根据 `Handler`来调用真正的处理器来处理请求，并处理相应的业务逻辑。
+5. 处理器处理完业务后，会返回一个 `ModelAndView` 对象，`Model` 是返回的数据对象，`View` 是个逻辑上的 `View`。
+6. `ViewResolver` 会根据逻辑 `View` 查找实际的 `View`。
+7. `DispaterServlet` 把返回的 `Model` 传给 `View`（视图渲染）。
+8. 把 `View` 返回给请求者（浏览器）
 
 ## 4. 请求相关
 
@@ -179,7 +192,7 @@ spring-webmvc-4.0.0.RELEASE.jar
 
 ##### 简述
 
-可以将 URL 中占位符参数绑定到控制器处理方法的入参中,常用于REST风格的传值
+可以将 **URL 中占位符参数绑定到控制器处理方法的入参中**,常用于REST风格的传值
 
 ##### 示例：
 
@@ -319,7 +332,9 @@ for (Cookie c : cookies) {
 
    jackson-databind-2.9.8.jar
 
-2. 在Controller里的指定方法的参数前加@RequestBody。参数对象的属性要和Json字符串里的name对应
+2. 在Controller里的指定方法的参数前**加@RequestBody**，让SpringMVC去请求体中获取参数对象。参数对象的属性要和Json字符串里的key对应
+
+由于SpringMVC和SpringBoot默认支持jackson，所有我们在接受前端json格式的字符串的时候，就可以直接指定方法参数为对应的实体类类型，帮我们省略了将json字符串封装到对象中的步骤。
 
 ### 4.2. 使用Servlet API
 
@@ -375,7 +390,7 @@ springmvc的配置文件中配一个\<mvc:resources/>
 
 Controller方法参数为Map、ModelMap或Model 时，最终都是BindingAwareModelMap工作。
 
-里面保存的数据会放在请求域中，可以在页面进行获取
+里面保存的数据会放在请求域中，可以在页面进行获取。
 
 ### 5.2. 方法返回值类型为ModelAndView
 
@@ -391,7 +406,6 @@ public ModelAndView testModelAndView(){
     //通过构造方法指定返回的页面名称，也可以用setViewName()方法跳转到指定页面
     ModelAndView mv = new ModelAndView("success");
     mv.addObject("time",new Date().toString()); //实质上存放到request域中 
-
     return mv;
 }
 ```
@@ -462,7 +476,7 @@ public String testString() {
 ```java
 @GetMapping("/testForward")
 public String testForwad() {
-    return "forward:string";//转发到string请求中
+    return "forward:string";//转发到url为string的请求中，还可以直接在后面写具体的静态资源名
 }
 ```
 
@@ -471,7 +485,7 @@ public String testForwad() {
 ```java
 @GetMapping("/testRedirect")
 public String testForwad() {
-    return "redirect:string";//重定向到string请求中
+    return "redirect:string";//重定向到url为string的请求中，还可以直接在后面写具体的静态资源名
 }
 ```
 
@@ -484,7 +498,7 @@ public String testForwad() {
 ```java
 @RequestMapping("/index")
 public void testVoid() {
-    //无返回值，默认找的是 配置路径 下的index.jsp页面
+    //无返回值，默认找的是 配置路径 下的 '路径'+.jsp页面
 }
 
 //所以一般可以在无返回值的方法里转发或重定向
@@ -519,18 +533,20 @@ public Student testObject() {
  * ResponseEntity内部提供状态码
  * 所以既能携带数据，又能携带状态码
  * 返回的也是Json格式的字符串
- * 依赖jackson
+ * 依赖jackson，使用时不需加@ResponseBody注解
  */
 @GetMapping("/responseEntity")
 public ResponseEntity testentity() {
     Student stu = new Student(11, "张三");
-    return ResponseEntity.statu(HttpStatus.OK).body(stu);
+    return ResponseEntity.status(HttpStatus.OK).body(stu);
+    // 或使用这种写法，跟上面的那行表示的意思是一样的
+    // return ResponseEntity.ok(stu);
 }
 ```
 
 ## 6. 乱码问题
 
-#### 6.0. 参数格式为key-value格式时
+#### 6.0. 参数格式为key-value格式时的乱码
 
 ##### 6.0.0. GET请求乱码
 
@@ -561,7 +577,7 @@ String s = new String(username.getBytes("ISO‐8859‐1"), "utf‐8");
 
 ##### 6.0.1. POST请求乱码
 
-配置字符编码过滤器，**该过滤器需在其他过滤器的前面**
+web.xml文件中配置字符编码过滤器，**该过滤器需在其他过滤器的前面**
 
 ```xml
 <!--CharacterEncodingFilter 在高版本的Spring中是可以解决 GET请求 和POST请求
@@ -590,7 +606,7 @@ String s = new String(username.getBytes("ISO‐8859‐1"), "utf‐8");
 </filter-mapping>
 ```
 
-#### 6.1. 参数格式为Json格式时
+#### 6.1. 参数格式为Json格式时的乱码
 
 请求参数为Json格式时，因为走了jackson，所以没有乱码问题
 
@@ -669,7 +685,7 @@ GET请求：获取数据；POST请求：登录和添加数据；DELETE请求：�
 #### 3. 后端代码
 
 ```java
-@GetMapping(value="/restPath/{name}/{age}")
+@PutMapping(value="/restPath/{name}/{age}")
 public String testREST(@PathVarible("name")sname, @PathVarible("age")sage) {
     System.out.println("sanme=" + sname + ";sage" + sage);
     return "success";
@@ -739,7 +755,7 @@ public String testREST(@PathVarible("name")sname, @PathVarible("age")sage) {
 
 在具体的jsp页面里导入jstl下的fmt名称空间，并书写相应的标签。
 
-<fmt:message key="resource.welcome"/>
+\<fmt:message key="resource.welcome"/>
 
 ## 10. 文件上传
 
@@ -850,7 +866,9 @@ public class UploadController {
 }
 ```
 
-#### 10.0.1. 文件上传之SpringMVC
+#### 10.0.1. 多文件上传之SpringMVC
+
+该方式也是以表单的方式上传的，单文件上传和多文件上传差不多，就不写了。
 
 需要导jar包，配多媒体视图解析器
 
@@ -865,7 +883,7 @@ commons-io-1.4.jar和commons-fileupload-1.2.1.jar
 <bean id="multipartResolver"
       class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 	<property name="defaultEncoding" value="UTF-8"></property>
-	<!-- 上传单个文件的最大值，单位Byte;如果-1，表示无限制 -->
+	<!-- 上传文件的最大值，单位Byte;如果-1，表示无限制 -->
 	<property name="maxUploadSize"  value="102400"></property>
 </bean>
 ```
@@ -874,27 +892,29 @@ commons-io-1.4.jar和commons-fileupload-1.2.1.jar
 
 ```html
 <form action="/upload" method="post" enctype="multipart/form-data">
-    <input type="file" name="file"/>
+    <input type="file" name="files" multiple/>
     <input type="submit" value="上传"/>
 </form>
 ```
 
 ##### 4. 编写Controller类
 
+注：**MultipartFile数组的名字需要和前端页面的\<input type="file">标签的name值一致**。
+
 ```java
 @Controller
 public class UploadController {
     @PostMapping("upload")
-    public String upload(HttpServletRequest request, MultipartFile[] avater) throws Exception{
+    public String upload(HttpServletRequest request, MultipartFile[] files) throws Exception{
     	String realPath = request.getServletContext().getRealPath("/WEB-INF/images/");
         File file = new File(realPath);
         if (!file.exists()) {
             file.mkdirs();
         }
         
-        for (int i = 0; i < avater.lenth; i++) {
-            String fileName = avater[i].getOriginalFilename();
-            avater[i].transferTo(new File(file, fileName));
+        for (int i = 0; i < files.length; i++) {
+            String fileName = files[i].getOriginalFilename();
+            files[i].transferTo(new File(file, fileName));
         }  
         return "success";
     }
@@ -941,8 +961,10 @@ public ResponseEntity<byte[]> testDownload(HttpServletRequest request)
     String fileName = realPath.substring(realPath.lastIndexOf("\\") + 1);
     
     HttpHeaders headers = new HttpHeaders();
-    headers.serContentDispositionFormData("attachment", URLEncoder.encode(fileName, "utf-8"));
+    // 第一个参数，固定值attachment；第二个参数为文件名，会出现乱码问题，用URLEncoder.encode(fileName, "utf-8")处理一下
+    headers.setContentDispositionFormData("attachment", URLEncoder.encode(fileName, "utf-8"));
     
+    // 用ResponseEntity返给前端一个字节数组
     ResponseEntity<byte[]> entity = new ResponseEntity<byte[]>(buffer, headers, HttpStatus.OK);
     
     return entity;
@@ -1355,8 +1377,6 @@ public class ExceptionResponseBean {
     }
 }
 ```
-
-
 
 #### 4. 在Controller类里抛出异常
 
