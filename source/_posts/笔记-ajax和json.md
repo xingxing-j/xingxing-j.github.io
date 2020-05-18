@@ -152,8 +152,7 @@ $("#postBtn").click(function(){
 
 # json
 
-JSON (**JavaScript Object Notation**) 是一种轻量级的数据交换格式。易于人阅读和编写。同时也易于机器解析和生成。JSON
-采用完全独立于语言的文本格式，而且很多语言都提供了对 json 的支持（包括 C, C++, C#, Java, JavaScript, Perl, Python等）。 这样就使得 JSON 成为理想的数据交换格式。
+JSON (**JavaScript Object Notation**) 是一种轻量级的数据交换格式。易于人阅读和编写。同时也易于机器解析和生成。JSON采用完全独立于语言的文本格式，而且很多语言都提供了对 json 的支持（包括 C, C++, C#, Java, JavaScript, Perl, Python等）。 这样就使得 JSON 成为理想的数据交换格式。
 
 ### JSON 在 JavaScript 中的使用
 
