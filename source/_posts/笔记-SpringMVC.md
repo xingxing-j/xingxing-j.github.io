@@ -64,6 +64,22 @@ spring-webmvc-4.0.0.RELEASE.jar
 
 ### 2.2. 配置springmvc.xml文件
 
+**注意**：在使用IDEA导入各种名称空间时，一定仔细看看之后导入的约束文件是不是自己要的。比如：导入mvc的名称空间时，其相关schema约束的的地址的URL要选**以mvc结尾的**，不要选其他的。
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       https://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/mvc
+       https://www.springframework.org/schema/mvc/spring-mvc.xsd">
+```
+
 导入各种名称空间（beans,context,mvc……）后
 
 ```xml
@@ -990,7 +1006,7 @@ public ResponseEntity<byte[]> testDownload(HttpServletRequest request)
 ##### 1. 新建类型转换器
 
 ```java
-//Converter 第一个泛型 表示from，第二个泛型 表示 to 
+//Converter ，下面的泛型表示将String转换成Date类型
 public class MyConvert implements Converter<String,Date> {     
     @Override   
     public Date convert(String s) {       
@@ -1017,7 +1033,7 @@ public class MyConvert implements Converter<String,Date> {     
       class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
     <property name="conventers">
         <set>
-            <bean class="com.shangma.cn.MyConvert"/> 
+            <bean class="com.xxx.cn.MyConvert"/> 
         </set>
     </property>
 </bean>
@@ -1035,11 +1051,13 @@ jackson-annotations-2.9.8.jar；jackson-core-2.9.8.jar；jackson-databind-2.9.8.
 
 ##### 2. 加注解
 
-在相应的Date属性上加@JsonFormat注解。
+在相应的Date属性上加@JsonFormat注解，且能在注解的值内自定义日期格式。
 
-**不加注解的话**，也能通过jackson转换，默认支持yyyy-MM-dd HH:mm:ss和yyyy-MM-dd 格式的转换
+**不加注解的话**，也能通过jackson转换，默认支持yyyy-MM-dd**T**HH:mm:ss和yyyy-MM-dd 格式的转换
 
 #### 解决方式二(全局配置)
+
+使用该种配置，不仅支持Json参数转Date类型，也支持Date类型转Json。
 
 ##### 1. 导包
 
@@ -1121,7 +1139,7 @@ public class MyConvert2 implements Converter<String,LocalDate> {     
 
 jackson-annotations-2.9.8.jar；jackson-core-2.9.8.jar
 
-jackson-databind-2.9.8.jar；jackson-datatype-jsr310-2.9.8.jar
+jackson-databind-2.9.8.jar；**jackson-datatype-jsr310-2.9.8.jar**
 
 ##### 2. 加注解
 
@@ -1137,7 +1155,7 @@ jackson-databind-2.9.8.jar；jackson-datatype-jsr310-2.9.8.jar
 
 jackson-annotations-2.9.8.jar；jackson-core-2.9.8.jar
 
-jackson-databind-2.9.8.jar；jackson-datatype-jsr310-2.9.8.jar
+jackson-databind-2.9.8.jar；**jackson-datatype-jsr310-2.9.8.jar**
 
 ##### 2. SpringMVC配置文件
 
@@ -1161,11 +1179,13 @@ jackson-databind-2.9.8.jar；jackson-datatype-jsr310-2.9.8.jar
 
 ### 12.4. Date&LocalDate&LocalDateTime转Json
 
+局部解决方式
+
 #### 1. 导包
 
 jackson-annotations-2.9.8.jar；jackson-core-2.9.8.jar
 
-jackson-databind-2.9.8.jar；jackson-datatype-jsr310-2.9.8.jar
+jackson-databind-2.9.8.jar；**jackson-datatype-jsr310-2.9.8.jar**
 
 #### 2. 加注解
 
@@ -1255,7 +1275,7 @@ public class FirstInteceptor implements HandlerInterceptor {       
 ##### 1. 创建异常处理类
 
 ```java
-@Component
+@Component// 使用注解加入到容器当中
 public class MyExceptionHander implements HandlerExceptionResolver {
     
     @Override
@@ -1299,9 +1319,9 @@ public class ErrorController {
 
 ### 14.2. 处理方式三
 
-必须掌握
+必须掌握，该方式是通过**AOP通知功能**进行的自定义异常处理
 
-#### 1. 创建枚举类保存状态
+#### 1. 自定义状态信息的枚举类
 
 ```java
 public enum StatusEnum {
@@ -1350,7 +1370,7 @@ public class MyException extends RuntimeException {
 }
 ```
 
-#### 3. 创建异常返回JavaBean
+#### 3. 自定义异常响应Bean
 
 ```java
 public class ExceptionResponseBean {
@@ -1396,7 +1416,9 @@ public class ErrorController {
 }
 ```
 
-#### 5. 创建异常处理类
+#### 5. 自定义异常处理类
+
+此类要想能捕获到异常需要加入到容器中。**或者说在配置文件中配包扫描的时候要能扫到它**
 
 ```java
 @RestControllerAdvice
