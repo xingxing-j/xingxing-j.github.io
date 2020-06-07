@@ -317,13 +317,13 @@ let newNums = nums.filter(function (num) {
 ```javascript
 // 要求：将上面已经过滤的新数组每项乘以2
 
-//map函数同样会遍历数组每一项，传入回调函数为参数，num是map遍历的每一项，回调函数function返回值会被添加到新数组中
+// map函数同样会遍历数组每一项，传入回调函数为参数，num是map遍历的每一项，回调函数function返回值会被添加到新数组中
 let newNums2 = newNums.map(function (num) {
   return num * 2
  })
 
-//箭头函数简写
-//  let newNums2 = newNums.map(num => num * 2)
+// 箭头函数简写
+// let newNums2 = newNums.map(num => num * 2)
 console.log(newNums2);
 ```
 
@@ -513,7 +513,7 @@ fn([3,4]);//[3, 4]
 
 ## 7.0. ES6的字符串拼接
 
-不需要任何的加号和引号，全部字符仅仅由一组``符号包裹即可，而放置动态数据或者变量即用${变量}方式即可。
+不需要任何的加号和引号，全部字符仅仅由一组**``**符号包裹即可，而放置动态数据或者变量用`${变量}`的方式即可。
 
 ```javascript
 var firstname="张"

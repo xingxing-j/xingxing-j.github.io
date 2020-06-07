@@ -1357,8 +1357,6 @@ Spring的核心事务管理抽象是PlatformTransactionManager。它为事务管
 
 
 
-
-
 ### 基于注解的声明式事务
 
 #### 1、Spring配置文件的相关配置
@@ -1422,4 +1420,15 @@ Spring的核心事务管理抽象是PlatformTransactionManager。它为事务管
 
 ![事务的传播行为](笔记-Spring/事务的传播行为.png)
 
- 
+## 异步
+
+在Spring配置文件中配置相应标签
+
+```xml
+<!-- 开启异步 -->
+<task:annotation-driven executor="taskExecutor"/>
+<task:executor id="taskExecutor" pool-size="20"/>
+```
+
+之后在相应的方法上添加`@Async`注解
+

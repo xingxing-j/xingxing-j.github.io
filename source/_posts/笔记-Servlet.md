@@ -27,23 +27,24 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
 http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
 version="4.0">
-<!-- servlet 标签给 Tomcat 配置 Servlet 程序 -->
-<servlet>
-<!--servlet-name 标签 Servlet 程序起一个别名（一般是类名） -->
-<servlet-name>HelloServlet</servlet-name>
-<!--servlet-class 是 Servlet 程序的全类名-->
-<servlet-class>com.xxx.servlet.HelloServlet</servlet-class>
-</servlet>
-<!--servlet-mapping 标签给 servlet 程序配置访问地址-->
-<servlet-mapping>
-<!--servlet-name 标签的作用是告诉服务器，我当前配置的地址给哪个 Servlet 程序使用-->
-<servlet-name>HelloServlet</servlet-name>
-<!--url-pattern 标签配置访问地址 <br/>
-/ 斜杠在服务器解析的时候，表示地址为：http://ip:port/工程路径 <br/>
-/hello 表示地址为：http://ip:port/工程路径/hello <br/>
--->
-<url-pattern>/hello</url-pattern>
-</servlet-mapping>
+    <!-- servlet 标签给 Tomcat 配置 Servlet 程序 -->
+    <servlet>
+        <!--servlet-name 标签 Servlet 程序起一个别名（一般是类名） -->
+        <servlet-name>HelloServlet</servlet-name>
+        <!--servlet-class 是 Servlet 程序的全类名-->
+        <servlet-class>com.xxx.servlet.HelloServlet</servlet-class>
+    </servlet>
+    
+    <!--servlet-mapping 标签给 servlet 程序配置访问地址-->
+    <servlet-mapping>
+        <!--servlet-name 标签的作用是告诉服务器，我当前配置的地址给哪个 Servlet 程序使用-->
+        <servlet-name>HelloServlet</servlet-name>
+        <!--url-pattern 标签配置访问地址 <br/>	
+        / 斜杠在服务器解析的时候，表示地址为：http://ip:port/工程路径 <br/>
+        /hello 表示地址为：http://ip:port/工程路径/hello <br/>
+        -->
+        <url-pattern>/hello</url-pattern>
+    </servlet-mapping>
 </web-app>
 ```
 
@@ -118,9 +119,7 @@ context.getInitParameter("password"));
 // 2、获取当前的工程路径，格式: /工程路径
 System.out.println( "当前工程路径:" + context.getContextPath() );
 // 3、获取工程部署后在服务器硬盘上的绝对路径
-/**
-* 斜杠被服务器解析地址为:http://ip:port/工程名/ 映射到 IDEA 代码的 web 目录<br/>
-*/
+//  斜杠被服务器解析地址为:http://ip:port/工程名/，在IDEA下，可能会根据设置里的输出目录不同而发生变化
 System.out.println("工程部署的路径是:" + context.getRealPath("/"));
 System.out.println("工程下 css 目录的绝对路径是:" + context.getRealPath("/css"));
 System.out.println("工程下 imgs 目录 1.jpg 的绝对路径是:" + context.getRealPath("/imgs/1.jpg"));
@@ -188,7 +187,7 @@ HttpServletRequest是一个接口，其封装了HTTP请求协议的全部内容�
 #### 6.1.1. 获取请求头的相关方法
 
 - **String getHeader(String name)**:获取请求头中的指定内容
-- **[Enumeration]<[String]> getHeaderNames()**:获取所有请求头，返回一个枚举
+- **[Enumeration]\<String> getHeaderNames()**:获取所有请求头，返回一个枚举
 - **int getIntHeader(String name)**:通过一个key获取int类型的值
 
 ……
@@ -210,8 +209,8 @@ while(headerNames.hasMoreElements()) {
 
 - **String getParameter(String name)**:获取key获取value一维数组的**首元素**
 - **String[] getParameterValues(String name)**:通过参数的Map集合的key获取value,返回一个数组
-- **Enumeration<String> getParameterNames()**:获取参数的Map对象的所有key
-- **Map<String,String[]> getParameterMap()**:获取所有key和value的Map对象(Map<String, String[]>)
+- **Enumeration\<String> getParameterNames()**:获取参数的Map对象的所有key
+- **Map\<String,String[]> getParameterMap()**:获取所有key和value的Map对象(Map\<String, String[]>)
 
 #### 6.1.3. 其他方法
 
@@ -344,7 +343,7 @@ req.getRequestDispatcher("/b").forward(request,response);
 ### 10.1. 重定向
 
 ```java
-resp.sendRedireact(requesy.getContextPath() + "/b"); 
+resp.sendRedireact(request.getContextPath() + "/b"); 
 ```
 
 ### 10.2. 二者的异同点

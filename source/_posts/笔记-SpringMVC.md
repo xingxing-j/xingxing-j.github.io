@@ -802,7 +802,7 @@ public String testREST(@PathVarible("name")sname, @PathVarible("age")sage) {
 
 ###### 2. 添加配置信息
 
-在web.xml中的DispatcherServlet中添加一个**\<multipart-config/>**标签
+在**web.xml中**的DispatcherServlet中添加一个**\<multipart-config/>**标签
 
 ```xml
 <servlet>
@@ -845,7 +845,7 @@ public class UploadController {
 
 ###### 2. 添加配置信息
 
-在web.xml中的DispatcherServlet中添加一个**\<multipart-config/>**标签
+在**web.xml中**的DispatcherServlet中添加一个**\<multipart-config/>**标签
 
 ```xml
 <servlet>
@@ -1324,29 +1324,28 @@ public class ErrorController {
 #### 1. 自定义状态信息的枚举类
 
 ```java
+package com.xxx.cn.common.http.response;
+
 public enum StatusEnum {
-    
-    ERROR(20001, "用户名错误"),
-    ;
-    private Integer status;
-    private String message;
-    
-    StatusEnum (Integer status, String message) {
-        this.status = status;
-        this.message = message;
-    }
-    public Integer getStatus() {
-        return status;
-    }
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
-    public String getMessage() {
-        return message;
-    }
-    public void setMessage(String message) {
-        this.message = message;
-    }
+	ERROR(40001, "操作失败"),
+	OK(20000, "操作成功"),
+	PHONE_specification_ERROR(40002, "手机号格式错误"),
+	PHONE_NUMBER_ERROR(40003, "手机号位数错误"),
+	PHONE_EMPTY(40004, "手机号为空"),
+	ADMIN_NOT_FOUND(40005, "用户未查到"),
+	CODE_SENT(20001, "验证码已发送"),
+	LOGIN_ERROR(40006, "验证码错误，登录失败"),
+	LOGIN_SUCCESS(20002, "登录成功"),
+	;
+	private Integer status;
+	private String message;
+
+	StatusEnum(Integer status, String message) {
+		this.status = status;
+		this.message = message;
+	}
+
+	// getter、setter和toStirng方法，略
 }
 ```
 
@@ -1354,49 +1353,47 @@ public enum StatusEnum {
 
 ```java
 public class MyException extends RuntimeException {
-    
-    private StatusEnum statusEnum;
-    
-    public MyException (StatusEnum statusEnum) {
-        this.statusEnum = statusEnum;
-    }
-    
-    public StatusEnum getStatusEnum() {
-        return statusEnum;
-    }
-    public void setStatusEnum(StatusEnum statusEnum) {
-        this.statusEnum = statusEnum;
-    }
+	private StatusEnum statusEnum;
+	public MyException (StatusEnum statusEnum) {
+		this.statusEnum = statusEnum;
+	}
+	public StatusEnum getStatusEnum() {
+		return statusEnum;
+	}
+
+	public void setStatusEnum(StatusEnum statusEnum) {
+		this.statusEnum = statusEnum;
+	}
 }
 ```
 
 #### 3. 自定义异常响应Bean
 
 ```java
-public class ExceptionResponseBean {
-    
-    private Integer status;
-    private String message;
-    
-    public ExceptionResponseBean(EnumStatus enumStatus) {
-        this.status = enumStatus.getStatus();
-        this.message = enumStatus.getMessage();
-    }
-    
-    public Integer getStatus() {
-        return status;
-    }
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
-    public String getMessage() {
-        return message;
-    }
-    public void setMessage(String message) {
-        this.message = message;
-    }
+public class ResponseBean {
+	private Integer status;
+	private String message;
+
+	public ResponseBean(StatusEnum statusEnum) {
+		this.status = statusEnum.getStatus();
+		this.message = statusEnum.getMessage();
+	}
+	// getter、setter和toStirng方法，略
 }
 ```
+
+```java
+public class DataResponseBean extends ResponseBean {
+	private Object data;
+	public DataResponseBean(StatusEnum statusEnum, Object data) {
+		super(statusEnum);
+		this.data = data;
+	}
+	// getter、setter和toStirng方法，略
+}
+```
+
+
 
 #### 4. 在Controller类里抛出异常
 
@@ -1421,14 +1418,11 @@ public class ErrorController {
 此类要想能捕获到异常需要加入到容器中。**或者说在配置文件中配包扫描的时候要能扫到它**
 
 ```java
-@RestControllerAdvice
-public  class MyExceptionHandler {
-    
-    @ExceptionHandler(MyException.class)
-    public ExceptionResponseBean handler (MyException myException) {
-        ExceptionResponseBean bean = 
-            new ExceptionResponseBean(myException.getStatusEnum());
-        return bean;
-    }
+@ControllerAdvice // 或 @RestControllerAdvice
+public class MyExceptionHandler {
+	@ExceptionHandler(MyException.class)
+	public ResponseEntity EmployeeExceptionHandler (MyException e) {
+		return ResponseEntity.ok(new ResponseBean(e.getStatusEnum()));
+	}
 }
 ```

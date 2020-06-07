@@ -140,9 +140,9 @@ Redis的列表是简单的字符串列表，按照插入顺序排序。
 底层实际是个链表。
 **单key多value**
 
-- **LPUSH key value1[value2]**：将一个值和多个值插入到列表头部
-- **LPUSHX key value**：将一个或多个值插入到已存在的列表头部
-- **RPUSH key value1[value2]**：在列表中添加一个或多个值
+- **LPUSH key value1[value2]**：将一个值和多个值**从左向右**依次压入栈中，亦称**右压栈**
+- **LPUSHX key value**：将一个或多个值**从左向右**插入到已存在的列表头部
+- **RPUSH key value1[value2]**：将一个值和多个值**从右向左**依次压入栈中，亦称**左压栈**
 - **RPUSHX key value**：为已存在的列表添加值
 - **LRANGE key start stop**：获取列表中指定范围的元素
 
@@ -151,8 +151,8 @@ Redis的列表是简单的字符串列表，按照插入顺序排序。
 LRANGE list01 0 -1
 ```
 
-- **LPOP key**：移除并获取列表**头部**的第一个元素
-- **RPOP key**：移除并获取列表**尾部**的第一个元素
+- **LPOP key**：移除并获取列表**头部**的第一个元素，亦称**左弹栈**
+- **RPOP key**：移除并获取列表**尾部**的第一个元素，亦称**右弹栈**
 - **LINDEX key index**：通过**索引**获取列表中的元素
 - **LLEN key**：获取列表长度
 - **LREM key count value**：移除列表元素，即删除n个value

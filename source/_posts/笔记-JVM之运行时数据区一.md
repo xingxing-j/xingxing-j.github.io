@@ -1,18 +1,21 @@
 ---
-title: 笔记-JVM之运行时数据区概述及线程
+title: 笔记-JVM之运行时数据区一
 date: 2020-05-18 21:14:40
 categories: 后端学习
 tags:
 - [JVM]
 - [JVM笔记]
 - [运行时数据区]
+- [PC计数器]
+- [虚拟机栈]
+- [本地方法栈]
 ---
 
-运行时数据区的简单了解，本笔记来自宋红康JVM课件，掘金上别人的[笔记](https://juejin.im/post/5e71d675f265da5711264f46)，[阿月的记事本](https://www.wjhandzhy.top/2020/03/26/jvm%e7%ac%94%e8%ae%b0%ef%bc%88%e4%ba%94%ef%bc%89/)
+PC计数器、虚拟机栈、本地方法栈的简单了解，本笔记来自宋红康JVM课件，掘金上别人的[笔记](https://juejin.im/post/5e71d675f265da5711264f46)，[阿月的记事本](https://www.wjhandzhy.top/2020/03/26/jvm%e7%ac%94%e8%ae%b0%ef%bc%88%e4%ba%94%ef%bc%89/)
 
 <!-- more -->
 
-# 运行时数据区
+# 运行时数据区一
 
 ## 内存 
 
