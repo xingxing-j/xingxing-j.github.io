@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/taiji.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="PC计数器、虚拟机栈、本地方法栈的简单了解，本笔记来自宋红康JVM课件，掘金上别人的笔记，阿月的记事本">
+<meta property="og:type" content="article">
+<meta property="og:title" content="笔记-JVM之运行时数据区一">
+<meta property="og:url" content="http://yoursite.com/2020/05/18/%E7%AC%94%E8%AE%B0-JVM%E4%B9%8B%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA%E4%B8%80/index.html">
+<meta property="og:site_name" content="纸人">
+<meta property="og:description" content="PC计数器、虚拟机栈、本地方法栈的简单了解，本笔记来自宋红康JVM课件，掘金上别人的笔记，阿月的记事本">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2020/05/18/%E7%AC%94%E8%AE%B0-JVM%E4%B9%8B%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA%E4%B8%80/%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA%E5%9B%BE%E7%A4%BA.png">
+<meta property="og:image" content="http://yoursite.com/2020/05/18/%E7%AC%94%E8%AE%B0-JVM%E4%B9%8B%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA%E4%B8%80/%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA%E5%88%86%E5%8C%BA%E4%BB%8B%E7%BB%8D.png">
+<meta property="og:image" content="http://yoursite.com/2020/05/18/%E7%AC%94%E8%AE%B0-JVM%E4%B9%8B%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA%E4%B8%80/%E7%A8%8B%E5%BA%8F%E8%AE%A1%E6%95%B0%E5%99%A8.png">
+<meta property="og:image" content="http://yoursite.com/2020/05/18/%E7%AC%94%E8%AE%B0-JVM%E4%B9%8B%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA%E4%B8%80/PC%E5%AF%84%E5%AD%98%E5%99%A8%E7%AE%80%E5%8D%95%E5%B7%A5%E4%BD%9C%E7%A4%BA%E4%BE%8B.png">
+<meta property="og:image" content="http://yoursite.com/2020/05/18/%E7%AC%94%E8%AE%B0-JVM%E4%B9%8B%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA%E4%B8%80/%E6%A0%88%E7%9A%84%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84.png">
+<meta property="og:image" content="http://yoursite.com/2020/05/18/%E7%AC%94%E8%AE%B0-JVM%E4%B9%8B%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA%E4%B8%80/%E6%A0%88%E6%A1%A2%E7%9A%84%E5%86%85%E9%83%A8%E7%BB%93%E6%9E%84.png">
+<meta property="og:image" content="http://yoursite.com/2020/05/18/%E7%AC%94%E8%AE%B0-JVM%E4%B9%8B%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA%E4%B8%80/%E5%88%86%E6%9E%90%E5%AD%97%E8%8A%82%E7%A0%81%E5%9B%BE%E7%89%87%E4%B8%80.png">
+<meta property="og:image" content="http://yoursite.com/2020/05/18/%E7%AC%94%E8%AE%B0-JVM%E4%B9%8B%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA%E4%B8%80/%E5%88%86%E6%9E%90%E5%AD%97%E8%8A%82%E7%A0%81%E5%9B%BE%E7%89%87%E4%BA%8C.png">
+<meta property="og:image" content="http://yoursite.com/2020/05/18/%E7%AC%94%E8%AE%B0-JVM%E4%B9%8B%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA%E4%B8%80/%E5%88%86%E6%9E%90%E5%AD%97%E8%8A%82%E7%A0%81%E5%9B%BE%E7%89%87%E4%B8%89.png">
+<meta property="og:image" content="http://yoursite.com/2020/05/18/%E7%AC%94%E8%AE%B0-JVM%E4%B9%8B%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA%E4%B8%80/%E5%88%86%E6%9E%90%E5%AD%97%E8%8A%82%E7%A0%81%E5%9B%BE%E7%89%87%E5%9B%9B.png">
+<meta property="og:image" content="http://yoursite.com/2020/05/18/%E7%AC%94%E8%AE%B0-JVM%E4%B9%8B%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA%E4%B8%80/%E5%8F%98%E9%87%8F%E6%A7%BD%E5%8F%8A%E7%B4%A2%E5%BC%95.png">
+<meta property="og:image" content="http://yoursite.com/2020/05/18/%E7%AC%94%E8%AE%B0-JVM%E4%B9%8B%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA%E4%B8%80/this%E5%9C%A8%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F%E8%A1%A8%E4%B8%AD%E7%9A%84%E4%BD%8D%E7%BD%AE%E5%9B%BE%E4%B8%80.png">
+<meta property="og:image" content="http://yoursite.com/2020/05/18/%E7%AC%94%E8%AE%B0-JVM%E4%B9%8B%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA%E4%B8%80/this%E5%9C%A8%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F%E8%A1%A8%E4%B8%AD%E7%9A%84%E4%BD%8D%E7%BD%AE%E5%9B%BE%E4%BA%8C.png">
+<meta property="og:image" content="http://yoursite.com/2020/05/18/%E7%AC%94%E8%AE%B0-JVM%E4%B9%8B%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA%E4%B8%80/%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95%E4%B8%AD%E8%B0%83%E7%94%A8this%E6%8A%A5%E9%94%99.png">
+<meta property="og:image" content="http://yoursite.com/2020/05/18/%E7%AC%94%E8%AE%B0-JVM%E4%B9%8B%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA%E4%B8%80/%E5%8F%98%E9%87%8F%E6%A7%BD%E9%87%8D%E7%94%A8%E5%9B%BE%E7%89%87%E4%B8%80.png">
+<meta property="og:image" content="http://yoursite.com/2020/05/18/%E7%AC%94%E8%AE%B0-JVM%E4%B9%8B%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA%E4%B8%80/%E5%8F%98%E9%87%8F%E6%A7%BD%E9%87%8D%E7%94%A8%E5%9B%BE%E7%89%87%E4%BA%8C.png">
+<meta property="og:image" content="http://yoursite.com/2020/05/18/%E7%AC%94%E8%AE%B0-JVM%E4%B9%8B%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA%E4%B8%80/%E6%A0%88%E5%B8%A7%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B%E4%B8%80.png">
+<meta property="og:image" content="http://yoursite.com/2020/05/18/%E7%AC%94%E8%AE%B0-JVM%E4%B9%8B%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA%E4%B8%80/%E6%A0%88%E5%B8%A7%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B%E4%BA%8C.png">
+<meta property="og:image" content="http://yoursite.com/2020/05/18/%E7%AC%94%E8%AE%B0-JVM%E4%B9%8B%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA%E4%B8%80/%E6%A0%88%E5%B8%A7%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B%E4%B8%89.png">
+<meta property="og:image" content="http://yoursite.com/2020/05/18/%E7%AC%94%E8%AE%B0-JVM%E4%B9%8B%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA%E4%B8%80/%E6%A0%88%E5%B8%A7%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B%E5%9B%9B.png">
+<meta property="og:image" content="http://yoursite.com/2020/05/18/%E7%AC%94%E8%AE%B0-JVM%E4%B9%8B%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA%E4%B8%80/%E6%A0%88%E5%B8%A7%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B%E4%BA%94.png">
+<meta property="og:image" content="http://yoursite.com/2020/05/18/%E7%AC%94%E8%AE%B0-JVM%E4%B9%8B%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA%E4%B8%80/%E6%A0%88%E5%B8%A7%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B%E5%85%AD.png">
+<meta property="og:image" content="http://yoursite.com/2020/05/18/%E7%AC%94%E8%AE%B0-JVM%E4%B9%8B%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA%E4%B8%80/%E6%A0%88%E5%B8%A7%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B%E4%B8%83.png">
+<meta property="og:image" content="http://yoursite.com/2020/05/18/%E7%AC%94%E8%AE%B0-JVM%E4%B9%8B%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA%E4%B8%80/%E6%A0%88%E5%B8%A7%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B%E5%85%AB.png">
+<meta property="og:image" content="http://yoursite.com/2020/05/18/%E7%AC%94%E8%AE%B0-JVM%E4%B9%8B%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA%E4%B8%80/%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5%E5%9B%BE%E7%A4%BA.png">
+<meta property="og:image" content="http://yoursite.com/2020/05/18/%E7%AC%94%E8%AE%B0-JVM%E4%B9%8B%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA%E4%B8%80/%E5%90%84%E7%A7%8Dreturn%E6%8C%87%E4%BB%A4%E5%9B%BE%E7%A4%BA.png">
+<meta property="og:image" content="http://yoursite.com/2020/05/18/%E7%AC%94%E8%AE%B0-JVM%E4%B9%8B%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA%E4%B8%80/%E5%9E%83%E5%9C%BE%E6%B8%85%E7%90%86%E7%AE%80%E5%9B%BE.png">
+<meta property="article:published_time" content="2020-05-18T13:14:40.000Z">
+<meta property="article:modified_time" content="2020-05-24T12:56:35.953Z">
+<meta property="article:author" content="纸人">
+<meta property="article:tag" content="JVM">
+<meta property="article:tag" content="JVM笔记">
+<meta property="article:tag" content="运行时数据区">
+<meta property="article:tag" content="PC计数器">
+<meta property="article:tag" content="虚拟机栈">
+<meta property="article:tag" content="本地方法栈">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2020/05/18/%E7%AC%94%E8%AE%B0-JVM%E4%B9%8B%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA%E4%B8%80/%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA%E5%9B%BE%E7%A4%BA.png">
+
+<link rel="canonical" href="http://yoursite.com/2020/05/18/%E7%AC%94%E8%AE%B0-JVM%E4%B9%8B%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA%E4%B8%80/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true
+  };
+</script>
+
+  <title>笔记-JVM之运行时数据区一 | 纸人</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+	
+	<a href="https://github.com/xingxing-j" target="_blank" rel="noopener" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#FD6C6C; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">纸人</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">已有的事，后必再有</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-commonweal">
+
+    <a href="/404/" rel="section"><i class="fa fa-fw fa-heartbeat"></i>公益 404</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="search-pop-overlay">
+  <div class="popup search-popup">
+      <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+  </div>
+</div>
+
+  </div>
+</div>
+    </header>
+
+    
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/18/%E7%AC%94%E8%AE%B0-JVM%E4%B9%8B%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA%E4%B8%80/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/hu.png">
+      <meta itemprop="name" content="纸人">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="纸人">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          笔记-JVM之运行时数据区一
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-05-18 21:14:40" itemprop="dateCreated datePublished" datetime="2020-05-18T21:14:40+08:00">2020-05-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-05-24 20:56:35" itemprop="dateModified" datetime="2020-05-24T20:56:35+08:00">2020-05-24</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%90%8E%E7%AB%AF%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">后端学习</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>PC计数器、虚拟机栈、本地方法栈的简单了解，本笔记来自宋红康JVM课件，掘金上别人的<a href="https://juejin.im/post/5e71d675f265da5711264f46" target="_blank" rel="noopener">笔记</a>，<a href="https://www.wjhandzhy.top/2020/03/26/jvm%e7%ac%94%e8%ae%b0%ef%bc%88%e4%ba%94%ef%bc%89/" target="_blank" rel="noopener">阿月的记事本</a></p>
+<a id="more"></a>
+
+<h1 id="运行时数据区一"><a href="#运行时数据区一" class="headerlink" title="运行时数据区一"></a>运行时数据区一</h1><h2 id="内存"><a href="#内存" class="headerlink" title="内存"></a>内存</h2><p>内存是硬盘和cpu的中间仓库及桥梁，承载着操作系统和应用程序的实时运行。<br>JVM内存布局规定了JAVA在运行过程中内存申请、分配、管理的策略，保证了JVM的高效稳定运行。<strong>不同的jvm对于内存的划分方式和管理机制存在着部分差异</strong>（对于Hotspot主要指方法区）</p>
+<p>运行时数据区图示</p>
+<p><img src="/2020/05/18/%E7%AC%94%E8%AE%B0-JVM%E4%B9%8B%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA%E4%B8%80/%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA%E5%9B%BE%E7%A4%BA.png" alt="运行时数据区图示"></p>
+<p>JDK8的<strong>元数据区</strong>+<strong>JIT编译产物</strong> 就是JDK8以前的方法区</p>
+<h2 id="分区介绍"><a href="#分区介绍" class="headerlink" title="分区介绍"></a>分区介绍</h2><p>Java虚拟机定了了若干种程序运行期间会使用到的运行时数据区。<br>其中有一些会随着虚拟机启动而创建，随着虚拟机退出而销毁。另外一些则是与线程一一对应的，这些与线程对应的数据区域会随着线程开始和结束而创建和销毁。</p>
+<p>如图，<strong>灰色的区域为单独线程私有的</strong>，<strong>红色的为多个线程共享的</strong>，即</p>
+<ul>
+<li>每个线程：独立包括程序计数器、栈、本地栈</li>
+<li>线程间共享：堆、堆外内存（方法区、永久代或元空间、代码缓存）</li>
+</ul>
+<p><img src="/2020/05/18/%E7%AC%94%E8%AE%B0-JVM%E4%B9%8B%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA%E4%B8%80/%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA%E5%88%86%E5%8C%BA%E4%BB%8B%E7%BB%8D.png" alt="运行时数据区分区介绍"></p>
+<p><strong>一般来说，jvm优化95%是优化堆区，5%优化的是方法区</strong></p>
+<h2 id="线程的简单回顾"><a href="#线程的简单回顾" class="headerlink" title="线程的简单回顾"></a>线程的简单回顾</h2><ul>
+<li>线程是一个程序里的运行单元，JVM允许一个程序有多个线程并行的执行</li>
+<li>在HotSpot JVM，每个线程都与操作系统的本地线程直接映射。<ul>
+<li>当一个java线程准备好执行以后，此时一个操作系统的本地线程也同时创建。</li>
+<li>java线程执行终止后。本地线程也会回收。</li>
+</ul>
+</li>
+<li>操作系统负责所有线程的安排调度到任何一个可用的CPU上。一旦本地线程初始化成功，它就会调用java线程中的run()方法.</li>
+</ul>
+<h3 id="JVM系统线程"><a href="#JVM系统线程" class="headerlink" title="JVM系统线程"></a>JVM系统线程</h3><ul>
+<li>如果你使用<strong>jconsole</strong>或者任何一个调试工具，都能看到在后台有许多线程在运行。这些后台线程不包括调用main方法的main线程以及所有这个main线程自己创建的线程；</li>
+<li>这些主要的后台系统线程在HotSpot JVM里主要是以下几个：<ul>
+<li><strong>虚拟机线程</strong>：这种线程的操作时需要JVM达到安全点才会出现。这些操作必须在不同的线程中发生的原因是他们都需要JVM达到安全点，这样堆才不会变化。这种线程的执行包括“stop-the-world”的垃圾收集，线程栈收集，线程挂起以及偏向锁撤销</li>
+<li><strong>周期任务线程</strong>：这种线程是时间周期事件的提现（比如中断），他们一般用于周期性操作的调度执行。</li>
+<li><strong>GC线程</strong>：这种线程对于JVM里不同种类的垃圾收集行为提供了支持</li>
+<li><strong>编译线程</strong>：这种线程在运行时会将字节码编译成本地代码</li>
+<li><strong>信号调度线程</strong>：这种线程接收信号并发送给JVM,在它内部通过调用适当的方法进行处理。</li>
+</ul>
+</li>
+</ul>
+<h2 id="程序计数器-PC寄存器"><a href="#程序计数器-PC寄存器" class="headerlink" title="程序计数器(PC寄存器)"></a>程序计数器(PC寄存器)</h2><p>JVM中的PC寄存器是对物理PC寄存器的一种抽象模拟。<strong>PC寄存器用来储存指向下一条指令的地址</strong>，也就是指向即将要执行的指令代码，<strong>由执行引擎读取下一条指令</strong>。</p>
+<p><img src="/2020/05/18/%E7%AC%94%E8%AE%B0-JVM%E4%B9%8B%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA%E4%B8%80/%E7%A8%8B%E5%BA%8F%E8%AE%A1%E6%95%B0%E5%99%A8.png" alt="程序计数器"></p>
+<h3 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h3><ul>
+<li>它是一块很小的内存空间，几乎可以忽略不计。也是运行速度最快的存储区域</li>
+<li>在jvm规范中，每个线程都有它自己的程序计数器，是线程私有的，生命周期与线程的生命周期保持一致</li>
+<li>任何时间一个线程都只有一个方法在执行，也就是所谓的<strong>当前方法</strong>。程序计数器会存储当前线程正在执行的java方法的JVM指令地址；或者，如果是在执行native方法，则是未指定值（undefined）。</li>
+<li>它是程序控制流的指示器，分支、循环、跳转、异常处理、线程恢复等基础功能都需要依赖这个计数器来完成</li>
+<li>字节码解释器工作时就是通过改变这个计数器的值来选取下一条需要执行的字节码指令</li>
+<li>它是唯一一个在java虚拟机规范中没有规定任何OOM情况的区域</li>
+<li>不会发生垃圾回收</li>
+</ul>
+<h3 id="图示"><a href="#图示" class="headerlink" title="图示"></a>图示</h3><p><img src="/2020/05/18/%E7%AC%94%E8%AE%B0-JVM%E4%B9%8B%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA%E4%B8%80/PC%E5%AF%84%E5%AD%98%E5%99%A8%E7%AE%80%E5%8D%95%E5%B7%A5%E4%BD%9C%E7%A4%BA%E4%BE%8B.png" alt="PC寄存器简单工作示例.png"></p>
+<h3 id="图示说明"><a href="#图示说明" class="headerlink" title="图示说明"></a>图示说明</h3><p>上图的PC寄存器保存指令地址，执行引擎去PC寄存器所代表的的5的位置取出对应的操作指令。执行引擎会操作局部变量表和栈结构实现数据的存取，也会将操作指令翻译成机器指令，由CPU进行运算。</p>
+<p>简单来说，PC寄存器用来储存指向下一条指令的地址，即将要执行的指令代码，由执行引擎读取下一条指令。</p>
+<p>问：<strong>使用PC寄存器存储字节码指令地址有什么用呢？/为什么使用PC寄存器记录当前线程的执行地址呢？</strong><br>答：<strong>因为CPU需要不停的切换各个线程，这时候切换回来以后，就得知道接着从哪开始继续执行JVM的字节码解释器就需要通过改变PC寄存器的值来明确下一条应该执行什么样的字节码指令</strong></p>
+<p>问：<strong>PC寄存器为什么会设定为线程私有</strong></p>
+<p>答：<strong>为了能够准确地记录各个线程正在执行的当前字节码指令地址，最好的办法自然是为每一个线程都分配一个PC寄存器</strong>，这样一来各个线程之间便可以进行独立计算，从而不会出现相互干扰的情况。</p>
+<h2 id="虚拟机栈"><a href="#虚拟机栈" class="headerlink" title="虚拟机栈"></a>虚拟机栈</h2><h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>由于跨平台性的设计，java的指令都是根据栈来设计的。不同平台CPU架构不同，所以不能设计为基于寄存器的。<br><strong>优点是跨平台，指令集小，编译器容易实现，缺点是性能下降，实现同样的功能需要更多的指令。</strong></p>
+<h3 id="内存中的堆与栈"><a href="#内存中的堆与栈" class="headerlink" title="内存中的堆与栈"></a>内存中的堆与栈</h3><ul>
+<li><strong>栈是运行时的单位，而堆是存储的单位</strong><br>即：栈解决程序的运行问题，即程序如何执行，或者说如何处理数据。堆解决的是数据存储的问题，即数据怎么放、放在哪儿。</li>
+<li>一般来讲，对象主要都是放在堆空间的，是运行时数据区比较大的一块</li>
+<li><strong>栈空间存放基本数据类型的局部变量，以及引用数据类型的对象的引用</strong></li>
+</ul>
+<h3 id="虚拟机栈是什么"><a href="#虚拟机栈是什么" class="headerlink" title="虚拟机栈是什么"></a>虚拟机栈是什么</h3><ul>
+<li>java虚拟机栈（Java Virtual Machine Stack），早期也叫Java栈。<strong>每个线程在创建时都会创建一个虚拟机栈，其内部保存一个个的栈帧（Stack Frame）</strong>，对应这个一次次的java方法调用。它是<strong>线程私有</strong>的</li>
+<li>生命周期和线程是一致的</li>
+<li>作用：主管java程序的运行，它保存方法的局部变量（8种基本数据类型、对象的引用地址）、部分结果，并参与方法的调用和返回。<ul>
+<li>局部变量：相对于成员变量（或属性）</li>
+<li>基本数据变量： 相对于引用类型变量（类，数组，接口）</li>
+</ul>
+</li>
+</ul>
+<h3 id="栈的特点"><a href="#栈的特点" class="headerlink" title="栈的特点"></a>栈的特点</h3><ul>
+<li>栈是一种快速有效的分配存储方式，访问速度仅次于PC寄存器（程序计数器）</li>
+<li>JVM直接对java栈的操作只有两个<ul>
+<li>每个方法执行，伴随着<strong>进栈</strong>（入栈，压栈）</li>
+<li>执行结束后的<strong>出栈</strong>工作</li>
+</ul>
+</li>
+<li><strong>对于栈来说不存在垃圾回收问题</strong>，但可能会发生OOM</li>
+</ul>
+<h3 id="栈中可能出现的异常"><a href="#栈中可能出现的异常" class="headerlink" title="栈中可能出现的异常"></a>栈中可能出现的异常</h3><p>java虚拟机规范允许<strong>Java栈的大小是动态的或者是固定不变的</strong></p>
+<ul>
+<li>如果采用固定大小的Java虚拟机栈，那每一个线程的Java虚拟机栈容量可以在线程创建的时候独立选定。如果线程请求分配的栈容量超过java虚拟机栈允许的最大容量，java虚拟机将会抛出一个 <strong>StackOverFlowError</strong>异常</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 演示栈中的异常</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StackErrorTest</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        main(args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>如果Java虚拟机栈可以动态拓展，并且在尝试拓展的时候无法申请到足够的内存，或者在创建新的线程时没有足够的内存去创建对应的虚拟机栈，那java虚拟机将会抛出一个 <strong>OutOfMemoryError</strong>异常</li>
+</ul>
+<h3 id="设置栈的内存大小"><a href="#设置栈的内存大小" class="headerlink" title="设置栈的内存大小"></a>设置栈的内存大小</h3><p>我们可以使用参数<code>-Xss</code>选项来设置线程的最大栈空间，<strong>栈的大小直接决定了函数调用的最大可达深度</strong>。（IDEA设置方法：<strong>Run-EditConfigurations-VM options 填入指定栈的大小</strong>，例<code>-Xss256k</code>）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> * 演示栈中的异常</span><br><span class="line"> *</span><br><span class="line"> * 默认情况下：count 11403</span><br><span class="line"> * 设置栈的大小： -Xss256k count 2475</span><br><span class="line"> *&#x2F;</span><br><span class="line">public class StackErrorTest &#123;</span><br><span class="line">    private static int count &#x3D; 1;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        System.out.println(count);</span><br><span class="line">        count++;</span><br><span class="line">        main(args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="栈的存储结构和运行原理"><a href="#栈的存储结构和运行原理" class="headerlink" title="栈的存储结构和运行原理"></a>栈的存储结构和运行原理</h3><ul>
+<li>每个线程都有自己的栈，栈中的数据都是以<strong>栈帧(Stack Frame)</strong>的格式存在</li>
+<li>在这个线程上正在执行的<strong>每个方法都对应各自的一个栈帧</strong></li>
+<li>栈帧是一个内存区块，是一个数据集，维系着方法执行过程中的各种数据信息</li>
+<li>JVM直接对java栈的操作只有两个，就是对栈帧的<strong>压栈</strong>和<strong>出栈</strong>，遵循<strong>先进后出/后进先出</strong>的原则</li>
+<li>在一条活动线程中，一个时间点上，只会有一个活动的栈帧。即只有当前正在执行的方法的栈帧（栈顶栈帧）是有效的，这个栈帧被称为<strong>当前栈帧(Current Frame)</strong>,与当前栈帧对应的方法就是<strong>当前方法（Current Frame）</strong></li>
+<li>执行引擎运行的所有字节码指令只针对当前栈帧进行操作</li>
+<li>如果在该方法中调用了其他方法，对应的新的栈帧会被创建出来，放在栈的顶端，成为新的当前栈帧。</li>
+<li>不同线程中所包含的栈帧是不允许相互引用的，即不可能在另一个栈帧中引用另外一个线程的栈帧</li>
+<li>如果当前方法调用了其他方法，方法返回之际，当前栈帧会传回此方法的执行结果给前一个栈帧，接着，虚拟机会丢弃当前栈帧，使得前一个栈帧重新成为当前栈帧</li>
+<li>Java方法有两种返回函数的方式，<strong>一种是正常的函数返回，使用return指令；另外一种是抛出异常。不管使用哪种方式，都会导致栈帧被弹出。</strong></li>
+</ul>
+<p><img src="/2020/05/18/%E7%AC%94%E8%AE%B0-JVM%E4%B9%8B%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA%E4%B8%80/%E6%A0%88%E7%9A%84%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84.png" alt="栈的存储结构"></p>
+<h3 id="栈帧的内部结构"><a href="#栈帧的内部结构" class="headerlink" title="栈帧的内部结构"></a>栈帧的内部结构</h3><p>每个栈帧中存储着：</p>
+<ul>
+<li><strong>局部变量表</strong>（Local Variables）</li>
+<li><strong>操作数栈</strong>（Operand Stack）(或表达式栈)</li>
+<li>动态链接（Dynamic Linking）(或执行运行时常量池的方法引用)</li>
+<li>方法返回地址（Return Adress）（或方法正常退出或者异常退出的定义）</li>
+<li>一些附加信息</li>
+</ul>
+<p><img src="/2020/05/18/%E7%AC%94%E8%AE%B0-JVM%E4%B9%8B%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA%E4%B8%80/%E6%A0%88%E6%A1%A2%E7%9A%84%E5%86%85%E9%83%A8%E7%BB%93%E6%9E%84.png" alt="栈帧的内部结构"></p>
+<h3 id="局部变量表（Local-Variables）"><a href="#局部变量表（Local-Variables）" class="headerlink" title="局部变量表（Local Variables）"></a>局部变量表（Local Variables）</h3><h4 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h4><ul>
+<li>局部变量表也被称之为<strong>局部变量数组</strong>或本地变量表</li>
+<li><strong>定义为一个数字数组，主要用于存储方法参数和定义在方法体内的局部变量</strong>。这些数据类型包括各类基本数据类型、对象引用（reference），以及returnAddress类型</li>
+<li>由于<strong>局部变量表</strong>是建立在线程的栈上，<strong>是线程私有的数据</strong>，因此不存在数据安全问题</li>
+<li><strong>局部变量表所需的容量大小是在编译期确定下来的</strong>,并保存在方法的Code属性的maximum local variables数据项中。在方法运行期间是不会改变局部变量表的大小的</li>
+<li><strong>方法嵌套调用的次数由栈的大小决定。一般来说，栈越大，方法嵌套调用次数越多。</strong>对一个函数而言，他的参数和局部变量越多，使得局部变量表膨胀，它的栈帧就越大，以满足方法调用所需传递的信息增大的需求。进而函数调用就会占用更多的栈空间，导致其嵌套调用次数就会减少。</li>
+<li><strong>局部变量表中的变量只在当前方法调用中有效。</strong>在方法执行时，虚拟机通过使用局部变量表完成参数值到参数变量列表的传递过程。<strong>当方法调用结束后，随着方法栈帧的销毁，局部变量表也会随之销毁。</strong></li>
+</ul>
+<p>利用javap命令对字节码文件进行解析查看局部变量表，如图：</p>
+<p><img src="/2020/05/18/%E7%AC%94%E8%AE%B0-JVM%E4%B9%8B%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA%E4%B8%80/%E5%88%86%E6%9E%90%E5%AD%97%E8%8A%82%E7%A0%81%E5%9B%BE%E7%89%87%E4%B8%80.png" alt="栈帧的内部结构"></p>
+<p>“<code>[L</code>”中L表示引用类型，<code>[</code>表示数组，是对参数的解释</p>
+<p><img src="/2020/05/18/%E7%AC%94%E8%AE%B0-JVM%E4%B9%8B%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA%E4%B8%80/%E5%88%86%E6%9E%90%E5%AD%97%E8%8A%82%E7%A0%81%E5%9B%BE%E7%89%87%E4%BA%8C.png" alt="栈帧的内部结构"></p>
+<p><img src="/2020/05/18/%E7%AC%94%E8%AE%B0-JVM%E4%B9%8B%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA%E4%B8%80/%E5%88%86%E6%9E%90%E5%AD%97%E8%8A%82%E7%A0%81%E5%9B%BE%E7%89%87%E4%B8%89.png" alt="栈帧的内部结构"></p>
+<p><img src="/2020/05/18/%E7%AC%94%E8%AE%B0-JVM%E4%B9%8B%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA%E4%B8%80/%E5%88%86%E6%9E%90%E5%AD%97%E8%8A%82%E7%A0%81%E5%9B%BE%E7%89%87%E5%9B%9B.png" alt="栈帧的内部结构"></p>
+<p><strong>Start PC</strong>和<strong>Length</strong>合起来可以表示变量的作用域范围</p>
+<h4 id="Slot-变量槽"><a href="#Slot-变量槽" class="headerlink" title="Slot(变量槽)"></a>Slot(变量槽)</h4><p>Slot（变量槽）是<strong>局部变量表最基本的储存单元</strong>。</p>
+<ul>
+<li>局部变量表的参数值的存放总是从局部变量数组的<strong>index0开始</strong>，到数组长度-1的索引结束。</li>
+<li>局部变量表中，<strong>32位以内的类型只占用一个Slot</strong>（包括returnAddress[引用]类型），64位的类型（long和double）占用两个Slot。<ul>
+<li>byte、short、char、float在储存前被转换成int，boolean也被转换成int，0表示false，非0表示true。</li>
+<li>long和double占用两个Slot。</li>
+</ul>
+</li>
+<li>JVM会为局部变量表中的<strong>每一个Slot都分配一个访问索引</strong>（即为上图中的Index），通过这个索引即可成功访问到局部变量表中指定的局部变量值。</li>
+<li>当一个实例方法被调用的时候，它的方法参数和方法体内部定义的局部变量将会<strong>按照顺序被复制</strong>到局部变量表中的每一个Slot上。</li>
+<li>需要访问局部变量表中一个64bit的局部变量值时，<strong>只需要使用前一个索引</strong>即可。如下图，访问long m使用索引1而非索引2。</li>
+</ul>
+<p><img src="/2020/05/18/%E7%AC%94%E8%AE%B0-JVM%E4%B9%8B%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA%E4%B8%80/%E5%8F%98%E9%87%8F%E6%A7%BD%E5%8F%8A%E7%B4%A2%E5%BC%95.png" alt="变量槽及索引"></p>
+<ul>
+<li>如果当前帧是由构造方法或者实例方法（非静态）创建的，那么<strong>该对象引用this将会存放在index为0的Slot处</strong>，其余的参数按照参数顺序表继续排列。例：</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test1_1</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test2</span><span class="params">()</span></span>&#123;</span><br><span class="line">        count++;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>由于test2方法里的count是实例变量，所以结果的LocalVariableTable内容如下图所示</p>
+<p><img src="/2020/05/18/%E7%AC%94%E8%AE%B0-JVM%E4%B9%8B%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA%E4%B8%80/this%E5%9C%A8%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F%E8%A1%A8%E4%B8%AD%E7%9A%84%E4%BD%8D%E7%BD%AE%E5%9B%BE%E4%B8%80.png" alt="变量槽及索引"></p>
+<p>而且，就算代码中未调用count，this依然是会加入到局部变量表中的，如下图：</p>
+<p><img src="/2020/05/18/%E7%AC%94%E8%AE%B0-JVM%E4%B9%8B%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA%E4%B8%80/this%E5%9C%A8%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F%E8%A1%A8%E4%B8%AD%E7%9A%84%E4%BD%8D%E7%BD%AE%E5%9B%BE%E4%BA%8C.png" alt="变量槽及索引"></p>
+<p>因此对于构造方法和实例方法，this变量需要放到局部变量表当中。而静态方法的局部变量表中没有this，因此在静态方法中调用this会报错。</p>
+<p><img src="/2020/05/18/%E7%AC%94%E8%AE%B0-JVM%E4%B9%8B%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA%E4%B8%80/%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95%E4%B8%AD%E8%B0%83%E7%94%A8this%E6%8A%A5%E9%94%99.png" alt="变量槽及索引"></p>
+<ul>
+<li><strong>栈帧中的局部变量表中的槽位是可以重用的</strong>，如果一个局部变量出了其作用域，那么在其作用域之后申明的新的局部变量就很有可能会复用过期局部变量的槽位，从而达到节省资源的目的。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test1_1</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test3</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> a = <span class="number">0</span>;</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> b = <span class="number">0</span>;</span><br><span class="line">            b = a + <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> c = a + <span class="number">1</span>;</span><br><span class="line">	&#125;   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>以上测试代码中，局部变量表的长度为3。</p>
+<p><img src="/2020/05/18/%E7%AC%94%E8%AE%B0-JVM%E4%B9%8B%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA%E4%B8%80/%E5%8F%98%E9%87%8F%E6%A7%BD%E9%87%8D%E7%94%A8%E5%9B%BE%E7%89%87%E4%B8%80.png" alt="变量槽及索引"></p>
+<p><img src="/2020/05/18/%E7%AC%94%E8%AE%B0-JVM%E4%B9%8B%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA%E4%B8%80/%E5%8F%98%E9%87%8F%E6%A7%BD%E9%87%8D%E7%94%A8%E5%9B%BE%E7%89%87%E4%BA%8C.png" alt="变量槽及索引"></p>
+<p>观察局部变量表我们可以看到，虽然总共声明了4个变量，但是<strong>b过了其作用域后，它的slot被c复用了</strong>。</p>
+<h4 id="对局部变量表的补充说明"><a href="#对局部变量表的补充说明" class="headerlink" title="对局部变量表的补充说明"></a>对局部变量表的补充说明</h4><p><strong>在栈帧中，与性能调优关系最为密切的部分就是局部变量表</strong>。在方法执行中，虚拟机使用局部变量表完成方法的传递。</p>
+<p>局部变量表中的变量也是重要的垃圾回收根节点，只要被局部变量表中直接或间接引用的对象都不会被回收。</p>
+<h3 id="操作数栈（Operand-Stack）"><a href="#操作数栈（Operand-Stack）" class="headerlink" title="操作数栈（Operand Stack）"></a>操作数栈（Operand Stack）</h3><h4 id="概述-1"><a href="#概述-1" class="headerlink" title="概述"></a>概述</h4><ul>
+<li>操作数栈，<strong>主要用于保存计算过程的中间结果，同时作为计算过程中变量临时的存储空间。</strong></li>
+<li>操作数栈就是jvm执行引擎的一个工作区，当一个方法开始执行的时候，一个新的栈帧也会随之被创建出来，这个方法的操作数栈是空的</li>
+<li>每一个操作数栈都会拥有一个明确的栈深度用于存储数值，其所需的最大深度在编译器就定义好了，保存在方法的code属性中，为max_stack的值。<ul>
+<li>32bit的类型占用一个栈单位深度</li>
+<li>64bit的类型占用两个栈单位深度</li>
+</ul>
+</li>
+<li>操作数栈<strong>并非采用访问索引的方式来进行数据访问</strong>的，而是只能通过标准的入栈(push)和出栈(pop)操作来完成一次数据访问</li>
+<li><strong>如果被调用的方法带有返回值的话，其返回值将会被压入当前栈帧的操作数栈中，</strong>并更新PC寄存器中下一条需要执行的字节码指令。</li>
+<li>操作数栈中的元素的数据类型必须与字节码指令的序列严格匹配，这由编译器在编译期间进行验证，同时在类加载过程中的类验证阶段的数据流分析阶段要再次验证。</li>
+<li>我们所说的Java虚拟机的<strong>解释引擎是基于栈的执行引擎</strong>,其中的栈指的就是操作数栈。</li>
+</ul>
+<h4 id="操作数栈的字节码指令简单分析"><a href="#操作数栈的字节码指令简单分析" class="headerlink" title="操作数栈的字节码指令简单分析"></a>操作数栈的字节码指令简单分析</h4><p>1、指令地址<strong>0</strong>对应操作指令<code>bipush</code>，执行引擎调用该指令将15压入操作数栈</p>
+<p><img src="/2020/05/18/%E7%AC%94%E8%AE%B0-JVM%E4%B9%8B%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA%E4%B8%80/%E6%A0%88%E5%B8%A7%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B%E4%B8%80.png" alt="栈帧执行过程一.png"></p>
+<p>2、指令地址<strong>2</strong>对应操作指令<code>istore_1</code>，执行引擎调用该指令将操作数栈顶的15出栈，并放到局部变量表中索引为<strong>1</strong>的变量槽(slot)中</p>
+<p><img src="/2020/05/18/%E7%AC%94%E8%AE%B0-JVM%E4%B9%8B%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA%E4%B8%80/%E6%A0%88%E5%B8%A7%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B%E4%BA%8C.png" alt="栈帧执行过程一.png"></p>
+<p>3、指令地址<strong>3</strong>对应操作指令<code>bipush</code>，执行引擎调用该指令将8压入操作数栈</p>
+<p><img src="/2020/05/18/%E7%AC%94%E8%AE%B0-JVM%E4%B9%8B%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA%E4%B8%80/%E6%A0%88%E5%B8%A7%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B%E4%B8%89.png" alt="栈帧执行过程一.png"></p>
+<p>4、指令地址<strong>5</strong>对应操作指令<code>istore_2</code>，执行引擎调用该指令将操作数栈顶的8出栈，并放到局部变量表中索引为<strong>2</strong>的变量槽(slot)中</p>
+<p><img src="/2020/05/18/%E7%AC%94%E8%AE%B0-JVM%E4%B9%8B%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA%E4%B8%80/%E6%A0%88%E5%B8%A7%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B%E5%9B%9B.png" alt="栈帧执行过程一.png"></p>
+<p>5、指令地址<strong>6</strong>对应操作指令<code>iload_1</code>，执行引擎调用该指令将局部变量表中索引为1的15拿出来，压入操作数栈</p>
+<p><img src="/2020/05/18/%E7%AC%94%E8%AE%B0-JVM%E4%B9%8B%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA%E4%B8%80/%E6%A0%88%E5%B8%A7%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B%E4%BA%94.png" alt="栈帧执行过程一.png"></p>
+<p>6、指令地址<strong>7</strong>对应操作指令<code>iload_2</code>，执行引擎调用该指令将局部变量表中索引为2的8拿出来，压入操作数栈</p>
+<p><img src="/2020/05/18/%E7%AC%94%E8%AE%B0-JVM%E4%B9%8B%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA%E4%B8%80/%E6%A0%88%E5%B8%A7%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B%E5%85%AD.png" alt="栈帧执行过程一.png"></p>
+<p>7、指令地址<strong>8</strong>对应操作指令<code>iadd</code>，将8和15出栈，执行引擎将该指令翻译成机器指令，并调用CPU运算出结果23，并压入操作数栈</p>
+<p><img src="/2020/05/18/%E7%AC%94%E8%AE%B0-JVM%E4%B9%8B%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA%E4%B8%80/%E6%A0%88%E5%B8%A7%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B%E4%B8%83.png" alt="栈帧执行过程一.png"></p>
+<p>8、指令地址<strong>9</strong>对应操作指令<code>istore_3</code>，执行引擎调用该指令将操作数栈顶的23出栈，并放到局部变量表中索引为<strong>3</strong>的变量槽(slot)中</p>
+<p><img src="/2020/05/18/%E7%AC%94%E8%AE%B0-JVM%E4%B9%8B%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA%E4%B8%80/%E6%A0%88%E5%B8%A7%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B%E5%85%AB.png" alt="栈帧执行过程一.png"></p>
+<h4 id="栈顶缓存技术ToS（Top-of-Stack-Cashing）"><a href="#栈顶缓存技术ToS（Top-of-Stack-Cashing）" class="headerlink" title="栈顶缓存技术ToS（Top-of-Stack Cashing）"></a>栈顶缓存技术ToS（Top-of-Stack Cashing）</h4><ul>
+<li>基于栈式架构的虚拟机所使用的<strong>零地址指令</strong>更加紧凑，但完成一项操作的时候必然需要使用更多的入栈和出栈指令，这同时也就意味着将需要更多的指令分派（instruction dispatch）次数和内存读/写次数</li>
+<li>由于操作数是存储在内存中的，因此频繁地执行内存读/写操作必然会影响执行速度。为了解决这个问题，HotSpot JVM的设计者们提出了栈顶缓存技术，<strong>将栈顶元素全部缓存在物理CPU的寄存器中，以此降低对内存的读/写次数，提升执行引擎的执行效率</strong></li>
+</ul>
+<h3 id="动态链接（Dynamic-Linking）"><a href="#动态链接（Dynamic-Linking）" class="headerlink" title="动态链接（Dynamic Linking）"></a>动态链接（Dynamic Linking）</h3><p>动态链接，可简单理解为<strong>指向运行时常量池的方法的引用</strong></p>
+<ul>
+<li><strong>每一个栈帧内部都包含一个指向运行时常量池或该栈帧所属方法的引用</strong>。包含这个引用的目的就是为了支持当前方法的代码能够实现动态链接。比如invokedynamic指令</li>
+<li>在Java源文件被编译成字节码文件中时，所有的变量和方法引用都作为符号引用（symbolic Refenrence）保存在class文件的常量池里。比如：描述一个方法调用了另外的其他方法时，就是通过常量池中指向方法的符号引用来表示的，那么<strong>动态链接的作用就是为了将这些符号引用转换为调用方法的直接引用。</strong></li>
+</ul>
+<div style="position: relative; width: 100%; height: 0; padding-bottom: 75%;"><iframe src="//player.bilibili.com/player.html?aid=83638407&bvid=BV1BJ41177cp&cid=143084938&page=55" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe></div>
+
+<h4 id="图示-1"><a href="#图示-1" class="headerlink" title="图示"></a>图示</h4><p><img src="/2020/05/18/%E7%AC%94%E8%AE%B0-JVM%E4%B9%8B%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA%E4%B8%80/%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5%E5%9B%BE%E7%A4%BA.png" alt></p>
+<h4 id="方法的调用"><a href="#方法的调用" class="headerlink" title="方法的调用"></a><strong>方法的调用</strong></h4><ul>
+<li><strong>静态链接</strong><br>当一个 字节码文件被装载进JVM内部时，如果<strong>被调用的目标方法在编译期可知</strong>，且<strong>运行期保持不变</strong>时。这种情况下将调用方法的符号引用转换为直接引用的过程称之为静态链接。</li>
+<li><strong>动态链接</strong><br>如果<strong>被调用的方法在编译期无法被确定下来</strong>，也就是说，只能够在程序运行期将调用方法的符号引用转换为直接引用，由于这种引用转换过程具备<strong>动态性</strong>，因此也就被称之为动态链接。</li>
+</ul>
+<p>对应的方法的绑定机制为：早起绑定（Early Binding）和晚期绑定（Late Bingding）。绑定是一个字段、方法或者类在符号引用被替换为直接引用的过程，这仅仅发生一次。</p>
+<p><strong>在JVM中，将符号引用转换为调用方法的直接引用与方法的绑定机制相关</strong></p>
+<ul>
+<li><strong>早期绑定</strong><br>早期绑定就是指被调用的目标方法如果在编译期可知，且运行期保持不变时，即可将这个方法与所属的类型进行绑定，这样一来，由于明确了被调用的目标方法究竟是哪一个，因此也就可以使用静态链接的方式将符号引用转换为直接引用。</li>
+<li><strong>晚期绑定</strong><br>如果被调用的方法在编译期无法被确定下来，只能够在程序运行期根据实际的类型绑定相关的方法，这种绑定方式也就被称之为晚期绑定。</li>
+</ul>
+<p>Java中任何一个普通的方法其实都具备<strong>虚函数</strong>的特征，它们相当于C++语言中的虚函数（C++中则需要使用关键字<code>virtual</code>来显式定义）。如果在Java程序中不希望某个方法拥有虚函数的特征时，则可以使用关键字<code>final</code>来标记这个方法。</p>
+<h4 id="虚方法和非虚方法"><a href="#虚方法和非虚方法" class="headerlink" title="虚方法和非虚方法"></a>虚方法和非虚方法</h4><h5 id="非虚方法"><a href="#非虚方法" class="headerlink" title="非虚方法"></a>非虚方法</h5><ul>
+<li>如果方法在编译期间就确定了具体的调用版本，这个版本在运行时是不可变的。这样的方法称为非虚方法</li>
+<li><strong>静态方法、私有方法、final方法、实例构造器、父类方法都是非虚方法</strong></li>
+<li>其他方法称为虚方法</li>
+</ul>
+<h5 id="虚拟机中的下几条方法调用指令"><a href="#虚拟机中的下几条方法调用指令" class="headerlink" title="虚拟机中的下几条方法调用指令"></a>虚拟机中的下几条方法调用指令</h5><h6 id="普通调用指令"><a href="#普通调用指令" class="headerlink" title="普通调用指令"></a>普通调用指令</h6><ol>
+<li><strong>invokestatic</strong>：调用静态方法，解析阶段确定唯一方法版本</li>
+<li><strong>invokespecial</strong>：调用方法、私有及父类方法，解析阶段确定唯一方法版本</li>
+<li><strong>invokevirtual</strong>：调用所有虚方法，final修饰的方法除外</li>
+<li><strong>invokeinterface</strong>：调用接口方法</li>
+</ol>
+<h6 id="动态调用指令"><a href="#动态调用指令" class="headerlink" title="动态调用指令"></a>动态调用指令</h6><ol start="5">
+<li><strong>invokedynamic</strong>：动态解析出需要调用的方法，然后执行 </li>
+</ol>
+<p>前四条指令固化在虚拟机内部，方法的调用执行不可人为干预，而invokedynamic指令则支持由用户确定方法版本。其中<strong>invokestatic指令和invokespecial指令调用的方法称为非虚方法，其余的（final修饰的除外）称为虚方法。</strong></p>
+<h6 id="invokedynamic指令"><a href="#invokedynamic指令" class="headerlink" title="invokedynamic指令"></a>invokedynamic指令</h6><ul>
+<li>JVM字节码指令集一直比较稳定，一直到java7才增加了一个<strong>invokedynamic</strong>指令，这是<strong>Java为了实现【动态类型语言】支持而做的一种改进</strong></li>
+<li>但是java7中并没有提供直接生成invokedynamic指令的方法，需要借助ASM这种底层字节码工具来产生invokedynamic指令.<strong>直到Java8的Lambda表达式的出现，invokedynamic指令的生成，在java中才有了直接生成方式</strong></li>
+<li>Java7中增加的动态语言类型支持的本质是对java虚拟机规范的修改，而不是对java语言规则的修改，这一块相对来讲比较复杂，增加了虚拟机中的方法调用，最直接的受益者就是运行在java平台的动态语言的编译器</li>
+</ul>
+<h5 id="动态类型语言和静态类型语言"><a href="#动态类型语言和静态类型语言" class="headerlink" title="动态类型语言和静态类型语言"></a>动态类型语言和静态类型语言</h5><ul>
+<li>动态类型语言和静态类型语言两者的却别就在于<strong>对类型的检查是在编译期还是在运行期</strong>，满足前者就是静态类型语言，反之则是动态类型语言。</li>
+<li>直白来说 <strong>静态语言是判断变量自身的类型信息；动态类型预言是判断变量值的类型信息，变量没有类型信息，变量值才有类型信息</strong>,这是动态语言的一个重要特征。</li>
+<li>Java是静态类型语言（尽管lambda表达式为其增加了动态特性），js，python是动态类型语言。</li>
+</ul>
+<h5 id="虚方法表"><a href="#虚方法表" class="headerlink" title="虚方法表"></a>虚方法表</h5><p>在面向对象编程中，会很频繁期使用到动态分派，如果在每次动态分派的过程中都要重新在类的方法元数据中搜索合适的目标的话就可能影响到执行效率。因此，为了提高性能，jvm采用在类的方法区建立一个虚方法表（virtual method table）（非虚方法不会出现在表中）来实现。使用索引表来代替查找。</p>
+<p>每个类中都有一个虚方法表，表中存放着各个方法的实际入口。</p>
+<h5 id="虚方法表的创建时间"><a href="#虚方法表的创建时间" class="headerlink" title="虚方法表的创建时间"></a>虚方法表的创建时间</h5><p><strong>虚方法表会在类加载的链接阶段被创建并开始初始化</strong>，类的变量初始值准备完成之后，jvm会把该类的方法表也初始化完毕。</p>
+<h3 id="方法返回地址-Return-Address"><a href="#方法返回地址-Return-Address" class="headerlink" title="方法返回地址(Return Address)"></a>方法返回地址(Return Address)</h3><ul>
+<li>方法返回地址存放的是<strong>存放调用该方法的PC寄存器的值</strong>。</li>
+<li>一个方法的结束，有两种方式：<ul>
+<li><strong>正常执行完成</strong></li>
+<li>出现未处理的异常，<strong>非正常退出</strong></li>
+</ul>
+</li>
+<li>无论通过哪种方式退出，在方法退出后都返回到该方法被调用的位置。方法正常退出时，<strong>调用者的pc计数器的值作为返回地址，即调用该方法的指令的下一条指令的地址。</strong>而通过异常退出时，返回地址是要通过异常表来确定，栈帧中一般不会保存这部分信息。</li>
+<li>本质上，方法的退出就是当前栈帧出栈的过程。此时，需要恢复上层方法的局部变量表、操作数栈、将返回值也如调用者栈帧的操作数栈、设置PC寄存器值等，让调用者方法继续执行下去。</li>
+</ul>
+<p>当一个方法开始执行后，只有两种方式可以退出这个方法：</p>
+<p>1、执行引擎遇到任意一个方法返回的字节码指令（return），会有返回值传递给上层的方法调用者，简称正常完成出口。</p>
+<ul>
+<li>一个方法在正常调用完成之后究竟需要使用哪一个返回指令还需要根据方法返回值的实际数据类型而定</li>
+<li>在字节码指令中，返回指令包含<strong>ireturn</strong>（当返回值是boolena、byte、char、short和int类型时使用）、<strong>lreturn</strong>、<strong>freturn</strong>、<strong>dreturn</strong>以及<strong>areturn</strong>，另外还有一个<strong>return</strong>指令供声明为void的方法、实例初始化方法、类和接口的初始化方法使用</li>
+</ul>
+<p>2、在方法执行的过程中遇到了异常（Exception），并且这个异常没有在方法内进行处理，也就是只要在本方法的异常表中没有搜素到匹配的异常处理器，就会导致方法退出，简称<strong>异常完成出口</strong>。<br>异常处理表中存放了方法执行过程中抛出异常时的异常处理，方便在发生异常的时候找到处理异常的代码。</p>
+<p>正常完成出口和异常完成出口的区别在于：<strong>通过异常完成出口的退出的不会给它的上层调用者产生任何的返回值</strong>。</p>
+<p><img src="/2020/05/18/%E7%AC%94%E8%AE%B0-JVM%E4%B9%8B%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA%E4%B8%80/%E5%90%84%E7%A7%8Dreturn%E6%8C%87%E4%BB%A4%E5%9B%BE%E7%A4%BA.png" alt="各种return指令图示"></p>
+<h3 id="一些附加信息"><a href="#一些附加信息" class="headerlink" title="一些附加信息"></a>一些附加信息</h3><p>栈帧中还允许携带与java虚拟机实现相关的一些附加信息。例如，对程序调试提供支持的信息。</p>
+<h3 id="虚拟机栈的相关面试题"><a href="#虚拟机栈的相关面试题" class="headerlink" title="虚拟机栈的相关面试题"></a>虚拟机栈的相关面试题</h3><ol>
+<li>举例栈溢出的情况？（StackOverflowError）</li>
+</ol>
+<ul>
+<li>递归调用等，可通过-Xss设置栈的大小解决</li>
+</ul>
+<ol start="2">
+<li>调整栈的大小，就能保证不出现溢出么？</li>
+</ol>
+<ul>
+<li><strong>不能</strong>。如递归无限次数肯定会溢出，调整栈大小只能保证溢出的时间晚一些</li>
+</ul>
+<ol start="3">
+<li>分配的栈内存越大越好么？</li>
+</ol>
+<ul>
+<li><strong>不是</strong>。会挤占其他线程的空间</li>
+</ul>
+<ol start="4">
+<li>垃圾回收是否会涉及到虚拟机栈？</li>
+</ol>
+<p><img src="/2020/05/18/%E7%AC%94%E8%AE%B0-JVM%E4%B9%8B%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA%E4%B8%80/%E5%9E%83%E5%9C%BE%E6%B8%85%E7%90%86%E7%AE%80%E5%9B%BE.png" alt="各种return指令图示"></p>
+<ol start="5">
+<li>方法中定义的局部变量是否线程安全？</li>
+</ol>
+<ul>
+<li>需要具体问题具体分析</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * 何为线程安全？</span></span><br><span class="line"><span class="comment"> *     如果只有一个线程可以操作此数据，则毙是线程安全的。</span></span><br><span class="line"><span class="comment"> *     如果有多个线程操作此数据，则此数据是共享数据。如果不考虑同步机制的话，会存在线程安全问题</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * StringBuffer是线程安全的，StringBuilder不是</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StringBuilderTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//s1的声明方式是线程安全的</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">method1</span><span class="params">()</span></span>&#123;</span><br><span class="line">        StringBuilder s1 = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">        s1.append(<span class="string">"a"</span>);</span><br><span class="line">        s1.append(<span class="string">"b"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//stringBuilder的操作过程：是不安全的，因为method2可以被多个线程调用</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">method2</span><span class="params">(StringBuilder stringBuilder)</span></span>&#123;</span><br><span class="line">        stringBuilder.append(<span class="string">"a"</span>);</span><br><span class="line">        stringBuilder.append(<span class="string">"b"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//s1的操作：是线程不安全的 有s1的返回值，可能被其他线程共享</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> StringBuilder <span class="title">method3</span><span class="params">()</span></span>&#123;</span><br><span class="line">        StringBuilder s1 = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">        s1.append(<span class="string">"a"</span>);</span><br><span class="line">        s1.append(<span class="string">"b"</span>);</span><br><span class="line">        <span class="keyword">return</span> s1;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//s1的操作：是线程安全的 ，StringBuilder的toString方法是创建了一个新的String，s1在内部消亡了</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">method4</span><span class="params">()</span></span>&#123;</span><br><span class="line">        StringBuilder s1 = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">        s1.append(<span class="string">"a"</span>);</span><br><span class="line">        s1.append(<span class="string">"b"</span>);</span><br><span class="line">        <span class="keyword">return</span> s1.toString();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        StringBuilder s = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">        <span class="keyword">new</span> Thread(()-&gt;&#123;</span><br><span class="line">            s.append(<span class="string">"a"</span>);</span><br><span class="line">            s.append(<span class="string">"b"</span>);</span><br><span class="line">        &#125;).start();</span><br><span class="line"></span><br><span class="line">        method2(s);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<div style="position: relative; width: 100%; height: 0; padding-bottom: 75%;"><iframe src="//player.bilibili.com/player.html?aid=83638407&bvid=BV1BJ41177cp&cid=143085386&page=62" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe></div>
+
+<h2 id="本地方法栈"><a href="#本地方法栈" class="headerlink" title="本地方法栈"></a>本地方法栈</h2><ul>
+<li><strong>Java虚拟机栈用于管理Java方法的调用，而本地方法栈用于管理本地方法的调用</strong></li>
+<li>本地方法是使用C语言实现的</li>
+<li>它的具体做法是Native Method Stack中登记native方法，在Execution Engine执行时加载本地方法库。当某个线程调用一个本地方法时，它就进入了一个全新的并且不再受虚拟机限制的世界。它和虚拟机拥有同样的权限<ul>
+<li>本地方法可以通过本地方法接口来 <strong>访问虚拟机内部的运行时数据区</strong></li>
+<li>它甚至可以直接使用本地处理器中的寄存器</li>
+<li>直接从本地内存的堆中分配任意数量的内存</li>
+</ul>
+</li>
+<li><strong>本地方法栈，也是线程私有的</strong>。<ul>
+<li>如果线程请求分配的栈容量超过本地方法栈允许的最大容量，Java虚拟机将会抛出一个StackOverFlowError异常。</li>
+<li>如果本地方法栈可以动态扩展，并且在尝试扩展的时候无法申请到足够的内存，或者在创建新的线程时没有足够的内存去创建对应的本地方法栈，那么java虚拟机将会抛出一个OutOfMemoryError异常。</li>
+</ul>
+</li>
+</ul>
+<p>并不是所有的JVM都支持本地方法。因为Java虚拟机规范并没有明确要求本地方法栈的使用语言、具体实现方式、数据结构等。如果JVM产品不打算支持native方法，也可以无需实现本地方法栈。</p>
+<p>在hotSpot JVM中，直接将本地方法栈和虚拟机栈合二为一(不懂)。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/JVM/" rel="tag"># JVM</a>
+              <a href="/tags/JVM%E7%AC%94%E8%AE%B0/" rel="tag"># JVM笔记</a>
+              <a href="/tags/%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA/" rel="tag"># 运行时数据区</a>
+              <a href="/tags/PC%E8%AE%A1%E6%95%B0%E5%99%A8/" rel="tag"># PC计数器</a>
+              <a href="/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%A0%88/" rel="tag"># 虚拟机栈</a>
+              <a href="/tags/%E6%9C%AC%E5%9C%B0%E6%96%B9%E6%B3%95%E6%A0%88/" rel="tag"># 本地方法栈</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/05/18/%E7%AC%94%E8%AE%B0-JVM%E4%B9%8B%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%AD%90%E7%B3%BB%E7%BB%9F/" rel="prev" title="笔记-JVM之类加载子系统">
+      <i class="fa fa-chevron-left"></i> 笔记-JVM之类加载子系统
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/05/20/SSM%E6%95%B4%E5%90%88%E4%B9%8Bjar%E5%8C%85%E7%89%88/" rel="next" title="SSM整合之jar包版">
+      SSM整合之jar包版 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#运行时数据区一"><span class="nav-text">运行时数据区一</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#内存"><span class="nav-text">内存</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分区介绍"><span class="nav-text">分区介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线程的简单回顾"><span class="nav-text">线程的简单回顾</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#JVM系统线程"><span class="nav-text">JVM系统线程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#程序计数器-PC寄存器"><span class="nav-text">程序计数器(PC寄存器)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#作用"><span class="nav-text">作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#图示"><span class="nav-text">图示</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#图示说明"><span class="nav-text">图示说明</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#虚拟机栈"><span class="nav-text">虚拟机栈</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#背景"><span class="nav-text">背景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内存中的堆与栈"><span class="nav-text">内存中的堆与栈</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#虚拟机栈是什么"><span class="nav-text">虚拟机栈是什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#栈的特点"><span class="nav-text">栈的特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#栈中可能出现的异常"><span class="nav-text">栈中可能出现的异常</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置栈的内存大小"><span class="nav-text">设置栈的内存大小</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#栈的存储结构和运行原理"><span class="nav-text">栈的存储结构和运行原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#栈帧的内部结构"><span class="nav-text">栈帧的内部结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#局部变量表（Local-Variables）"><span class="nav-text">局部变量表（Local Variables）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#概述"><span class="nav-text">概述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Slot-变量槽"><span class="nav-text">Slot(变量槽)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#对局部变量表的补充说明"><span class="nav-text">对局部变量表的补充说明</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#操作数栈（Operand-Stack）"><span class="nav-text">操作数栈（Operand Stack）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#概述-1"><span class="nav-text">概述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#操作数栈的字节码指令简单分析"><span class="nav-text">操作数栈的字节码指令简单分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#栈顶缓存技术ToS（Top-of-Stack-Cashing）"><span class="nav-text">栈顶缓存技术ToS（Top-of-Stack Cashing）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#动态链接（Dynamic-Linking）"><span class="nav-text">动态链接（Dynamic Linking）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#图示-1"><span class="nav-text">图示</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#方法的调用"><span class="nav-text">方法的调用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#虚方法和非虚方法"><span class="nav-text">虚方法和非虚方法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#非虚方法"><span class="nav-text">非虚方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#虚拟机中的下几条方法调用指令"><span class="nav-text">虚拟机中的下几条方法调用指令</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#普通调用指令"><span class="nav-text">普通调用指令</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#动态调用指令"><span class="nav-text">动态调用指令</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#invokedynamic指令"><span class="nav-text">invokedynamic指令</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#动态类型语言和静态类型语言"><span class="nav-text">动态类型语言和静态类型语言</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#虚方法表"><span class="nav-text">虚方法表</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#虚方法表的创建时间"><span class="nav-text">虚方法表的创建时间</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方法返回地址-Return-Address"><span class="nav-text">方法返回地址(Return Address)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一些附加信息"><span class="nav-text">一些附加信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#虚拟机栈的相关面试题"><span class="nav-text">虚拟机栈的相关面试题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#本地方法栈"><span class="nav-text">本地方法栈</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="纸人"
+      src="/images/hu.png">
+  <p class="site-author-name" itemprop="name">纸人</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">56</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">98</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">纸人</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.7.2
+  </div>
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共135.9k字</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+  
+  
+	<script type="text/javascript"
+	color="0,0,255" opacity='0.7' zIndex="-1" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+  
+</body>
+</html>

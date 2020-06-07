@@ -30,7 +30,7 @@
 <meta property="og:description" content="ES6的新特性简单介绍">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-04-24T16:54:39.000Z">
-<meta property="article:modified_time" content="2020-05-09T09:24:01.205Z">
+<meta property="article:modified_time" content="2020-05-24T11:05:17.705Z">
 <meta property="article:author" content="纸人">
 <meta property="article:tag" content="前端笔记">
 <meta property="article:tag" content="JavaScript">
@@ -233,7 +233,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-05-09 17:24:01" itemprop="dateModified" datetime="2020-05-09T17:24:01+08:00">2020-05-09</time>
+                <time title="修改时间：2020-05-24 19:05:17" itemprop="dateModified" datetime="2020-05-24T19:05:17+08:00">2020-05-24</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -327,7 +327,7 @@
 
 <h2 id="3-高阶函数"><a href="#3-高阶函数" class="headerlink" title="3. 高阶函数"></a>3. 高阶函数</h2><h3 id="3-0-filter过滤函数"><a href="#3-0-filter过滤函数" class="headerlink" title="3.0. filter过滤函数"></a>3.0. filter过滤函数</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> nums = [<span class="number">2</span>,<span class="number">3</span>,<span class="number">5</span>,<span class="number">1</span>,<span class="number">77</span>,<span class="number">55</span>,<span class="number">100</span>,<span class="number">200</span>]</span><br><span class="line"><span class="comment">//要求：获取nums中大于50的数</span></span><br><span class="line"><span class="comment">//回调函数会遍历nums中每一个数，传入回调函数，在回调函数中写判断逻辑，返回true则会被数组接收，false会被拒绝</span></span><br><span class="line"><span class="keyword">let</span> newNums = nums.filter(<span class="function"><span class="keyword">function</span> (<span class="params">num</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(num &gt; <span class="number">50</span>)&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line"> &#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">//可以使用箭头函数简写</span></span><br><span class="line"><span class="comment">//  let newNums = nums.filter(num =&gt; num &gt;50)</span></span><br></pre></td></tr></table></figure>
 
-<h3 id="3-1-map高阶函数"><a href="#3-1-map高阶函数" class="headerlink" title="3.1. map高阶函数"></a>3.1. map高阶函数</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 要求：将上面已经过滤的新数组每项乘以2</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//map函数同样会遍历数组每一项，传入回调函数为参数，num是map遍历的每一项，回调函数function返回值会被添加到新数组中</span></span><br><span class="line"><span class="keyword">let</span> newNums2 = newNums.map(<span class="function"><span class="keyword">function</span> (<span class="params">num</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> num * <span class="number">2</span></span><br><span class="line"> &#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">//箭头函数简写</span></span><br><span class="line"><span class="comment">//  let newNums2 = newNums.map(num =&gt; num * 2)</span></span><br><span class="line"><span class="built_in">console</span>.log(newNums2);</span><br></pre></td></tr></table></figure>
+<h3 id="3-1-map高阶函数"><a href="#3-1-map高阶函数" class="headerlink" title="3.1. map高阶函数"></a>3.1. map高阶函数</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 要求：将上面已经过滤的新数组每项乘以2</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// map函数同样会遍历数组每一项，传入回调函数为参数，num是map遍历的每一项，回调函数function返回值会被添加到新数组中</span></span><br><span class="line"><span class="keyword">let</span> newNums2 = newNums.map(<span class="function"><span class="keyword">function</span> (<span class="params">num</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> num * <span class="number">2</span></span><br><span class="line"> &#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 箭头函数简写</span></span><br><span class="line"><span class="comment">// let newNums2 = newNums.map(num =&gt; num * 2)</span></span><br><span class="line"><span class="built_in">console</span>.log(newNums2);</span><br></pre></td></tr></table></figure>
 
 <h3 id="3-2-reduce高阶函数"><a href="#3-2-reduce高阶函数" class="headerlink" title="3.2. reduce高阶函数"></a>3.2. reduce高阶函数</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//要求：将上面map函数得到的newNums2数组所有数累加</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//reduce函数同样会遍历数组每一项，传入回调函数和‘0’为参数，0表示回调函数中preValue初始值为0，回调函数中参数preValue是每一次回调函数function返回的值，currentValue是当前值</span></span><br><span class="line"><span class="comment">//例如数组为[154, 110, 200, 400],则回调函数第一次返回值为0+154=154，第二次preValue为154，返回值为154+110=264，以此类推直到遍历完成</span></span><br><span class="line"><span class="keyword">let</span> newNum = newNums2.reduce(<span class="function"><span class="keyword">function</span> (<span class="params">preValue,currentValue</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> preValue + currentValue</span><br><span class="line"> &#125;,<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">//箭头函数简写</span></span><br><span class="line"><span class="comment">// let newNum = newNums2.reduce((preValue,currentValue) =&gt; preValue + currentValue)</span></span><br><span class="line"><span class="built_in">console</span>.log(newNum);</span><br></pre></td></tr></table></figure>
 
@@ -368,7 +368,7 @@
 
 <h5 id="ES6的函数赋值方式三"><a href="#ES6的函数赋值方式三" class="headerlink" title="ES6的函数赋值方式三"></a>ES6的函数赋值方式三</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">　　<span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params">&#123;a,b&#125; = &#123;a:<span class="number">1</span>,b:<span class="number">2</span>&#125;</span>)</span>&#123;</span><br><span class="line">　　　　<span class="built_in">console</span>.log([a,b]);</span><br><span class="line">　　&#125;</span><br><span class="line">　　fn(); <span class="comment">//[1, 2]</span></span><br><span class="line">　　fn(&#123;<span class="attr">a</span>:<span class="number">1</span>&#125;); <span class="comment">//[1, undefined]</span></span><br><span class="line">　　fn(&#123;<span class="attr">a</span>:<span class="number">10</span>,<span class="attr">b</span>:<span class="number">11</span>&#125;); <span class="comment">//[10, 11]</span></span><br></pre></td></tr></table></figure>
 
-<h2 id="7-0-ES6的字符串拼接"><a href="#7-0-ES6的字符串拼接" class="headerlink" title="7.0. ES6的字符串拼接"></a>7.0. ES6的字符串拼接</h2><p>不需要任何的加号和引号，全部字符仅仅由一组``符号包裹即可，而放置动态数据或者变量即用${变量}方式即可。</p>
+<h2 id="7-0-ES6的字符串拼接"><a href="#7-0-ES6的字符串拼接" class="headerlink" title="7.0. ES6的字符串拼接"></a>7.0. ES6的字符串拼接</h2><p>不需要任何的加号和引号，全部字符仅仅由一组<strong>``</strong>符号包裹即可，而放置动态数据或者变量用<code>${变量}</code>的方式即可。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> firstname=<span class="string">"张"</span></span><br><span class="line"><span class="keyword">var</span> lastname=<span class="string">"三"</span></span><br><span class="line"><span class="keyword">var</span> newSplicing=<span class="string">`我姓<span class="subst">$&#123;firstname&#125;</span>名<span class="subst">$&#123;lastname&#125;</span>`</span></span><br><span class="line"><span class="built_in">console</span>.log(newSplicing)  <span class="comment">//我姓张名三</span></span><br></pre></td></tr></table></figure>
 
 
@@ -391,8 +391,8 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/04/24/%E7%AC%94%E8%AE%B0-Vue/" rel="prev" title="笔记-Vue">
-      <i class="fa fa-chevron-left"></i> 笔记-Vue
+    <a href="/2020/04/24/%E7%AC%94%E8%AE%B0-Vue%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95/" rel="prev" title="笔记-Vue基本语法">
+      <i class="fa fa-chevron-left"></i> 笔记-Vue基本语法
     </a></div>
       <div class="post-nav-item">
     <a href="/2020/04/25/%E7%AC%94%E8%AE%B0-Redis/" rel="next" title="笔记-Redis">
@@ -473,7 +473,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">51</span>
+          <span class="site-state-item-count">56</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -486,7 +486,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">87</span>
+        <span class="site-state-item-count">98</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -531,7 +531,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共129.5k字</span>
+  <span class="post-count">博客全站共135.9k字</span>
 </div>
 
         
