@@ -232,7 +232,7 @@ Maven下SSM整合的相关配置文件
 
     <!--扫描mapper-->
     <bean id="mapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.shangma.cn.mapper"/>
+        <property name="basePackage" value="com.xxx.cn.mapper"/>
     </bean>
 
     <!--这也是一种解决方式 -->
@@ -305,7 +305,7 @@ Maven下SSM整合的相关配置文件
         <property name="dataSource" ref="dataSource"/>
     </bean>
 
-    <!--事物注解驱动-->
+    <!--事务注解驱动-->
     <tx:annotation-driven/>
 </beans>
 ```

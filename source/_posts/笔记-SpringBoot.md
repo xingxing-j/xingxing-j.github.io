@@ -55,7 +55,7 @@ tags:
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.2.1.RELEASE</version>
+        <version>2.2.7.RELEASE</version>
     </parent>
 
     <dependencies>
@@ -356,7 +356,8 @@ websites:
   { YAML : 'yaml.org',
     Ruby : 'ruby-lang.org',
     Python : 'python.org',
-    Perl: 'use.perl.org'}}
+    Perl: 'use.perl.org'}
+}
 ```
 
 ###### 2. list in map
@@ -425,7 +426,7 @@ language：
 ##### 二者的应用场景：
 
 - 在某个业务逻辑中需要获取一下配置文件中的某项值，使用`@Value`
-- 专门编写了一个JavaBean来和配置文件隐形映射，可直接使用`@ConfigurationProperties`
+- 专门编写了一个JavaBean来和配置文件进行映射，可直接使用`@ConfigurationProperties`
 
 |                | @ConfigurationProperties |      @value      |
 | :------------: | :----------------------: | :--------------: |
@@ -465,18 +466,22 @@ person:
  * 将配置文件中配置的每一个属性的值，映射到这个组件中  
  * @ConfigurationProperties：告诉SpringBoot将本类中的所有属性和配置文件中相关的配置进行绑定；  
  * prefix = "person"：与配置文件中哪一个元素下面的所有属性进行一一映射  *  
- * 只有这个组件是容器中的组件，才能容器提供的@ConfigurationProperties功能；  
+ * 只有这个组件是容器中的组件，才能使用容器提供的@ConfigurationProperties功能；  
  *  
  */ 
 
 @Component 
-@ConfigurationProperties(prefix = "person") public class Person {       
+@ConfigurationProperties(prefix = "person") 
+public class Person {       
     private String lastName;     
     private Integer age;     
     private Boolean boss;     
     private Date birth;       
-    private Map<String,Object> maps;     private List<Object> lists;     
+    private Map<String,Object> maps;     
+    private List<Object> lists;     
     private Dog dog;
+    ……
+}
 ```
 
 ##### 3. 在Maven的pom文件中导入处理器
@@ -575,6 +580,8 @@ ${random.int[1024,65536]}
 ```
 
 ##### 使用占位符获取之前配置的值
+
+**这啥意思？不理解**
 
 如果没有会原样输出，或者使用`:`指定默认值
 
@@ -780,7 +787,7 @@ logging.level.com.xxx=trace
 #logging.file.name和logging.file.path待验证
 # 不指定路径在当前项目下生成springboot.log日志
 # 可以指定完整的路径；
-#logging.file.name=G:/springboot.log
+# logging.file.name=G:/springboot.log
 
 # 在当前磁盘的根路径下创建spring文件夹和里面的log文件夹；使用 spring.log 作为默认文件
 logging.file.path=/spring/log
