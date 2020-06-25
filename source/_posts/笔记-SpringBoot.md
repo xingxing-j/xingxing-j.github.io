@@ -956,7 +956,7 @@ public void addResourceHandlers(ResourceHandlerRegistry registry) {
 
   ![jQuery-webjar](笔记-SpringBoot/jQuery-webjar.png)
 
-  ​	那么之后，我们以`localhost:8080/webjars/jquery/3.3.1/jquery.js`形式的URL访问，便可获取到对应的静态资源。而**webjar格式**的Maven坐标可以去[webjar官方网站](http://www.webjars.org/)寻找。
+  那么之后，我们以`localhost:8080/webjars/jquery/3.3.1/jquery.js`形式的URL访问，便可获取到对应的静态资源。而**webjar格式**的Maven坐标可以去[webjar官方网站](http://www.webjars.org/)寻找。
 
 - 其二，如果访问路径是以`/**`结尾(**即访问任何路径**)，且SpringBoot没有用第一种规则进行处理，那么便会在以下几种路径里寻找具体的资源。另外这个`/**`是由**MvcProperties类**中的常量staticPathPattern定义的。
 

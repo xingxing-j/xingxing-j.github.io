@@ -412,7 +412,7 @@ Spring的配置文件，可按各自功能分成多个。
 </beans>
 ```
 
-或者启用原配置文件，修改web.xml文件也可。例：
+**或者启用原配置文件，修改web.xml文件也可**。例：
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
